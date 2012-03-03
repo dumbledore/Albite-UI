@@ -26,9 +26,6 @@ public class ButtonControl extends AlbiteControl {
 
         image = loadImage("/res/button.png");
         imagePressed = loadImage("/res/button-pressed.png");
-
-        width = image.getWidth();
-        height = image.getHeight();
     }
 
     public void setCallback(final ButtonCallback callback) {
@@ -36,10 +33,12 @@ public class ButtonControl extends AlbiteControl {
     }
 
     public void invalidate() {
-        //TODO
+        width = parent.isWidthFixed() ? parent.getWidth() : image.getWidth();
+        height = parent.isHeightFixed() ? parent.getHeight() : image.getHeight();
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, final int x, final int y) {
+        g.setClip(x, y, width, height);
         g.drawImage(
                 pressed ? imagePressed : image,
                 x, y, Graphics.TOP | Graphics.LEFT);
@@ -51,7 +50,7 @@ public class ButtonControl extends AlbiteControl {
     }
 
     public void dragged(int x, int y) {
-        final boolean pressedNew = contains(x + this.x, y + this.y) ? true : false;
+        final boolean pressedNew = contains(x, y) ? true : false;
         if (pressedNew != pressed) {
             pressed = pressedNew;
             requestDraw(false);

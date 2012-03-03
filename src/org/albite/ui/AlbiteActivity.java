@@ -49,7 +49,7 @@ public final class AlbiteActivity
     }
 
     protected void paint(Graphics g) {
-        getCurrentScreen().draw(g);
+        getCurrentScreen().draw(g, 0, 0);
     }
 
     protected void pointerPressed(final int x, final int y) {

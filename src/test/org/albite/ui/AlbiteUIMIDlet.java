@@ -11,6 +11,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
 import org.albite.ui.AlbiteActivity;
 import org.albite.ui.AlbiteScreen;
 import org.albite.ui.controls.ButtonControl;
+import org.albite.ui.controls.HorizontalLayout;
 import org.albite.ui.controls.VerticalLayout;
 
 /**
@@ -37,6 +38,11 @@ public class AlbiteUIMIDlet extends MIDlet {
         final ButtonControl button3 = new ButtonControl(layout, activity);
         final ButtonControl button4 = new ButtonControl(layout, activity);
 
+        final HorizontalLayout hLayout = new HorizontalLayout(screen, activity);
+        final ButtonControl button5 = new ButtonControl(layout, activity);
+        final ButtonControl button6 = new ButtonControl(layout, activity);
+        final ButtonControl button7 = new ButtonControl(layout, activity);
+
         final ButtonControl.ButtonCallback onClick = new ButtonControl.ButtonCallback() {
 
             public void clicked(ButtonControl control) {
@@ -53,10 +59,22 @@ public class AlbiteUIMIDlet extends MIDlet {
         screen.addControl(button3);
         screen.addControl(button4);
 
+        hLayout.addControl(button5);
+        hLayout.addControl(button6);
+        hLayout.addControl(button7);
+
+        screen.addControl(hLayout);
+
         button1.setCallback(onClick);
         button2.setCallback(onClick);
         button3.setCallback(onClick);
         button4.setCallback(onClick);
+
+        button5.setCallback(onClick);
+        button6.setCallback(onClick);
+        button7.setCallback(onClick);
+
+        screen.dump();
 
         Display.getDisplay(this).setCurrent(activity);
     }

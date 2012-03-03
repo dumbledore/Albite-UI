@@ -34,6 +34,10 @@ public abstract class AlbiteControl
 
     public abstract void invalidate();
 
+    public final LayoutControl getParent() {
+        return parent;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -83,7 +87,11 @@ public abstract class AlbiteControl
                 this.y <= y && y <= this.y + height;
     }
 
-    public abstract void draw(Graphics g);
+    public final void drawRelative(final Graphics g, final int x, final int y) {
+        draw(g, this.x + x, this.y + y);
+    }
+
+    protected abstract void draw(Graphics g, int x, int y);
 
     public static Image loadImage(final String url) {
         try {
@@ -97,5 +105,18 @@ public abstract class AlbiteControl
 
     protected final void requestDraw(final boolean forced) {
         context.redraw(forced);
+    }
+
+    protected void dump(final int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+
+        System.out.println(this + ": ((" + x + ", " + y
+                + "), (" + width + ", " + height + ")");
+    }
+
+    public final void dump() {
+        dump(0);
     }
 }

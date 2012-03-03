@@ -16,7 +16,7 @@ import org.albite.ui.core.Context;
  *
  * @author albus
  */
-public class AlbiteScreen extends LayoutControl {
+public final class AlbiteScreen extends LayoutControl {
 
     private boolean shown = false; //TODO?
 
@@ -58,9 +58,9 @@ public class AlbiteScreen extends LayoutControl {
         layout.invalidate();
     }
 
-    public void draw(Graphics g) {
-        background.draw(g);
-        layout.draw(g);
+    public void draw(Graphics g, final int x, final int y) {
+        background.drawRelative(g, x, y);
+        layout.drawRelative(g, x, y);
     }
 
     public int getWidth() {
@@ -70,6 +70,11 @@ public class AlbiteScreen extends LayoutControl {
     public int getHeight() {
         return context.getHeight();
     }
+
+    public void setWidth(int width) {}
+    public void setHeight(int height) {}
+    public void setX(int x) {}
+    public void setY(int y) {}
 
     protected Enumeration getControls() {
         return new Enumeration() {
@@ -85,5 +90,13 @@ public class AlbiteScreen extends LayoutControl {
                 return layout;
             }
         };
+    }
+
+    public boolean isWidthFixed() {
+        return true;
+    }
+
+    public boolean isHeightFixed() {
+        return true;
     }
 }

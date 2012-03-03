@@ -17,29 +17,40 @@ public abstract class LayoutControl extends AlbiteControl {
 
     private AlbiteControl selected = null;
 
+    protected int paddingX = 0;
+    protected int paddingY = 0;
+
     public LayoutControl(final LayoutControl parent, final Context context) {
         super(parent, context);
     }
 
+    public abstract boolean isWidthFixed();
+    public abstract boolean isHeightFixed();
+
     public abstract void addControl(AlbiteControl control);
     protected abstract Enumeration getControls();
 
-    public void invalidate() {
-        height = 0;
-
-        Enumeration e = getControls();
-        while (e.hasMoreElements()) {
-            AlbiteControl control = (AlbiteControl) e.nextElement();
-            control.invalidate();
-            height += control.getHeight();
-        }
+    public int getPaddingX() {
+        return paddingX;
     }
 
-    public void draw(Graphics g) {
+    public void setPaddingX(final int paddingX) {
+        this.paddingX = paddingX;
+    }
+
+    public int getPaddingY() {
+        return paddingY;
+    }
+
+    public void setPaddingY(final int paddingY) {
+        this.paddingY = paddingY;
+    }
+
+    public void draw(final Graphics g, final int x, final int y) {
         Enumeration e = getControls();
         while (e.hasMoreElements()) {
             AlbiteControl contol = (AlbiteControl) e.nextElement();
-            contol.draw(g);
+            contol.drawRelative(g, x, y);
         }
     }
 
@@ -47,20 +58,20 @@ public abstract class LayoutControl extends AlbiteControl {
         if (enabled) {
             selected = find(x, y);
             if (selected != null) {
-                selected.pressed(x - selected.getX(), y - selected.getY());
+                selected.pressed(x - this.x, y - this.y);
             }
         }
     }
 
     public void dragged(int x, int y) {
         if (enabled && selected != null) {
-            selected.dragged(x - selected.getX(), y - selected.getY());
+            selected.dragged(x - this.x, y - this.y);
         }
     }
 
     public void released(int x, int y) {
         if (enabled && selected != null) {
-            selected.released(x - selected.getX(), y - selected.getY());
+            selected.released(x - this.x, y - this.y);
             selected = null;
         }
     }
@@ -79,5 +90,15 @@ public abstract class LayoutControl extends AlbiteControl {
 
     public final AlbiteControl getSelected() {
         return selected;
+    }
+
+    public void dump(final int level) {
+        super.dump(level);
+
+        Enumeration e = getControls();
+        while (e.hasMoreElements()) {
+            AlbiteControl control = (AlbiteControl) e.nextElement();
+            control.dump(level + 1);
+        }
     }
 }

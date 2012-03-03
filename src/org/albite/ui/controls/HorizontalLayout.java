@@ -13,31 +13,31 @@ import org.albite.ui.core.Context;
  *
  * @author albus
  */
-public class VerticalLayout extends LayoutControl {
+public class HorizontalLayout extends LayoutControl {
 
     private final Vector controls = new Vector();
 
-    public VerticalLayout(final LayoutControl parent, final Context context) {
+    public HorizontalLayout(final LayoutControl parent, final Context context) {
         super(parent, context);
-        width = parent.getWidth();
+        height = parent.getWidth();
     }
 
     public void addControl(AlbiteControl control) {
-        control.setX(0);
-        control.setY(height + paddingY);
+        control.setY(0);
+        control.setX(width + paddingX);
         control.invalidate();
-        height += control.getHeight();
+        width += control.getWidth();
         controls.addElement(control);
     }
 
     public void invalidate() {
-        height = 0;
+        width = 0;
 
         Enumeration e = getControls();
         while (e.hasMoreElements()) {
             AlbiteControl control = (AlbiteControl) e.nextElement();
             control.invalidate();
-            height += control.getHeight();
+            width += control.getWidth();
         }
     }
 
@@ -46,10 +46,10 @@ public class VerticalLayout extends LayoutControl {
     }
 
     public boolean isWidthFixed() {
-        return true;
+        return false;
     }
 
     public boolean isHeightFixed() {
-        return false;
+        return true;
     }
 }

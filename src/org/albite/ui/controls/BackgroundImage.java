@@ -32,14 +32,16 @@ public class BackgroundImage extends AlbiteControl {
         this.height = height;
     }
 
-    public void draw(Graphics g) {
+    public void draw(final Graphics g, final int x, final int y) {
         if (image != null) {
             final int w = image.getWidth();
             final int h = image.getHeight();
+            final int xh = x + height;
+            final int yw = y + width;
 
-            for (int y = 0; y < height; y += h) {
-                for (int x = 0; x < width; x += w) {
-                    g.drawImage(image, x, y, Graphics.TOP | Graphics.LEFT);
+            for (int yy = y; yy < xh; yy += h) {
+                for (int xx = x; xx < yw; xx += w) {
+                    g.drawImage(image, xx, yy, Graphics.TOP | Graphics.LEFT);
                 }
             }
         }
