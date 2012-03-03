@@ -5,9 +5,13 @@
 
 package org.albite.ui.controls.screen.list;
 
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import org.albite.font.NativeFont;
 import org.albite.ui.controls.Control;
+import org.albite.ui.controls.TextControl;
+import org.albite.ui.controls.layout.AlignControl;
 import org.albite.ui.core.callbacks.ClickCallback;
 import org.albite.ui.core.interfaces.Context;
 
@@ -19,9 +23,13 @@ public class ButtonControl extends ListControl {
 
     private final Image image;
     private final Image imagePressed;
+    private final AlignControl text;
 
     private boolean pressed = false;
     private ClickCallback callback;
+
+    private final org.albite.font.Font font =
+            new NativeFont(Font.getDefaultFont());
 
     public ButtonControl(final Control parent, final Context context) {
         super(parent, context);
@@ -30,6 +38,15 @@ public class ButtonControl extends ListControl {
         imagePressed = loadImage("/res/button-pressed.png");
 
         height = image.getHeight();
+
+        this.text = new AlignControl(this, context);
+        this.text.setWidth(width - 100);
+        this.text.setHeight(height);
+        this.text.setX(50);
+        final TextControl text = new TextControl("Button", font, this.text, context);
+        this.text.addControl(text);
+
+        height = this.text.getHeight();
     }
 
     public void setCallback(final ClickCallback callback) {
@@ -41,6 +58,7 @@ public class ButtonControl extends ListControl {
         g.drawImage(
                 pressed ? imagePressed : image,
                 x, y, Graphics.TOP | Graphics.LEFT);
+        text.drawRelative(g, x, y);
     }
 
     public void pressed(int x, int y) {

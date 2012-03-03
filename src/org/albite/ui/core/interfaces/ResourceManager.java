@@ -9,9 +9,6 @@ package org.albite.ui.core.interfaces;
  *
  * @author albus
  */
-public interface Context
-        extends DrawingEnvironment, ResourceManager {
+public interface ResourceManager {
 
-    public int getWidth();
-    public int getHeight();
 }

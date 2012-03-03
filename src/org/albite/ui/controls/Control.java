@@ -70,7 +70,6 @@ public abstract class Control
 
     public void setWidth(int width) {
         this.width = width;
-        invalidate();
     }
 
     public int getHeight() {
@@ -79,7 +78,6 @@ public abstract class Control
 
     public void setHeight(int height) {
         this.height = height;
-        invalidate();
     }
 
     public void invalidate() {
