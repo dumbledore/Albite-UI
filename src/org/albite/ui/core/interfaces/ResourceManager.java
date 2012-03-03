@@ -5,10 +5,15 @@
 
 package org.albite.ui.core.interfaces;
 
+import java.io.InputStream;
+import javax.microedition.lcdui.Image;
+
 /**
  *
  * @author albus
  */
 public interface ResourceManager {
-
+    Image getImage(String path);
+    InputStream getStream(String path);
+    String getLocalisedString(String key);
 }
