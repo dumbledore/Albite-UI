@@ -5,13 +5,12 @@
 
 package org.albite.ui.core.interfaces;
 
+import org.albite.ui.Theme;
+
 /**
  *
  * @author albus
  */
-public interface Context
-        extends DrawingEnvironment, ResourceManager, Themable {
-
-    public int getWidth();
-    public int getHeight();
+public interface Themable {
+    Theme getTheme();
 }

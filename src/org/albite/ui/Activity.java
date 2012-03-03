@@ -24,8 +24,10 @@ public final class Activity
         implements Context {
 
     private Vector screenStack = new Vector(30);
+    private final Theme theme;
 
-    public Activity() {
+    public Activity(Theme theme) {
+        this.theme = theme;
         setFullScreenMode(true);
     }
 
@@ -54,7 +56,7 @@ public final class Activity
     }
 
     protected void paint(Graphics g) {
-        getCurrentScreen().draw(g, 0, 0);
+        getCurrentScreen().drawRelative(g, 0, 0);
     }
 
     protected void pointerPressed(final int x, final int y) {
@@ -111,5 +113,9 @@ public final class Activity
 
     public final String getLocalisedString(final String key) {
         return (String) localStrings.get(key);
+    }
+
+    public final Theme getTheme() {
+        return theme;
     }
 }

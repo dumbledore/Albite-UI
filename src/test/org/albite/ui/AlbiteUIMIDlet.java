@@ -11,6 +11,7 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 import org.albite.font.NativeFont;
 import org.albite.ui.Activity;
+import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.TextControl;
 import org.albite.ui.controls.screen.Screen;
@@ -33,7 +34,7 @@ public class AlbiteUIMIDlet extends MIDlet {
     }
 
     protected void startApp() throws MIDletStateChangeException {
-        final Activity activity = new Activity();
+        final Activity activity = new Activity(Theme.DAY);
         final Screen screen = new List("Albite READER", activity);
 
         final ButtonControl button1 = new ButtonControl(screen, activity);
@@ -65,6 +66,9 @@ public class AlbiteUIMIDlet extends MIDlet {
         button3.setCallback(onClick);
         button4.setCallback(onClick);
 
+        screen.setX(20);
+        screen.setY(100);
+        screen.setEnabled(false);
         screen.dump();
 
         Display.getDisplay(this).setCurrent(activity);
