@@ -7,7 +7,7 @@ package org.albite.ui.controls.screen.list;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.controls.LayoutControl;
+import org.albite.ui.controls.Control;
 import org.albite.ui.core.callbacks.ClickCallback;
 import org.albite.ui.core.interfaces.Context;
 
@@ -23,7 +23,7 @@ public class ButtonControl extends ListControl {
     private boolean pressed = false;
     private ClickCallback callback;
 
-    public ButtonControl(final LayoutControl parent, final Context context) {
+    public ButtonControl(final Control parent, final Context context) {
         super(parent, context);
 
         image = loadImage("/res/button.png");

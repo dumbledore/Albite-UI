@@ -24,15 +24,15 @@ public abstract class Control
 
     protected boolean enabled = true;
 
-    protected final LayoutControl parent;
+    protected final Control parent;
     protected final Context context;
 
-    public Control(final LayoutControl parent, final Context context) {
+    public Control(final Control parent, final Context context) {
         this.parent = parent;
         this.context = context;
     }
 
-    public final LayoutControl getParent() {
+    public final Control getParent() {
         return parent;
     }
 
@@ -70,6 +70,7 @@ public abstract class Control
 
     public void setWidth(int width) {
         this.width = width;
+        invalidate();
     }
 
     public int getHeight() {
@@ -78,9 +79,14 @@ public abstract class Control
 
     public void setHeight(int height) {
         this.height = height;
+        invalidate();
     }
 
-    protected boolean contains(final int x, final int y) {
+    public void invalidate() {
+        parent.invalidate();
+    }
+
+    public boolean contains(final int x, final int y) {
         return this.x <= x && x <= this.x + width &&
                 this.y <= y && y <= this.y + height;
     }
@@ -105,7 +111,7 @@ public abstract class Control
         context.redraw(forced);
     }
 
-    protected void dump(final int level) {
+    public void dump(final int level) {
         for (int i = 0; i < level; i++) {
             System.out.print("  ");
         }

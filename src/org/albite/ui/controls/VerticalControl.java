@@ -13,7 +13,7 @@ import org.albite.ui.core.interfaces.Context;
  */
 public abstract class VerticalControl extends Control {
 
-    protected VerticalControl(final LayoutControl parent, final Context context) {
+    protected VerticalControl(final Control parent, final Context context) {
         super(parent, context);
         width = parent.getWidth();
     }

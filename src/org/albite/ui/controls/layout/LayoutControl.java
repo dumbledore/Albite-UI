@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls;
+package org.albite.ui.controls.layout;
 
 import java.util.Enumeration;
 import javax.microedition.lcdui.Graphics;
+import org.albite.ui.controls.Control;
 import org.albite.ui.core.interfaces.Context;
 
 /**
@@ -17,8 +18,8 @@ public abstract class LayoutControl extends Control {
 
     private Control selected = null;
 
-    public LayoutControl(final LayoutControl control, final Context context) {
-        super(null, context);
+    public LayoutControl(final Control parent, final Context context) {
+        super(parent, context);
     }
 
     public abstract void addControl(Control control);

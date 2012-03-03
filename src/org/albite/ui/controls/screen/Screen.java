@@ -7,7 +7,7 @@ package org.albite.ui.controls.screen;
 
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.misc.BackgroundImage;
-import org.albite.ui.controls.LayoutControl;
+import org.albite.ui.controls.layout.LayoutControl;
 import org.albite.ui.core.interfaces.Context;
 
 /**

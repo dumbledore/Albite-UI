@@ -5,7 +5,7 @@
 
 package org.albite.ui.controls.screen.list;
 
-import org.albite.ui.controls.LayoutControl;
+import org.albite.ui.controls.Control;
 import org.albite.ui.controls.VerticalControl;
 import org.albite.ui.core.interfaces.Context;
 
@@ -15,7 +15,7 @@ import org.albite.ui.core.interfaces.Context;
  */
 public abstract class ListControl extends VerticalControl {
 
-    protected ListControl(final LayoutControl parent, final Context context) {
+    protected ListControl(final Control parent, final Context context) {
         super(parent, context);
     }
 }

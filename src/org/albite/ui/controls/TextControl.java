@@ -21,7 +21,7 @@ public class TextControl extends VerticalControl {
     final Font font;
 
     public TextControl(final char[] text, final Font font,
-            final LayoutControl parent, final Context context) {
+            final Control parent, final Context context) {
 
         super(parent, context);
 
@@ -35,7 +35,7 @@ public class TextControl extends VerticalControl {
     }
 
     public TextControl(final String text, final Font font,
-            final LayoutControl parent, final Context context) {
+            final Control parent, final Context context) {
         this(text.toCharArray(), font, parent, context);
     }
 
