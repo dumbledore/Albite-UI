@@ -8,23 +8,24 @@ package org.albite.ui;
 import java.util.Vector;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
-import org.albite.ui.core.Context;
+import org.albite.ui.controls.screen.Screen;
+import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public final class AlbiteActivity
+public final class Activity
         extends Canvas
         implements Context {
 
     private Vector screenStack = new Vector(30);
 
-    public AlbiteActivity() {
+    public Activity() {
         setFullScreenMode(true);
     }
 
-    public void setScreen(AlbiteScreen screen) {
+    public void setScreen(Screen screen) {
         if (screen == null) {
             throw new NullPointerException("screen is null!");
         }
@@ -64,8 +65,8 @@ public final class AlbiteActivity
         getCurrentScreen().released(x, y);
     }
 
-    public AlbiteScreen getCurrentScreen() {
-        return (AlbiteScreen) screenStack.lastElement();
+    public Screen getCurrentScreen() {
+        return (Screen) screenStack.lastElement();
     }
 
     public void redraw(boolean force) {

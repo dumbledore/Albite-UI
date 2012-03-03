@@ -6,13 +6,17 @@
 package test.org.albite.ui;
 
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Font;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
-import org.albite.ui.AlbiteActivity;
-import org.albite.ui.AlbiteScreen;
-import org.albite.ui.controls.ButtonControl;
-import org.albite.ui.controls.HorizontalLayout;
-import org.albite.ui.controls.VerticalLayout;
+import org.albite.font.NativeFont;
+import org.albite.ui.Activity;
+import org.albite.ui.controls.Control;
+import org.albite.ui.controls.TextControl;
+import org.albite.ui.controls.screen.Screen;
+import org.albite.ui.controls.screen.list.ButtonControl;
+import org.albite.ui.controls.screen.list.List;
+import org.albite.ui.core.callbacks.ClickCallback;
 
 /**
  *
@@ -29,50 +33,37 @@ public class AlbiteUIMIDlet extends MIDlet {
     }
 
     protected void startApp() throws MIDletStateChangeException {
-        final AlbiteActivity activity = new AlbiteActivity();
-        final AlbiteScreen screen = new AlbiteScreen("Albite READER", activity);
-        final VerticalLayout layout = new VerticalLayout(screen, activity);
+        final Activity activity = new Activity();
+        final Screen screen = new List("Albite READER", activity);
 
-        final ButtonControl button1 = new ButtonControl(layout, activity);
-        final ButtonControl button2 = new ButtonControl(layout, activity);
-        final ButtonControl button3 = new ButtonControl(layout, activity);
-        final ButtonControl button4 = new ButtonControl(layout, activity);
+        final ButtonControl button1 = new ButtonControl(screen, activity);
+        final ButtonControl button2 = new ButtonControl(screen, activity);
+        final ButtonControl button3 = new ButtonControl(screen, activity);
+        final ButtonControl button4 = new ButtonControl(screen, activity);
 
-        final HorizontalLayout hLayout = new HorizontalLayout(screen, activity);
-        final ButtonControl button5 = new ButtonControl(layout, activity);
-        final ButtonControl button6 = new ButtonControl(layout, activity);
-        final ButtonControl button7 = new ButtonControl(layout, activity);
-
-        final ButtonControl.ButtonCallback onClick = new ButtonControl.ButtonCallback() {
-
-            public void clicked(ButtonControl control) {
+        final ClickCallback onClick = new ClickCallback() {
+            public void clicked(Control control) {
                 System.out.println("Clicked " + control);
             }
         };
 
-        activity.setScreen(screen);
+        final NativeFont font = new NativeFont(Font.getDefaultFont());
+        final TextControl text = new TextControl(
+                "    Some nice bit of text  asdklasjdkljaskjdkjaskjdljasldjasjQ\r\r\nQkldjklasjdl kasjdkljkljlkjkljaskl\n\nj s",
+                font, screen, activity);
 
-        screen.setContentLayout(layout);
+        activity.setScreen(screen);
 
         screen.addControl(button1);
         screen.addControl(button2);
         screen.addControl(button3);
         screen.addControl(button4);
-
-        hLayout.addControl(button5);
-        hLayout.addControl(button6);
-        hLayout.addControl(button7);
-
-        screen.addControl(hLayout);
+        screen.addControl(text);
 
         button1.setCallback(onClick);
         button2.setCallback(onClick);
         button3.setCallback(onClick);
         button4.setCallback(onClick);
-
-        button5.setCallback(onClick);
-        button6.setCallback(onClick);
-        button7.setCallback(onClick);
 
         screen.dump();
 

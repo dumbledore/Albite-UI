@@ -3,38 +3,37 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls;
+package org.albite.ui.controls.screen.list;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.core.Context;
+import org.albite.ui.controls.LayoutControl;
+import org.albite.ui.core.callbacks.ClickCallback;
+import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public class ButtonControl extends AlbiteControl {
+public class ButtonControl extends ListControl {
 
     private final Image image;
     private final Image imagePressed;
 
     private boolean pressed = false;
-    private ButtonCallback callback;
+    private ClickCallback callback;
 
     public ButtonControl(final LayoutControl parent, final Context context) {
         super(parent, context);
 
         image = loadImage("/res/button.png");
         imagePressed = loadImage("/res/button-pressed.png");
+
+        height = image.getHeight();
     }
 
-    public void setCallback(final ButtonCallback callback) {
+    public void setCallback(final ClickCallback callback) {
         this.callback = callback;
-    }
-
-    public void invalidate() {
-        width = parent.isWidthFixed() ? parent.getWidth() : image.getWidth();
-        height = parent.isHeightFixed() ? parent.getHeight() : image.getHeight();
     }
 
     public void draw(Graphics g, final int x, final int y) {
@@ -64,9 +63,5 @@ public class ButtonControl extends AlbiteControl {
 
         pressed = false;
         requestDraw(false);
-    }
-
-    public interface ButtonCallback {
-        public void clicked(ButtonControl control);
     }
 }

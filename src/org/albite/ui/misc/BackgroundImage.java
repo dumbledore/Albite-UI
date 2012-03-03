@@ -3,26 +3,26 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls;
+package org.albite.ui.misc;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.core.Context;
+import org.albite.ui.controls.Control;
 
 /**
  *
  * @author albus
  */
-public class BackgroundImage extends AlbiteControl {
+public class BackgroundImage {
 
     final Image image;
 
-    public BackgroundImage(final String url, final LayoutControl parent, final Context context) {
-        super(parent, context);
-        image = loadImage(url);
-    }
+    private int width = 0;
+    private int height = 0;
 
-    public void invalidate() {}
+    public BackgroundImage(final String url) {
+        image = Control.loadImage(url);
+    }
 
     public void setWidth(final int width) {
         this.width = width;
@@ -46,15 +46,4 @@ public class BackgroundImage extends AlbiteControl {
             }
         }
     }
-
-    public boolean contains(final int x, final int y) {
-        return false;
-    }
-
-    public void pressed(int x, int y) {}
-
-    public void dragged(int x, int y) {}
-
-    public void released(int x, int y) {}
-
 }

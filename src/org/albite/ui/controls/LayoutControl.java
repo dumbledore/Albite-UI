@@ -7,49 +7,27 @@ package org.albite.ui.controls;
 
 import java.util.Enumeration;
 import javax.microedition.lcdui.Graphics;
-import org.albite.ui.core.Context;
+import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public abstract class LayoutControl extends AlbiteControl {
+public abstract class LayoutControl extends Control {
 
-    private AlbiteControl selected = null;
+    private Control selected = null;
 
-    protected int paddingX = 0;
-    protected int paddingY = 0;
-
-    public LayoutControl(final LayoutControl parent, final Context context) {
-        super(parent, context);
+    public LayoutControl(final LayoutControl control, final Context context) {
+        super(null, context);
     }
 
-    public abstract boolean isWidthFixed();
-    public abstract boolean isHeightFixed();
-
-    public abstract void addControl(AlbiteControl control);
+    public abstract void addControl(Control control);
     protected abstract Enumeration getControls();
-
-    public int getPaddingX() {
-        return paddingX;
-    }
-
-    public void setPaddingX(final int paddingX) {
-        this.paddingX = paddingX;
-    }
-
-    public int getPaddingY() {
-        return paddingY;
-    }
-
-    public void setPaddingY(final int paddingY) {
-        this.paddingY = paddingY;
-    }
 
     public void draw(final Graphics g, final int x, final int y) {
         Enumeration e = getControls();
         while (e.hasMoreElements()) {
-            AlbiteControl contol = (AlbiteControl) e.nextElement();
+            Control contol = (Control) e.nextElement();
             contol.drawRelative(g, x, y);
         }
     }
@@ -76,10 +54,10 @@ public abstract class LayoutControl extends AlbiteControl {
         }
     }
 
-    protected final AlbiteControl find(int x, int y) {
+    protected final Control find(int x, int y) {
         Enumeration e = getControls();
         while (e.hasMoreElements()) {
-            AlbiteControl control = (AlbiteControl) e.nextElement();
+            Control control = (Control) e.nextElement();
             if (control.contains(x, y)) {
                 return control;
             }
@@ -88,7 +66,7 @@ public abstract class LayoutControl extends AlbiteControl {
         return null;
     }
 
-    public final AlbiteControl getSelected() {
+    public final Control getSelected() {
         return selected;
     }
 
@@ -97,7 +75,7 @@ public abstract class LayoutControl extends AlbiteControl {
 
         Enumeration e = getControls();
         while (e.hasMoreElements()) {
-            AlbiteControl control = (AlbiteControl) e.nextElement();
+            Control control = (Control) e.nextElement();
             control.dump(level + 1);
         }
     }

@@ -7,14 +7,14 @@ package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.core.Context;
-import org.albite.ui.core.Touchable;
+import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.interfaces.Touchable;
 
 /**
  *
  * @author albus
  */
-public abstract class AlbiteControl
+public abstract class Control
         implements Touchable {
 
     protected int x = 0;
@@ -27,12 +27,10 @@ public abstract class AlbiteControl
     protected final LayoutControl parent;
     protected final Context context;
 
-    public AlbiteControl(final LayoutControl parent, final Context context) {
+    public Control(final LayoutControl parent, final Context context) {
         this.parent = parent;
         this.context = context;
     }
-
-    public abstract void invalidate();
 
     public final LayoutControl getParent() {
         return parent;
@@ -40,38 +38,6 @@ public abstract class AlbiteControl
 
     public Context getContext() {
         return context;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(final int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(final int y) {
-        this.y = y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(final int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(final int height) {
-        this.height = height;
     }
 
     public boolean getEnabled() {
@@ -82,7 +48,39 @@ public abstract class AlbiteControl
         this.enabled = enabled;
     }
 
-    public boolean contains(final int x, final int y) {
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    protected boolean contains(final int x, final int y) {
         return this.x <= x && x <= this.x + width &&
                 this.y <= y && y <= this.y + height;
     }
