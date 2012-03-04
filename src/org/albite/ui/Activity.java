@@ -24,11 +24,18 @@ public final class Activity
         implements Context {
 
     private Vector screenStack = new Vector(30);
-    private final Theme theme;
+    private Theme theme;
 
-    public Activity(Theme theme) {
-        this.theme = theme;
+    public Activity() {
         setFullScreenMode(true);
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(final Theme theme) {
+        this.theme = theme;
     }
 
     public void setScreen(Screen screen) {
@@ -113,9 +120,5 @@ public final class Activity
 
     public final String getLocalisedString(final String key) {
         return (String) localStrings.get(key);
-    }
-
-    public final Theme getTheme() {
-        return theme;
     }
 }

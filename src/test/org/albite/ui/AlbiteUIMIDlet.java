@@ -34,7 +34,9 @@ public class AlbiteUIMIDlet extends MIDlet {
     }
 
     protected void startApp() throws MIDletStateChangeException {
-        final Activity activity = new Activity(Theme.DAY);
+        final Activity activity = new Activity();
+        activity.setTheme(Theme.getDayTheme(activity));
+
         final Screen screen = new List("Albite READER", activity);
 
         final ButtonControl button1 = new ButtonControl(screen, activity);
@@ -66,9 +68,6 @@ public class AlbiteUIMIDlet extends MIDlet {
         button3.setCallback(onClick);
         button4.setCallback(onClick);
 
-        screen.setX(20);
-        screen.setY(100);
-        screen.setEnabled(false);
         screen.dump();
 
         Display.getDisplay(this).setCurrent(activity);
