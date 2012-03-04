@@ -16,10 +16,10 @@ import org.albite.ui.core.interfaces.Touchable;
 public abstract class Control
         implements Touchable {
 
-    protected int x = 0;
-    protected int y = 0;
-    protected int width = 0;
-    protected int height = 0;
+    private int x = 0;
+    private int y = 0;
+    private int width = 0;
+    private int height = 0;
 
     protected boolean enabled = true;
 
@@ -84,7 +84,7 @@ public abstract class Control
      * This is used if only a single control has changed it's appearance.
      */
     public final void invalidate() {
-        recompileMetrics();
+        recompileMetrics(false);
         parent.invalidate();
     }
 
@@ -93,14 +93,23 @@ public abstract class Control
      * This is used if the whole sub-tree needs to be composed.
      */
     public void invalidateDown() {
-        recompileMetrics();
+        recompileMetrics(true);
     }
 
-    public void recompileMetrics() {}
+    /**
+     * recompiles this controls metrics
+     * @param downTree if going downtree and need to update in depth
+     */
+    public void recompileMetrics(boolean downTree) {}
 
     public boolean contains(final int x, final int y) {
-        return this.x <= x && x <= this.x + width &&
-                this.y <= y && y <= this.y + height;
+        final int x_ = getX();
+        final int y_ = getY();
+        final int w_ = getWidth();
+        final int h_ = getHeight();
+
+        return x_ <= x && x <= x_ + w_ &&
+                y_ <= y && y <= y_ + h_;
     }
 
     public void drawRelative(final Graphics g, final int x, final int y) {
@@ -114,8 +123,11 @@ public abstract class Control
     }
 
     public void dump(final int level) {
-        for (int i = 0; i < level; i++) {
-            System.out.print("  ");
+        if (level > 0) {
+            for (int i = 0; i < level - 1; i++) {
+                System.out.print("| ");
+            }
+            System.out.print("|-");
         }
 
         System.out.println(this + ": ((" + getX() + ", " + getY()

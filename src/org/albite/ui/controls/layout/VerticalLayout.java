@@ -27,12 +27,12 @@ public class VerticalLayout extends LayoutControl {
         controls.addElement(control);
     }
 
-    public void recompileMetricsFromParent() {
-        width = parent.getWidth();
+    public void recompileMetricsFromParent(final boolean downTree) {
+        setWidth(parent.getWidth());
     }
 
-    public void recompileMetricsFromChildren() {
-        height = 0;
+    public void recompileMetricsFromChildren(final boolean downTree) {
+        int height = 0;
 
         Enumeration enumeration = getControls();
         while (enumeration.hasMoreElements()) {
@@ -41,6 +41,8 @@ public class VerticalLayout extends LayoutControl {
             control.setY(height);
             height += control.getHeight();
         }
+
+        setHeight(height);
     }
 
     protected Enumeration getControls() {

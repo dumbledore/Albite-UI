@@ -43,7 +43,7 @@ public abstract class LayoutControl extends Control {
      * would NEVER invalidate other children.
      */
     public final void invalidateDown() {
-        recompileMetricsFromParent();
+        recompileMetricsFromParent(true);
 
         Enumeration elements = getControls();
         while (elements.hasMoreElements()) {
@@ -51,16 +51,16 @@ public abstract class LayoutControl extends Control {
             control.invalidateDown();
         }
 
-        recompileMetricsFromChildren();
+        recompileMetricsFromChildren(true);
     }
 
-    public final void recompileMetrics() {
-        recompileMetricsFromParent();
-        recompileMetricsFromChildren();
+    public final void recompileMetrics(final boolean downTree) {
+        recompileMetricsFromParent(downTree);
+        recompileMetricsFromChildren(downTree);
     }
 
-    public void recompileMetricsFromParent() {}
-    public void recompileMetricsFromChildren() {}
+    public void recompileMetricsFromParent(boolean downTree) {}
+    public void recompileMetricsFromChildren(boolean downTree) {}
 
     public void draw(final Graphics g, final int x, final int y) {
         Enumeration e = getControls();
@@ -74,20 +74,20 @@ public abstract class LayoutControl extends Control {
         if (enabled) {
             selected = find(x, y);
             if (selected != null) {
-                selected.pressed(x - this.x, y - this.y);
+                selected.pressed(x - this.getX(), y - this.getY());
             }
         }
     }
 
     public void dragged(int x, int y) {
         if (enabled && selected != null) {
-            selected.dragged(x - this.x, y - this.y);
+            selected.dragged(x - this.getX(), y - this.getY());
         }
     }
 
     public void released(int x, int y) {
         if (enabled && selected != null) {
-            selected.released(x - this.x, y - this.y);
+            selected.released(x - this.getX(), y - this.getY());
             selected = null;
         }
     }

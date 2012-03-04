@@ -27,13 +27,17 @@ public class Theme {
     public org.albite.font.Font fontCaption;
     public org.albite.font.Font fontSubcaption;
 
-    public int buttonIconSize;
-    public int listElementHeight;
+    public int listElementMinimumHeight;
     public int listElementPadding;
+    public int buttonMinimumHeight;
+    public int buttonIconWidth;
+    public int buttonArrowWidth;
 
-    public static final int DEFAULT_BUTTON_ICON_SIZE = 24;
-    public static final int DEFAULT_LIST_ELEMENT_HEIGHT = 26;
+    public static final int DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT = 26;
     public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
+    public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
+    public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
+    public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
 
     protected void setup() {}
 
@@ -46,7 +50,7 @@ public class Theme {
                 protected void setup() {
                     colorBackground = 0xFFFFFF;
                     colorText = 0x0;
-                    colorAccent = 0x1483cc;
+                    colorAccent = 0x1483CC;
 
                     imageBackground = context.getImage("ui/background-day.png");
 
@@ -55,7 +59,7 @@ public class Theme {
 
                     fontCaption = new NativeFont(Font.getFont(
                             Font.FACE_PROPORTIONAL,
-                            Font.STYLE_PLAIN,
+                            Font.STYLE_BOLD,
                             Font.SIZE_MEDIUM));
 
                     fontSubcaption = new NativeFont(Font.getFont(
@@ -63,9 +67,12 @@ public class Theme {
                             Font.STYLE_PLAIN,
                             Font.SIZE_SMALL));
 
-                    buttonIconSize      = DEFAULT_BUTTON_ICON_SIZE;
-                    listElementHeight   = DEFAULT_LIST_ELEMENT_HEIGHT;
+                    listElementMinimumHeight
+                            = DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT;
                     listElementPadding  = DEFAULT_LIST_ELEMENT_PADDING;
+                    buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
+                    buttonIconWidth     = DEFAULT_BUTTON_ICON_WIDTH;
+                    buttonArrowWidth    = DEFAULT_BUTTON_ARROW_WIDTH;
                 }
             };
             DAY_THEME.setup();

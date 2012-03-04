@@ -34,12 +34,27 @@ public class AlbiteUIMIDlet extends MIDlet {
         final Screen screen = new Screen("Albite READER", activity);
 
         final VerticalLayout list = new VerticalLayout(screen, activity);
-        screen.addControl(list);
+        screen.setControl(list);
 
         final ButtonControl button1 = new ButtonControl(list, activity);
         final ButtonControl button2 = new ButtonControl(list, activity);
         final ButtonControl button3 = new ButtonControl(list, activity);
         final ButtonControl button4 = new ButtonControl(list, activity);
+
+        button1.setCaption("Books");
+        button1.setSubCaption("Search for books");
+        button1.setIcon(activity.getTheme().iconBook);
+
+        button2.setCaption("Authors");
+        button2.setSubCaption("Search for authors");
+        button2.setIcon(activity.getTheme().iconBook);
+
+        button3.setCaption("Albite READER");
+        button3.setSubCaption("Download an e-book reader for Java Mobile");
+        button3.setIcon(activity.getTheme().iconBook);
+
+        button4.setCaption("Beatrix Potter");
+        button4.setIcon(activity.getTheme().iconBook);
 
         list.addControl(button1);
         list.addControl(button2);

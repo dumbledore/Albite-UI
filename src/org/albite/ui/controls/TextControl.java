@@ -19,21 +19,27 @@ public class TextControl extends Control {
     char[] text;
     Line[] lines;
     Font font;
+    int color = 0x0;
 
     public TextControl(final Control parent, final Context context) {
         super(parent, context);
     }
 
-    public final void recompileMetrics() {
+    public final void recompileMetrics(final boolean downTree) {
         if (text == null) {
             lines = null;
             return;
         }
 
-        final LineBuilder builder = new LineBuilder(text, font, width);
+        setWidth(parent.getWidth());
+        final LineBuilder builder = new LineBuilder(text, font, getWidth());
         builder.build();
         lines = builder.getLines();
-        height = lines.length * font.getLineHeight();
+        setHeight(lines.length * font.getLineHeight());
+    }
+
+    public final void setColor(final int color) {
+        this.color = color;
     }
 
     public final char[] getText() {
@@ -47,6 +53,7 @@ public class TextControl extends Control {
     public final void setText(final char[] text) {
         this.text = text;
         lines = new Line[] {new Line(0, text.length)}; //force it to 1 line
+        setHeight(font.getLineHeight());
     }
 
     public final Font getFont() {
@@ -56,6 +63,8 @@ public class TextControl extends Control {
     public final void setFont(Font font) {
         this.font = font;
     }
+
+    private static final int MINIMUM_WIDTH = 20;
 
     private class LineBuilder {
         private final char[] text;
@@ -73,6 +82,11 @@ public class TextControl extends Control {
         private boolean textStarted = false;
 
         LineBuilder(final char[] text, final Font font, final int width) {
+            if (width < MINIMUM_WIDTH) {
+                throw new IllegalArgumentException("Width's so small no text "
+                        + "would fit there: " + width);
+            }
+
             this.text = text;
             this.font = font;
             this.width = width;
@@ -191,9 +205,6 @@ public class TextControl extends Control {
     }
 
     protected void draw(Graphics g, int x, int y) {
-        g.setColor(0xFFFFFFFF);
-        g.fillRect(x, y, width, height);
-
         if (lines == null) {
             return;
         }
@@ -204,7 +215,7 @@ public class TextControl extends Control {
 
         for (int i = 0; i < lines.length; i++) {
             line = lines[i];
-            font.drawChars(g, 0x0, x, y, text, line.position, line.length);
+            font.drawChars(g, color, x, y, text, line.position, line.length);
             y += fontHeight;
         }
     }

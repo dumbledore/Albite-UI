@@ -24,8 +24,8 @@ public class ImageControl extends Control {
 
     public final void setImage(final Image image) {
         this.image = image;
-        width = image.getWidth();
-        height = image.getHeight();
+        setWidth(image.getWidth());
+        setHeight(image.getHeight());
     }
 
     public final void setRepeat(final boolean repeat) {
@@ -33,13 +33,17 @@ public class ImageControl extends Control {
     }
 
     protected void draw(Graphics g, int x, int y) {
+        if (image == null) {
+            return;
+        }
+
         if (!repeat) {
             g.drawImage(image, x, y, Graphics.TOP | Graphics.LEFT);
         } else {
             final int w = image.getWidth();
             final int h = image.getHeight();
-            final int xh = x + height;
-            final int yw = y + width;
+            final int xh = x + getHeight();
+            final int yw = y + getWidth();
 
             for (int yy = y; yy < xh; yy += h) {
                 for (int xx = x; xx < yw; xx += w) {

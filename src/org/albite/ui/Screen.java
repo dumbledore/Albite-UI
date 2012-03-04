@@ -7,14 +7,14 @@ package org.albite.ui;
 
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.ImageControl;
-import org.albite.ui.controls.layout.OneChildLayout;
+import org.albite.ui.controls.layout.AdapterControl;
 import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public class Screen extends OneChildLayout {
+public class Screen extends AdapterControl {
 
     private final ImageControl background = new ImageControl(this, context);
 
