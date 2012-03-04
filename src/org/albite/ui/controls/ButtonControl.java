@@ -53,7 +53,7 @@ public class ButtonControl extends Control {
         width = parent.getWidth();
         final Theme theme = context.getTheme();
         height = theme.listElementHeight;
-        padding = theme.listElementPadding;
+//        padding = theme.listElementPadding;
 
         /*
          * 

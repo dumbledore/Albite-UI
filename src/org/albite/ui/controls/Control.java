@@ -20,7 +20,6 @@ public abstract class Control
     protected int y = 0;
     protected int width = 0;
     protected int height = 0;
-    protected int padding = 0;
 
     protected boolean enabled = true;
 
@@ -80,14 +79,6 @@ public abstract class Control
         this.height = height;
     }
 
-    public int getPadding() {
-        return padding;
-    }
-
-    public void setPadding(int padding) {
-        this.padding = padding;
-    }
-
     /*
      * This invalidates it up the tree.
      * This is used if only a single control has changed it's appearance.
@@ -112,13 +103,8 @@ public abstract class Control
                 this.y <= y && y <= this.y + height;
     }
 
-    public final void drawRelative(final Graphics g, final int x, final int y) {
-        final int xp = this.x + padding;
-        final int yp = this.y + padding;
-        final int p2 = 2 * padding;
-
-        g.setClip(xp, yp, width - p2, height - p2);
-        draw(g, x + xp, y + yp);
+    public void drawRelative(final Graphics g, final int x, final int y) {
+        draw(g, this.x + x, this.y + y);
     }
 
     protected abstract void draw(Graphics g, int x, int y);
