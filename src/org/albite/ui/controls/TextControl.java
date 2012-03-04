@@ -16,27 +16,36 @@ import org.albite.ui.core.interfaces.Context;
  */
 public class TextControl extends VerticalControl {
 
-    final char[] text;
-    final Line[] lines;
-    final Font font;
+    char[] text;
+    Line[] lines;
+    Font font;
 
-    public TextControl(final char[] text, final Font font,
-            final Control parent, final Context context) {
-
+    public TextControl(final Control parent, final Context context) {
         super(parent, context);
+    }
 
-        this.text = text;
-        this.font = font;
-
+    public final void recompileMetrics() {
         final LineBuilder builder = new LineBuilder(text, font, width);
         builder.build();
         lines = builder.getLines();
         height = lines.length * font.getLineHeight();
     }
 
-    public TextControl(final String text, final Font font,
-            final Control parent, final Context context) {
-        this(text.toCharArray(), font, parent, context);
+    public final char[] getText() {
+        return text;
+    }
+
+    public final void setText(final char[] text) {
+        this.text = text;
+        lines = new Line[] {new Line(0, text.length)}; //force it to 1 line
+    }
+
+    public final Font getFont() {
+        return font;
+    }
+
+    public final void setFont(Font font) {
+        this.font = font;
     }
 
     private class LineBuilder {

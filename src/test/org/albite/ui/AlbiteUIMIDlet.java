@@ -51,9 +51,9 @@ public class AlbiteUIMIDlet extends MIDlet {
         };
 
         final NativeFont font = new NativeFont(Font.getDefaultFont());
-        final TextControl text = new TextControl(
-                "    Some nice bit of text  asdklasjdkljaskjdkjaskjdljasldjasjQ\r\r\nQkldjklasjdl kasjdkljkljlkjkljaskl\n\nj s",
-                font, screen, activity);
+//        final TextControl text = new TextControl(
+//                "    Some nice bit of text  asdklasjdkljaskjdkjaskjdljasldjasjQ\r\r\nQkldjklasjdl kasjdkljkljlkjkljaskl\n\nj s",
+//                font, screen, activity);
 
         activity.setScreen(screen);
 
@@ -61,7 +61,7 @@ public class AlbiteUIMIDlet extends MIDlet {
         screen.addControl(button2);
         screen.addControl(button3);
         screen.addControl(button4);
-        screen.addControl(text);
+//        screen.addControl(text);
 
         button1.setCallback(onClick);
         button2.setCallback(onClick);

@@ -5,13 +5,12 @@
 
 package org.albite.ui.controls.screen.list;
 
-import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
-import org.albite.font.NativeFont;
+import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.TextControl;
 import org.albite.ui.controls.layout.AlignControl;
+import org.albite.ui.controls.layout.LayoutControl;
 import org.albite.ui.core.callbacks.ClickCallback;
 import org.albite.ui.core.interfaces.Context;
 
@@ -21,32 +20,37 @@ import org.albite.ui.core.interfaces.Context;
  */
 public class ButtonControl extends ListControl {
 
-    private final Image image;
-    private final Image imagePressed;
-    private final AlignControl text;
+    private TextControl caption = new TextControl(this, context);
+
+    private AlignControl text = new AlignControl(this, context);
+    private AlignControl icon = new AlignControl(this, context);
+    private AlignControl arrow = new AlignControl(this, context);
 
     private boolean pressed = false;
     private ClickCallback callback;
 
-    private final org.albite.font.Font font =
-            new NativeFont(Font.getDefaultFont());
-
     public ButtonControl(final Control parent, final Context context) {
         super(parent, context);
+    }
 
-        image = loadImage("/res/button.png");
-        imagePressed = loadImage("/res/button-pressed.png");
+    public final void recompileMetrics() {
+        height = Theme.BEST_BUTTON_ICON_SIZE;
 
-        height = image.getHeight();
-
-        this.text = new AlignControl(this, context);
-        this.text.setWidth(width - 100);
-        this.text.setHeight(height);
-        this.text.setX(50);
-        final TextControl text = new TextControl("Button", font, this.text, context);
-        this.text.addControl(text);
+        text.setWidth(width - 100);
+        text.setHeight(height);
+        text.setX(50);
+//        final TextControl textC = new TextControl("Button", font, this.text, context);
+        text.addControl(text);
 
         height = this.text.getHeight();
+    }
+
+    public final void setCaption(final String text) {
+        setCaption(text.toCharArray());
+    }
+
+    public final void setCaption(final char[] text) {
+        ((TextControl) this.text.getControl()).setText(text);
     }
 
     public void setCallback(final ClickCallback callback) {
@@ -55,9 +59,9 @@ public class ButtonControl extends ListControl {
 
     public void draw(Graphics g, final int x, final int y) {
         g.setClip(x, y, width, height);
-        g.drawImage(
-                pressed ? imagePressed : image,
-                x, y, Graphics.TOP | Graphics.LEFT);
+//        g.drawImage(
+//                pressed ? imagePressed : image,
+//                x, y, Graphics.TOP | Graphics.LEFT);
         text.drawRelative(g, x, y);
     }
 

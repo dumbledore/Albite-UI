@@ -5,15 +5,16 @@
 
 package org.albite.ui;
 
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.Activity;
+import org.albite.font.NativeFont;
 import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public class Theme {
+public abstract class Theme {
     public int colorBackground;
     public int colorText;
     public int colorAccent;
@@ -23,19 +24,35 @@ public class Theme {
     public Image iconBook;
     public Image iconNext;
 
+    public org.albite.font.Font fontCaption;
+    public org.albite.font.Font fontSubcaption;
+
     public static final int BEST_BUTTON_ICON_SIZE = 24;
+    protected abstract void setup();
 
     public static Theme getDayTheme(final Context context) {
-        Theme theme = new Theme();
-        theme.colorBackground = 0xFFFFFF;
-        theme.colorText = 0x0;
-        theme.colorAccent = 0x1483cc;
+        return new Theme() {
 
-        theme.imageBackground = context.getImage("ui/background-day.png");
+            protected void setup() {
+                colorBackground = 0xFFFFFF;
+                colorText = 0x0;
+                colorAccent = 0x1483cc;
 
-        theme.iconBook = context.getImage("ui/menu/book-day.png");
-        theme.iconNext = context.getImage("ui/menu/next-day.png");
+                imageBackground = context.getImage("ui/background-day.png");
 
-        return theme;
+                iconBook = context.getImage("ui/menu/book-day.png");
+                iconNext = context.getImage("ui/menu/next-day.png");
+
+                fontCaption = new NativeFont(Font.getFont(
+                        Font.FACE_PROPORTIONAL,
+                        Font.STYLE_PLAIN,
+                        Font.SIZE_MEDIUM));
+
+                fontSubcaption = new NativeFont(Font.getFont(
+                        Font.FACE_PROPORTIONAL,
+                        Font.STYLE_PLAIN,
+                        Font.SIZE_SMALL));
+            }
+        };
     }
 }

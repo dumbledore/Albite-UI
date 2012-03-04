@@ -22,6 +22,10 @@ public class AlignControl extends LayoutControl {
     }
 
     public void addControl(Control control) {
+        this.control = control;
+    }
+
+    public final void recompileMetrics() {
         if (width > 0) {
             if (control.getWidth() > width) {
                 /*
@@ -59,8 +63,6 @@ public class AlignControl extends LayoutControl {
              */
             control.setY((parent.getHeight() - control.getHeight()) / 2);
         }
-
-        this.control = control;
     }
 
     public int getWidth() {
@@ -85,5 +87,9 @@ public class AlignControl extends LayoutControl {
                 return control;
             }
         };
+    }
+
+    public Control getControl() {
+        return control;
     }
 }

@@ -81,8 +81,11 @@ public abstract class Control
     }
 
     public void invalidate() {
+        recompileMetrics();
         parent.invalidate();
     }
+
+    public void recompileMetrics() {}
 
     public boolean contains(final int x, final int y) {
         return this.x <= x && x <= this.x + width &&
