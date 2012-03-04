@@ -6,7 +6,6 @@
 package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 import org.albite.ui.core.interfaces.Context;
 import org.albite.ui.core.interfaces.Touchable;
 
@@ -21,6 +20,7 @@ public abstract class Control
     protected int y = 0;
     protected int width = 0;
     protected int height = 0;
+    protected int padding = 0;
 
     protected boolean enabled = true;
 
@@ -80,9 +80,29 @@ public abstract class Control
         this.height = height;
     }
 
-    public void invalidate() {
+    public int getPadding() {
+        return padding;
+    }
+
+    public void setPadding(int padding) {
+        this.padding = padding;
+    }
+
+    /*
+     * This invalidates it up the tree.
+     * This is used if only a single control has changed it's appearance.
+     */
+    public final void invalidate() {
         recompileMetrics();
         parent.invalidate();
+    }
+
+    /*
+     * This invalidates it down the tree.
+     * This is used if the whole sub-tree needs to be composed.
+     */
+    public void invalidateDown() {
+        recompileMetrics();
     }
 
     public void recompileMetrics() {}
@@ -93,20 +113,15 @@ public abstract class Control
     }
 
     public final void drawRelative(final Graphics g, final int x, final int y) {
-        draw(g, this.x + x, this.y + y);
+        final int xp = this.x + padding;
+        final int yp = this.y + padding;
+        final int p2 = 2 * padding;
+
+        g.setClip(xp, yp, width - p2, height - p2);
+        draw(g, x + xp, y + yp);
     }
 
     protected abstract void draw(Graphics g, int x, int y);
-
-    public static Image loadImage(final String url) {
-        try {
-            return Image.createImage(url);
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-
-        return null;
-    }
 
     protected final void requestDraw(final boolean forced) {
         context.redraw(forced);
@@ -117,8 +132,8 @@ public abstract class Control
             System.out.print("  ");
         }
 
-        System.out.println(this + ": ((" + x + ", " + y
-                + "), (" + width + ", " + height + ")");
+        System.out.println(this + ": ((" + getX() + ", " + getY()
+                + "), (" + getWidth() + ", " + getHeight() + ")");
     }
 
     public final void dump() {

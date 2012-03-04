@@ -5,7 +5,6 @@
 
 package org.albite.ui.controls.layout;
 
-import java.util.Enumeration;
 import org.albite.ui.controls.Control;
 import org.albite.ui.core.interfaces.Context;
 
@@ -13,19 +12,13 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class AlignControl extends LayoutControl {
-
-    private Control control;
+public class AlignControl extends OneChildLayout {
 
     public AlignControl(final Control parent, final Context context) {
         super(parent, context);
     }
 
-    public void addControl(Control control) {
-        this.control = control;
-    }
-
-    public final void recompileMetrics() {
+    public final void recompileMetricsFromChildren() {
         if (width > 0) {
             if (control.getWidth() > width) {
                 /*
@@ -71,25 +64,5 @@ public class AlignControl extends LayoutControl {
 
     public int getHeight() {
         return height > 0 ? height : parent.getHeight();
-    }
-
-    protected Enumeration getControls() {
-        return new Enumeration() {
-
-            private boolean hasMore = true;
-
-            public boolean hasMoreElements() {
-                return hasMore;
-            }
-
-            public Object nextElement() {
-                hasMore = false;
-                return control;
-            }
-        };
-    }
-
-    public Control getControl() {
-        return control;
     }
 }

@@ -12,7 +12,6 @@ import java.util.Vector;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.controls.screen.Screen;
 import org.albite.ui.core.interfaces.Context;
 
 /**
@@ -99,19 +98,23 @@ public final class Activity
 
     private static final String IMAGES_PATH = RESOURCES_PATH + "images/";
     private static final String IMAGES_SPECIAL_RESOLUTION_PATH =
-            IMAGES_PATH + "/" + DPI + "/";
+            IMAGES_PATH + DPI + "/";
     private static final String IMAGES_COMMON_PATH =
             IMAGES_PATH + "/all/";
 
     public final Image getImage(final String path) {
         try {
             return Image.createImage(IMAGES_SPECIAL_RESOLUTION_PATH + path);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             return Image.createImage(IMAGES_COMMON_PATH + path);
-        } catch (IOException e) {}
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         return null;
     }
 

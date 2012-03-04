@@ -3,14 +3,12 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.screen.list;
+package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.Theme;
-import org.albite.ui.controls.Control;
-import org.albite.ui.controls.TextControl;
 import org.albite.ui.controls.layout.AlignControl;
-import org.albite.ui.controls.layout.LayoutControl;
+import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.core.callbacks.ClickCallback;
 import org.albite.ui.core.interfaces.Context;
 
@@ -18,31 +16,54 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class ButtonControl extends ListControl {
+public class ButtonControl extends Control {
 
-    private TextControl caption = new TextControl(this, context);
+    private AlignControl    text = new AlignControl(this, context);
+    private VerticalLayout  textLayout = new VerticalLayout(text, context);
+    private TextControl     caption = new TextControl(textLayout, context);
+    private TextControl     subCaption = new TextControl(textLayout, context);
 
-    private AlignControl text = new AlignControl(this, context);
-    private AlignControl icon = new AlignControl(this, context);
-    private AlignControl arrow = new AlignControl(this, context);
+    private AlignControl    icon = new AlignControl(this, context);
+    private ImageControl    iconImage = new ImageControl(icon, context);
+
+    private AlignControl    arrow = new AlignControl(this, context);
+    private ImageControl    arrowImage = new ImageControl(arrow, context);
 
     private boolean pressed = false;
     private ClickCallback callback;
 
     public ButtonControl(final Control parent, final Context context) {
         super(parent, context);
+
+        final Theme theme = context.getTheme();
+
+        caption.setFont(theme.fontCaption);
+        subCaption.setFont(theme.fontSubcaption);
+
+        textLayout.addControl(caption);
+        textLayout.addControl(subCaption);
+        text.addControl(textLayout);
+
+        icon.addControl(iconImage);
+        arrowImage.setImage(theme.iconNext);
+        arrow.addControl(arrowImage);
     }
 
     public final void recompileMetrics() {
-        height = Theme.BEST_BUTTON_ICON_SIZE;
+        width = parent.getWidth();
+        final Theme theme = context.getTheme();
+        height = theme.listElementHeight;
+        padding = theme.listElementPadding;
 
-        text.setWidth(width - 100);
-        text.setHeight(height);
-        text.setX(50);
-//        final TextControl textC = new TextControl("Button", font, this.text, context);
-        text.addControl(text);
+        /*
+         * 
+         */
 
-        height = this.text.getHeight();
+//        text.setWidth(width - 100);
+//        text.setHeight(height);
+//        text.setX(50);
+//
+//        height = this.text.getHeight();
     }
 
     public final void setCaption(final String text) {
@@ -50,7 +71,7 @@ public class ButtonControl extends ListControl {
     }
 
     public final void setCaption(final char[] text) {
-        ((TextControl) this.text.getControl()).setText(text);
+        caption.setText(text);
     }
 
     public void setCallback(final ClickCallback callback) {
@@ -58,7 +79,8 @@ public class ButtonControl extends ListControl {
     }
 
     public void draw(Graphics g, final int x, final int y) {
-        g.setClip(x, y, width, height);
+        g.setColor(pressed ? 0xFF0000 : 0x0000FF);
+        g.fillRect(x, y, width, height);
 //        g.drawImage(
 //                pressed ? imagePressed : image,
 //                x, y, Graphics.TOP | Graphics.LEFT);

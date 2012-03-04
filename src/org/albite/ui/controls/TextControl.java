@@ -14,7 +14,7 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class TextControl extends VerticalControl {
+public class TextControl extends Control {
 
     char[] text;
     Line[] lines;
@@ -25,6 +25,11 @@ public class TextControl extends VerticalControl {
     }
 
     public final void recompileMetrics() {
+        if (text == null) {
+            lines = null;
+            return;
+        }
+
         final LineBuilder builder = new LineBuilder(text, font, width);
         builder.build();
         lines = builder.getLines();
@@ -33,6 +38,10 @@ public class TextControl extends VerticalControl {
 
     public final char[] getText() {
         return text;
+    }
+
+    public final void setText(final String text) {
+        setText(text.toCharArray());
     }
 
     public final void setText(final char[] text) {
@@ -182,10 +191,12 @@ public class TextControl extends VerticalControl {
     }
 
     protected void draw(Graphics g, int x, int y) {
-        g.setClip(x, y, width, height);
-
         g.setColor(0xFFFFFFFF);
         g.fillRect(x, y, width, height);
+
+        if (lines == null) {
+            return;
+        }
 
         final int fontHeight = font.getLineHeight();
         
