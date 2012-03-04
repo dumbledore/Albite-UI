@@ -29,6 +29,8 @@ public abstract class LayoutControl extends Control {
         }
     }
 
+    public abstract void removeControl(Control control);
+
     protected abstract Enumeration getControls();
 
     /**

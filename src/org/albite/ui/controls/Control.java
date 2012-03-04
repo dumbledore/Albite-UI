@@ -85,7 +85,9 @@ public abstract class Control
      */
     public final void invalidate() {
         recompileMetrics(false);
-        parent.invalidate();
+        if (parent != null) {
+            parent.invalidate();
+        }
     }
 
     /*
