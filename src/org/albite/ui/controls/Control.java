@@ -104,6 +104,8 @@ public abstract class Control
      */
     public void recompileMetrics(boolean downTree) {}
 
+    public void lostFocus() {}
+
     public boolean contains(final int x, final int y) {
         final int x_ = getX();
         final int y_ = getY();

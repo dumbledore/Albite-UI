@@ -23,6 +23,11 @@ public class AdapterControl extends Control {
     }
 
     public final void setControl(final Control control) {
+        if (this == control) {
+            throw new IllegalArgumentException(
+                    "Cyclic error: the child is the same as the parent");
+        }
+
         this.control = control;
     }
 

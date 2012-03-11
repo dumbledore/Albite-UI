@@ -134,6 +134,11 @@ public class ButtonControl extends Control {
         g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
     }
 
+    public void lostFocus() {
+        pressed = false;
+        requestDraw(false);
+    }
+
     public void pressed(int x, int y) {
         pressed = true;
         requestDraw(false);

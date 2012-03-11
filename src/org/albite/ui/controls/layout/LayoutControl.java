@@ -72,6 +72,13 @@ public abstract class LayoutControl extends Control {
         }
     }
 
+    public void lostFocus() {
+        if (enabled && selected != null) {
+            selected.lostFocus();
+            selected = null;
+        }
+    }
+
     public void pressed(int x, int y) {
         if (enabled) {
             selected = find(x, y);
