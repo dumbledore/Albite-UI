@@ -47,10 +47,18 @@ public class TextControl extends Control {
     }
 
     public final void setText(final String text) {
+        if (text == null) {
+            return;
+        }
+
         setText(text.toCharArray());
     }
 
     public final void setText(final char[] text) {
+        if (text == null) {
+            return;
+        }
+
         this.text = text;
         lines = new Line[] {new Line(0, text.length)}; //force it to 1 line
         setHeight(font.getLineHeight());

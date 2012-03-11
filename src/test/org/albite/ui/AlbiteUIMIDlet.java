@@ -5,7 +5,9 @@
 
 package test.org.albite.ui;
 
+import java.util.Vector;
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 import org.albite.ui.Activity;
@@ -26,53 +28,31 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     protected void pauseApp() {}
 
+    Activity activity;
+    Screen screen;
+    VerticalLayout list;
+    Vector buttons = new Vector();
+
     protected void startApp() throws MIDletStateChangeException {
 
-        final Activity activity = new Activity();
+        activity = new Activity();
         activity.setTheme(Theme.getDayTheme(activity));
 
-        final Screen screen = new Screen("Albite READER", activity);
+        screen = new Screen("Albite READER", activity);
 
-        final VerticalLayout list = new VerticalLayout(screen, activity);
+        list = new VerticalLayout(screen, activity);
         screen.setControl(list);
 
-        final ButtonControl button1 = new ButtonControl(list, activity);
-        final ButtonControl button2 = new ButtonControl(list, activity);
-        final ButtonControl button3 = new ButtonControl(list, activity);
-        final ButtonControl button4 = new ButtonControl(list, activity);
+        final Theme theme = activity.getTheme();
 
-        button1.setCaption("Books");
-        button1.setSubCaption("Search for books");
-        button1.setIcon(activity.getTheme().iconBook);
-
-        button2.setCaption("Authors");
-        button2.setSubCaption("Search for authors");
-        button2.setIcon(activity.getTheme().iconBook);
-
-        button3.setCaption("Albite READER");
-        button3.setSubCaption("Download an e-book reader for Java Mobile");
-        button3.setIcon(activity.getTheme().iconBook);
-
-        button4.setCaption("Beatrix Potter");
-        button4.setIcon(activity.getTheme().iconBook);
-
-        list.addControl(button1);
-        list.addControl(button2);
-        list.addControl(button3);
-        list.addControl(button4);
-
-        final ClickCallback onClick = new ClickCallback() {
-            public void clicked(Control control) {
-                System.out.println("Clicked " + control);
-                list.removeControl(button3);
-                list.invalidate();
-            }
-        };
-
-        button1.setCallback(onClick);
-        button2.setCallback(onClick);
-        button3.setCallback(onClick);
-        button4.setCallback(onClick);
+        addButton("Books", "Search for books", theme.iconBook);
+        addButton("Authors", "Search for authors", theme.iconBook);
+        addButton("Albite READER",
+                "Download an e-book reader for Java Mobile", theme.iconBook);
+        addButton("Beatrix Potter", null, theme.iconBook);
+        addButton(null, null, null);
+        addButton(null, "Subcaption", null);
+        addButton("Caption", "Subcaption", null);
 
         screen.invalidateDown();
         screen.dump();
@@ -80,5 +60,24 @@ public class AlbiteUIMIDlet extends MIDlet {
         activity.setScreen(screen);
 
         Display.getDisplay(this).setCurrent(activity);
+    }
+
+    final ClickCallback onClick = new ClickCallback() {
+        public void clicked(Control control) {
+            System.out.println("Clicked " + control);
+            list.removeControl((Control) buttons.elementAt(2));
+            buttons.removeElementAt(2);
+            list.invalidate();
+        }
+    };
+
+    private void addButton(String caption, String subCaption, Image icon) {
+        ButtonControl button = new ButtonControl(list, activity);
+        button.setCaption(caption);
+        button.setSubCaption(subCaption);
+        button.setIcon(icon);
+        button.setCallback(onClick);
+        list.addControl(button);
+        buttons.addElement(button);
     }
 }

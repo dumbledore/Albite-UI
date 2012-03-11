@@ -23,6 +23,10 @@ public class ImageControl extends Control {
     }
 
     public final void setImage(final Image image) {
+        if (image == null) {
+            return;
+        }
+
         this.image = image;
         setWidth(image.getWidth());
         setHeight(image.getHeight());

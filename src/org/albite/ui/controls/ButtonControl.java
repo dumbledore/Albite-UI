@@ -99,7 +99,7 @@ public class ButtonControl extends Control {
     }
 
     public final void setCaption(final String text) {
-        setCaption(text.toCharArray());
+        caption.setText(text);
     }
 
     public final void setCaption(final char[] text) {
@@ -107,7 +107,7 @@ public class ButtonControl extends Control {
     }
 
     public final void setSubCaption(final String text) {
-        setSubCaption(text.toCharArray());
+        subCaption.setText(text);
     }
 
     public final void setSubCaption(final char[] text) {
