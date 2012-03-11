@@ -80,7 +80,7 @@ public class AlbiteUIMIDlet extends MIDlet {
         public void clicked(Control control) {
             ButtonControl button = (ButtonControl) control;
             button.setSubCaption((char[]) null);
-            button.invalidate();
+            button.invalidateUp();
         }
     };
 

@@ -141,19 +141,29 @@ public class ButtonControl extends Control {
         g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
     }
 
+    public boolean isFocusable() {
+        return true;
+    }
+
+    public void gainedFocus() {
+        pressed = true;
+        requestDraw(false);
+    }
+
     public void lostFocus() {
         pressed = false;
         requestDraw(false);
     }
 
     public void pressed(int x, int y) {
-        pressed = true;
-        requestDraw(false);
+        gainedFocus();
     }
 
     public void dragged(int x, int y) {
         final boolean pressedNew = contains(x, y) ? true : false;
         if (pressedNew != pressed) {
+            // This is done in order to avoid
+            // redundant calls to requestDraw()
             pressed = pressedNew;
             requestDraw(false);
         }
@@ -164,8 +174,7 @@ public class ButtonControl extends Control {
             callback.clicked(this);
         }
 
-        pressed = false;
-        requestDraw(false);
+        lostFocus();
     }
 
     public void dump(final int level) {

@@ -83,10 +83,10 @@ public abstract class Control
      * This invalidates it up the tree.
      * This is used if only a single control has changed it's appearance.
      */
-    public final void invalidate() {
+    public final void invalidateUp() {
         recompileMetrics(false);
         if (parent != null) {
-            parent.invalidate();
+            parent.invalidateUp();
         }
     }
 
@@ -104,7 +104,16 @@ public abstract class Control
      */
     public void recompileMetrics(boolean downTree) {}
 
+    public boolean isFocusable() {
+        return false;
+    }
+
+    public void gainedFocus() {}
     public void lostFocus() {}
+
+    public void pressed(int x, int y) {}
+    public void dragged(int x, int y) {}
+    public void released(int x, int y) {}
 
     public boolean contains(final int x, final int y) {
         final int x_ = getX();

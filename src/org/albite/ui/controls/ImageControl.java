@@ -56,11 +56,4 @@ public class ImageControl extends Control {
             }
         }
     }
-
-    public void pressed(int x, int y) {}
-
-    public void dragged(int x, int y) {}
-
-    public void released(int x, int y) {}
-
 }
