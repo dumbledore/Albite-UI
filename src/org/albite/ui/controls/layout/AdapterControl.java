@@ -36,11 +36,8 @@ public class AdapterControl extends Control {
     }
 
     public void invalidateDown() {
+        recompileMetrics(true);
         control.invalidateDown();
-    }
-
-    public void recompileMetrics(boolean downTree) {
-        control.recompileMetrics(downTree);
     }
 
     public void draw(final Graphics g, final int x, final int y) {
