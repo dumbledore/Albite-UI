@@ -16,7 +16,7 @@ import org.albite.ui.controls.Control;
 import org.albite.ui.Screen;
 import org.albite.ui.controls.ButtonControl;
 import org.albite.ui.controls.layout.VerticalLayout;
-import org.albite.ui.controls.layout.VerticalScroll;
+import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.core.callbacks.ClickCallback;
 
 /**
@@ -31,7 +31,7 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     Activity activity;
     Screen screen;
-    VerticalScroll scroll;
+    VerticalScrollLayout scroll;
     VerticalLayout list;
     Vector buttons = new Vector();
 
@@ -42,7 +42,7 @@ public class AlbiteUIMIDlet extends MIDlet {
 
         screen = new Screen("Albite READER", activity);
 
-        scroll = new VerticalScroll(screen, activity);
+        scroll = new VerticalScrollLayout(screen, activity);
         screen.setControl(scroll);
 
         list = new VerticalLayout(scroll, activity);
@@ -54,6 +54,13 @@ public class AlbiteUIMIDlet extends MIDlet {
         addButton("Authors", "Search for authors", theme.iconBook);
         addButton("Albite READER",
                 "Download an e-book reader for Java Mobile", theme.iconBook);
+        addButton("Beatrix Potter", null, theme.iconBook);
+        addButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
+        addButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
+        addButton(null, null, null);
+        addButton(null, "Subcaption", null);
+        addButton("Caption", "Subcaption", null);
+
         addButton("Beatrix Potter", null, theme.iconBook);
         addButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
         addButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
