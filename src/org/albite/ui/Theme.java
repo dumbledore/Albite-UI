@@ -19,6 +19,11 @@ public class Theme {
     public int colorText;
     public int colorAccent;
 
+    public int colorButtonNormal;
+    public int colorButtonNormalShine;
+    public int colorButtonPressed;
+    public int colorButtonBorder;
+
     public Image imageBackground;
 
     public Image iconBook;
@@ -51,6 +56,11 @@ public class Theme {
                     colorBackground = 0xFFFFFF;
                     colorText = 0x0;
                     colorAccent = 0x1483CC;
+
+                    colorButtonNormal = 0xF5F3F3;
+                    colorButtonNormalShine = 0xFFFFFF;
+                    colorButtonPressed = 0xA9D2EC;
+                    colorButtonBorder = 0xADAAAD;
 
                     imageBackground = context.getImage("ui/background-day.png");
 

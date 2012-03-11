@@ -123,11 +123,13 @@ public class ButtonControl extends Control {
     }
 
     public void draw(Graphics g, final int x, final int y) {
-        g.setColor(pressed ? 0xA9D2EC : 0xF5F3F3);
+        final Theme theme = context.getTheme();
+
+        g.setColor(pressed ? theme.colorButtonPressed : theme.colorButtonNormal);
         g.fillRect(x, y, getWidth(), getHeight());
 
         if (!pressed) {
-            g.setColor(0xFFFFFFF);
+            g.setColor(theme.colorButtonNormalShine);
             g.fillRect(x, y, getWidth(), 5);
         }
         
@@ -135,7 +137,7 @@ public class ButtonControl extends Control {
         text.drawRelative(g, x, y);
         arrow.drawRelative(g, x, y);
 
-        g.setColor(0xADAAAD);
+        g.setColor(theme.colorButtonBorder);
         g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
     }
 
