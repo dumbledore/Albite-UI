@@ -123,8 +123,13 @@ public class ButtonControl extends Control {
     }
 
     public void draw(Graphics g, final int x, final int y) {
-        g.setColor(pressed ? 0x1483CC : 0xF5F3F3);
+        g.setColor(pressed ? 0xA9D2EC : 0xF5F3F3);
         g.fillRect(x, y, getWidth(), getHeight());
+
+        if (!pressed) {
+            g.setColor(0xFFFFFFF);
+            g.fillRect(x, y, getWidth(), 5);
+        }
         
         icon.drawRelative(g, x, y);
         text.drawRelative(g, x, y);
