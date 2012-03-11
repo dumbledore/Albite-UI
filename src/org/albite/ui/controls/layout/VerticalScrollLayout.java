@@ -17,7 +17,7 @@ public class VerticalScrollLayout extends AdapterControl {
 
     private static final float MARGIN_AREA_RATIO = 0.05f;
     private final int marginArea;
-    private int yy;
+    private int dy;
     private VerticalScrollBar bar;
 
     public VerticalScrollLayout(final Control parent, final Context context) {
@@ -35,8 +35,8 @@ public class VerticalScrollLayout extends AdapterControl {
     }
 
     private void update(final int margin) {
-        if (getY() > margin) {
-            setY(margin);
+        if (control.getY() > margin) {
+            control.setY(margin);
         } else {
             int h = control.getHeight();
             int minY;
@@ -46,8 +46,8 @@ public class VerticalScrollLayout extends AdapterControl {
                 minY = parent.getHeight() - h - margin;
             }
 
-            if (getY() < minY) {
-                setY(minY);
+            if (control.getY() < minY) {
+                control.setY(minY);
             }
         }
         requestDraw(false);
@@ -64,12 +64,15 @@ public class VerticalScrollLayout extends AdapterControl {
     }
 
     public void pressed(int x, int y) {
-        yy = y;
+        dy = y;
 
         if (enabled) {
-            isSelected = contains(x, y);
+            int x_ = x - this.getX();
+            int y_ = y - this.getY();
+
+            isSelected = contains(x_, y_);
             if (isSelected) {
-                control.pressed(x - this.getX(), y - this.getY());
+                control.pressed(x_, y_);
             }
         }
     }
@@ -79,8 +82,8 @@ public class VerticalScrollLayout extends AdapterControl {
             control.lostFocus();
             isSelected = false;
         }
-        setY(getY() + y - yy);
-        yy = y;
+        control.setY(control.getY() + y - dy);
+        dy = y;
         update(marginArea);
     }
 
@@ -110,6 +113,8 @@ public class VerticalScrollLayout extends AdapterControl {
 
         private final float heightInterpolateA, heightInterpolateB;
         private float positionInterpolate;
+        private int positionMax;
+        private boolean isActive = false;
 
         public VerticalScrollBar(final Control parent, final Context context) {
             super(parent, context);
@@ -141,16 +146,25 @@ public class VerticalScrollLayout extends AdapterControl {
                     + heightInterpolateB);
             setHeight(Math.min(Math.max(h, barMinHeight), barMaxHeight));
 
-            positionInterpolate = ((float) (parent.getHeight() - getHeight())
-                    / (parent.getHeight() - control.getHeight()));
-            System.out.println(positionInterpolate);
+            int bottom = parent.getHeight() - control.getHeight();
+            if (bottom < 0) {
+                positionMax = parent.getHeight() - getHeight();
+                positionInterpolate = ((float) positionMax / bottom);
+                isActive = true;
+            } else {
+                isActive = false;
+            }
         }
 
         protected void draw(Graphics g, int x, int y) {
-            final int y_ = (int) (positionInterpolate * parent.getY());
+            if (isActive) {
+                int y_ = (int) (positionInterpolate * control.getY());
+                y_ = Math.max(y_, 0);
+                y_ = Math.min(y_, positionMax);
 
-            g.setColor(context.getTheme().colorAccent);
-            g.fillRect(getX(), y_, getWidth(), getHeight());
+                g.setColor(context.getTheme().colorAccent);
+                g.fillRect(getX(), y_, getWidth(), getHeight());
+            }
         }
 
         public void pressed(int x, int y) {}

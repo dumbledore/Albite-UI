@@ -81,9 +81,12 @@ public abstract class LayoutControl extends Control {
 
     public void pressed(int x, int y) {
         if (enabled) {
-            selected = find(x, y);
+            int x_ = x - this.getX();
+            int y_ = y - this.getY();
+
+            selected = find(x_, y_);
             if (selected != null) {
-                selected.pressed(x - this.getX(), y - this.getY());
+                selected.pressed(x_, y_);
             }
         }
     }
@@ -109,7 +112,6 @@ public abstract class LayoutControl extends Control {
                 return control;
             }
         }
-
         return null;
     }
 
