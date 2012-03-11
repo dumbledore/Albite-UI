@@ -34,15 +34,24 @@ public class Theme {
 
     public int listElementMinimumHeight;
     public int listElementPadding;
+
     public int buttonMinimumHeight;
     public int buttonIconWidth;
     public int buttonArrowWidth;
 
+    public int sectionLineHeight;
+
+    /*
+     * These are precomputed for a specific DPI.
+     */
     public static final int DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT = 26;
     public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
+
     public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
     public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
     public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
+
+    public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
 
     protected void setup() {}
 
@@ -80,9 +89,12 @@ public class Theme {
                     listElementMinimumHeight
                             = DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT;
                     listElementPadding  = DEFAULT_LIST_ELEMENT_PADDING;
+
                     buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
                     buttonIconWidth     = DEFAULT_BUTTON_ICON_WIDTH;
                     buttonArrowWidth    = DEFAULT_BUTTON_ARROW_WIDTH;
+
+                    sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
                 }
             };
             DAY_THEME.setup();
