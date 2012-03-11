@@ -136,6 +136,9 @@ public class TextControl extends Control {
                             currentPosition++;
                         }
                     }
+                    /*
+                     * Fallthrough
+                     */
                     case '\n':
                     {
                         bucket.addElement(new Line(
@@ -220,11 +223,14 @@ public class TextControl extends Control {
         final int fontHeight = font.getLineHeight();
         
         Line line;
+        final int h = context.getHeight();
 
         for (int i = 0; i < lines.length; i++) {
-            line = lines[i];
-            font.drawChars(g, color, x, y, text, line.position, line.length);
-            y += fontHeight;
+            if (-fontHeight <= y && y < h) {
+                line = lines[i];
+                font.drawChars(g, color, x, y, text, line.position, line.length);
+                y += fontHeight;
+            }
         }
     }
 
