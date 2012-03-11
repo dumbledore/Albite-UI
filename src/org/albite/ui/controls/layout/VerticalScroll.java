@@ -32,7 +32,7 @@ public class VerticalScroll extends AdapterControl {
         return control.getHeight();
     }
 
-    private void updateY(final int margin) {
+    private void update(final int margin) {
         if (getY() > margin) {
             setY(margin);
         } else {
@@ -53,7 +53,7 @@ public class VerticalScroll extends AdapterControl {
 
     public void recompileMetrics(boolean downTree) {
         control.recompileMetrics(downTree);
-        updateY(0);
+        update(0);
     }
 
     public void pressed(int x, int y) {
@@ -74,7 +74,7 @@ public class VerticalScroll extends AdapterControl {
         }
         setY(getY() + y - yy);
         yy = y;
-        updateY(marginArea);
+        update(marginArea);
     }
 
     public void released(int x, int y) {
@@ -82,7 +82,7 @@ public class VerticalScroll extends AdapterControl {
             control.released(x - this.getX(), y - this.getY());
             isSelected = false;
         }
-        updateY(0);
+        update(0);
     }
 
     public void draw(final Graphics g, final int x, final int y) {
