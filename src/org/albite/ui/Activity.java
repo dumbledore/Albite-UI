@@ -22,7 +22,7 @@ public final class Activity
         extends Canvas
         implements Context {
 
-    private static final int DRAGGING_FACTOR = 128 * 100;
+    private static final float DRAGGING_FACTOR = 0.01f;
 
     private Vector screenStack = new Vector(30);
     private Theme theme;
@@ -36,7 +36,8 @@ public final class Activity
     public Activity() {
         setFullScreenMode(true);
 
-        minimumDragging = (getWidth() * getHeight()) / DRAGGING_FACTOR;
+        minimumDragging = (int) (getWidth() * getHeight()
+                * DRAGGING_FACTOR * DRAGGING_FACTOR);
     }
 
     public int getMinimumDragging() {
