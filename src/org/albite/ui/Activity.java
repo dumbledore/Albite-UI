@@ -22,11 +22,33 @@ public final class Activity
         extends Canvas
         implements Context {
 
+    private static final int DRAGGING_FACTOR = 128 * 100;
+
     private Vector screenStack = new Vector(30);
     private Theme theme;
 
+    private int minimumDragging;
+    private boolean draggingStarted;
+
+    private int dx;
+    private int dy;
+
     public Activity() {
         setFullScreenMode(true);
+
+        minimumDragging = (getWidth() * getHeight()) / DRAGGING_FACTOR;
+    }
+
+    public int getMinimumDragging() {
+        return minimumDragging;
+    }
+
+    public void setMinimumDragging(int minimumDragging) {
+        if (minimumDragging < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        this.minimumDragging = minimumDragging;
     }
 
     public Theme getTheme() {
@@ -66,14 +88,28 @@ public final class Activity
     }
 
     protected void pointerPressed(final int x, final int y) {
+        dx = x;
+        dy = y;
+
         getCurrentScreen().pressed(x, y);
     }
 
     protected void pointerDragged(final int x, final int y) {
-        getCurrentScreen().dragged(x, y);
+        if (draggingStarted
+                || Math.abs(x - dx) >= minimumDragging
+                || Math.abs(y - dy) >= minimumDragging) {
+
+            draggingStarted = true;
+            dx = x;
+            dy = y;
+
+            getCurrentScreen().dragged(x, y);
+        }
     }
 
     protected void pointerReleased(final int x, final int y) {
+        draggingStarted = false;
+
         getCurrentScreen().released(x, y);
     }
 
