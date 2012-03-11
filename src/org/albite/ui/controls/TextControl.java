@@ -28,6 +28,7 @@ public class TextControl extends Control {
     public final void recompileMetrics(final boolean downTree) {
         if (text == null) {
             lines = null;
+            setHeight(0);
             return;
         }
 
@@ -48,6 +49,7 @@ public class TextControl extends Control {
 
     public final void setText(final String text) {
         if (text == null) {
+            this.text = null;
             return;
         }
 
@@ -56,6 +58,7 @@ public class TextControl extends Control {
 
     public final void setText(final char[] text) {
         if (text == null) {
+            this.text = null;
             return;
         }
 
@@ -70,6 +73,39 @@ public class TextControl extends Control {
 
     public final void setFont(Font font) {
         this.font = font;
+    }
+
+    protected void draw(Graphics g, int x, int y) {
+        if (lines == null) {
+            return;
+        }
+
+        final int fontHeight = font.getLineHeight();
+
+        Line line;
+        final int h = context.getHeight();
+
+        for (int i = 0; i < lines.length; i++) {
+            if (-fontHeight <= y && y < h) {
+                line = lines[i];
+                font.drawChars(g, color, x, y, text, line.position, line.length);
+                y += fontHeight;
+            }
+        }
+    }
+
+    public void pressed(int x, int y) {}
+    public void dragged(int x, int y) {}
+    public void released(int x, int y) {}
+
+    class Line {
+        int position;
+        int length;
+
+        Line(int position, int length) {
+            this.position = position;
+            this.length = length;
+        }
     }
 
     private static final int MINIMUM_WIDTH = 20;
@@ -116,7 +152,7 @@ public class TextControl extends Control {
             if (processed) {
                 return;
             }
-            
+
             /* temporary */
             final char[] textLocal = text;
             final int textLocalLength = text.length;
@@ -188,7 +224,7 @@ public class TextControl extends Control {
                                 bucket.addElement(
                                         new Line(startPosition,
                                         breakPosition - startPosition));
-                                
+
                                 currentPosition = breakPosition;
                             }
 
@@ -212,41 +248,6 @@ public class TextControl extends Control {
             bucket.copyInto(lines);
 
             processed = true;
-        }
-    }
-
-    protected void draw(Graphics g, int x, int y) {
-        if (lines == null) {
-            return;
-        }
-
-        final int fontHeight = font.getLineHeight();
-        
-        Line line;
-        final int h = context.getHeight();
-
-        for (int i = 0; i < lines.length; i++) {
-            if (-fontHeight <= y && y < h) {
-                line = lines[i];
-                font.drawChars(g, color, x, y, text, line.position, line.length);
-                y += fontHeight;
-            }
-        }
-    }
-
-    public void pressed(int x, int y) {}
-
-    public void dragged(int x, int y) {}
-
-    public void released(int x, int y) {}
-
-    class Line {
-        int position;
-        int length;
-
-        Line(int position, int length) {
-            this.position = position;
-            this.length = length;
         }
     }
 }

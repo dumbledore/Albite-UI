@@ -78,10 +78,9 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     final ClickCallback onClick = new ClickCallback() {
         public void clicked(Control control) {
-            System.out.println("Clicked " + control);
-            list.removeControl((Control) buttons.elementAt(2));
-            buttons.removeElementAt(2);
-            list.invalidate();
+            ButtonControl button = (ButtonControl) control;
+            button.setSubCaption((char[]) null);
+            button.invalidate();
         }
     };
 
