@@ -66,11 +66,12 @@ public final class Activity
         }
 
         /*
-         * Remove chain
+         * If the new screen is already in the stack, remove it and all
+         * screens after it.
          */
         final int index = screenStack.indexOf(screen);
-        for (int i = 0; i <= index; i++) {
-            screenStack.removeElementAt(0);
+        if (index >= 0) {
+            screenStack.setSize(index);
         }
 
         screenStack.addElement(screen);
