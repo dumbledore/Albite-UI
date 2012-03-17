@@ -5,8 +5,6 @@
 
 package org.albite.ui.controls.layout;
 
-import java.util.Enumeration;
-import java.util.Vector;
 import org.albite.ui.controls.Control;
 import org.albite.ui.core.interfaces.Context;
 
@@ -15,8 +13,6 @@ import org.albite.ui.core.interfaces.Context;
  * @author albus
  */
 public class VerticalLayout extends LayoutControl {
-
-    private final Vector controls = new Vector();
 
     public VerticalLayout(final Control parent, final Context context) {
         super(parent, context);
@@ -38,18 +34,14 @@ public class VerticalLayout extends LayoutControl {
     public void recompileMetricsFromChildren(final boolean downTree) {
         int height = 0;
 
-        Enumeration enumeration = getControls();
-        while (enumeration.hasMoreElements()) {
-            Control control = (Control) enumeration.nextElement();
+        final int size = controls.size();
+        for (int i = 0; i < size; i++) {
+            Control control = (Control) controls.elementAt(i);
             control.setX(0);
             control.setY(height);
             height += control.getHeight();
         }
 
         setHeight(height);
-    }
-
-    protected Enumeration getControls() {
-        return controls.elements();
     }
 }

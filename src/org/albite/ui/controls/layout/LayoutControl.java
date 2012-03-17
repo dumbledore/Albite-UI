@@ -5,7 +5,7 @@
 
 package org.albite.ui.controls.layout;
 
-import java.util.Enumeration;
+import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.Control;
 import org.albite.ui.core.interfaces.Context;
@@ -17,6 +17,7 @@ import org.albite.ui.core.interfaces.Context;
 public abstract class LayoutControl extends Control {
 
     private Control selected = null;
+    protected final Vector controls = new Vector();
 
     public LayoutControl(final Control parent, final Context context) {
         super(parent, context);
@@ -30,8 +31,6 @@ public abstract class LayoutControl extends Control {
     }
 
     public abstract void removeControl(Control control);
-
-    protected abstract Enumeration getControls();
 
     /**
      * NOTE:
@@ -47,9 +46,9 @@ public abstract class LayoutControl extends Control {
     public final void invalidateDown() {
         recompileMetricsFromParent(true);
 
-        Enumeration elements = getControls();
-        while (elements.hasMoreElements()) {
-            Control control = (Control) elements.nextElement();
+        final int size = controls.size();
+        for (int i = 0; i < size; i++) {
+            Control control = (Control) controls.elementAt(i);
             control.invalidateDown();
         }
 
@@ -65,9 +64,9 @@ public abstract class LayoutControl extends Control {
     public void recompileMetricsFromChildren(boolean downTree) {}
 
     public void draw(final Graphics g, final int x, final int y) {
-        Enumeration e = getControls();
-        while (e.hasMoreElements()) {
-            Control control = (Control) e.nextElement();
+        final int size = controls.size();
+        for (int i = 0; i < size; i++) {
+            Control control = (Control) controls.elementAt(i);
             control.drawRelative(g, x, y);
         }
     }
@@ -105,9 +104,9 @@ public abstract class LayoutControl extends Control {
     }
 
     protected final Control find(int x, int y) {
-        Enumeration e = getControls();
-        while (e.hasMoreElements()) {
-            Control control = (Control) e.nextElement();
+        final int size = controls.size();
+        for (int i = 0; i < size; i++) {
+            Control control = (Control) controls.elementAt(i);
             if (control.contains(x, y)) {
                 return control;
             }
@@ -122,9 +121,9 @@ public abstract class LayoutControl extends Control {
     public void dump(final int level) {
         super.dump(level);
 
-        Enumeration e = getControls();
-        while (e.hasMoreElements()) {
-            Control control = (Control) e.nextElement();
+        final int size = controls.size();
+        for (int i = 0; i < size; i++) {
+            Control control = (Control) controls.elementAt(i);
             control.dump(level + 1);
         }
     }
