@@ -14,12 +14,12 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public abstract class LayoutControl extends Control {
+public abstract class ContainerControl extends Control {
 
     private Control selected = null;
     protected final Vector controls = new Vector();
 
-    public LayoutControl(final Control parent, final Context context) {
+    public ContainerControl(final Control parent, final Context context) {
         super(parent, context);
     }
 
