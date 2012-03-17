@@ -28,9 +28,12 @@ public abstract class LayoutControl extends Control {
             throw new IllegalArgumentException(
                     "Must never add a component as it's child");
         }
+        controls.addElement(control);
     }
 
-    public abstract void removeControl(Control control);
+    public void removeControl(Control control) {
+        controls.removeElement(control);
+    }
 
     /**
      * NOTE:

@@ -18,15 +18,6 @@ public class VerticalLayout extends LayoutControl {
         super(parent, context);
     }
 
-    public void addControl(Control control) {
-        super.addControl(control);
-        controls.addElement(control);
-    }
-
-    public void removeControl(Control control) {
-        controls.removeElement(control);
-    }
-
     public void recompileMetricsFromParent(final boolean downTree) {
         setWidth(parent.getWidth());
     }
