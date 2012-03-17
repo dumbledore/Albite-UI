@@ -12,7 +12,7 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class VerticalLayout extends ContainerControl {
+public class VerticalLayout extends LayoutControl {
 
     public VerticalLayout(final Control parent, final Context context) {
         super(parent, context);

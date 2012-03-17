@@ -23,18 +23,6 @@ public abstract class ContainerControl extends Control {
         super(parent, context);
     }
 
-    public void addControl(Control control) {
-        if (control == this) {
-            throw new IllegalArgumentException(
-                    "Must never add a component as it's child");
-        }
-        controls.addElement(control);
-    }
-
-    public void removeControl(Control control) {
-        controls.removeElement(control);
-    }
-
     /**
      * NOTE:
      * invalidateDown actually makes it go through the children twice!
