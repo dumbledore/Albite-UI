@@ -15,6 +15,20 @@ import org.albite.ui.core.interfaces.Context;
  * @author albus
  */
 public class Theme {
+    /*
+     * These are precomputed for a specific DPI.
+     */
+    public static final int DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT = 26;
+    public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
+
+    public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
+    public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
+    public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
+
+    public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
+
+    public static final int DEFAULT_MENU_BUTTONS_HEIGHT = 30;
+
     public int colorBackground;
     public int colorText;
     public int colorAccent;
@@ -32,26 +46,16 @@ public class Theme {
     public org.albite.font.Font fontCaption;
     public org.albite.font.Font fontSubcaption;
 
-    public int listElementMinimumHeight;
-    public int listElementPadding;
+    public int listElementMinimumHeight = DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT;
+    public int listElementPadding = DEFAULT_LIST_ELEMENT_PADDING;
 
-    public int buttonMinimumHeight;
-    public int buttonIconWidth;
-    public int buttonArrowWidth;
+    public int buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
+    public int buttonIconWidth = DEFAULT_BUTTON_ICON_WIDTH;
+    public int buttonArrowWidth = DEFAULT_BUTTON_ARROW_WIDTH;
 
-    public int sectionLineHeight;
+    public int sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
 
-    /*
-     * These are precomputed for a specific DPI.
-     */
-    public static final int DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT = 26;
-    public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
-
-    public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
-    public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
-    public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
-
-    public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
+    public int menuButtonsHeight = DEFAULT_MENU_BUTTONS_HEIGHT;
 
     protected void setup() {}
 
@@ -85,16 +89,6 @@ public class Theme {
                             Font.FACE_PROPORTIONAL,
                             Font.STYLE_PLAIN,
                             Font.SIZE_SMALL));
-
-                    listElementMinimumHeight
-                            = DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT;
-                    listElementPadding  = DEFAULT_LIST_ELEMENT_PADDING;
-
-                    buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
-                    buttonIconWidth     = DEFAULT_BUTTON_ICON_WIDTH;
-                    buttonArrowWidth    = DEFAULT_BUTTON_ARROW_WIDTH;
-
-                    sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
                 }
             };
             DAY_THEME.setup();
