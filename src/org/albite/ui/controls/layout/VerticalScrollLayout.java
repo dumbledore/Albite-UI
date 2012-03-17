@@ -103,10 +103,10 @@ public class VerticalScrollLayout extends AdapterControl {
     private class VerticalScrollBar extends Control {
 
         private static final float SCROLL_BAR_WIDTH_FACTOR = 0.01f;
-        private static final float SCROLL_BAR_MIN_HEIGHT_FACTOR = 0.05f;
-        private static final float SCROLL_BAR_MAX_HEIGHT_FACTOR = 0.3f;
-        private static final float CONTROL_MIN_HEIGHT_FACTOR = 0.5f;
-        private static final float CONTROL_MAX_HEIGHT_FACTOR = 2.0f;
+        private static final float SCROLL_BAR_MIN_HEIGHT_FACTOR = 0.10f;
+        private static final float SCROLL_BAR_MAX_HEIGHT_FACTOR = 1.0f;
+        private static final float CONTROL_MIN_HEIGHT_FACTOR = 1.0f;
+        private static final float CONTROL_MAX_HEIGHT_FACTOR = 2.6f;
 
         private final int barMinHeight;
         private final int barMaxHeight;
