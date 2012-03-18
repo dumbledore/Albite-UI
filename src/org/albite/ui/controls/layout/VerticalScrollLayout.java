@@ -96,6 +96,7 @@ public class VerticalScrollLayout extends AdapterControl {
     }
 
     public void draw(final Graphics g, final int x, final int y) {
+        g.setClip(x, y, getWidth(), getHeight());
         control.drawRelative(g, x, y);
         bar.drawRelative(g, x, y);
     }
