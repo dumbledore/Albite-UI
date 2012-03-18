@@ -41,11 +41,11 @@ public class ImageControl extends Control {
         } else {
             final int w = image.getWidth();
             final int h = image.getHeight();
-            final int xh = x + getHeight();
-            final int yw = y + getWidth();
+            final int xw = x + getWidth();
+            final int yh = y + getHeight();
 
-            for (int yy = y; yy < xh; yy += h) {
-                for (int xx = x; xx < yw; xx += w) {
+            for (int yy = y; yy < yh; yy += h) {
+                for (int xx = x; xx < xw; xx += w) {
                     g.drawImage(image, xx, yy, Graphics.TOP | Graphics.LEFT);
                 }
             }
