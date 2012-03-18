@@ -50,8 +50,9 @@ public class AlbiteUIMIDlet extends MIDlet {
         /*
          * Add menu buttons
          */
-        addMenuButton(theme.iconBook);
-        addMenuButton(theme.iconBook);
+        addMenuButton(theme.iconMenuBack);
+        addMenuButton(theme.iconMenuSearch);
+        addMenuButton(theme.iconMenuMore);
 
         /*
          * Always call setControl / addControl from parent to children
