@@ -39,7 +39,7 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     protected void startApp() throws MIDletStateChangeException {
 
-        activity = new Activity();
+        activity = new Activity(this);
 
         final Theme theme = Theme.getDayTheme(activity);
 

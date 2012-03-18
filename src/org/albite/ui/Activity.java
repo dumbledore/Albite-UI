@@ -12,6 +12,7 @@ import java.util.Vector;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import javax.microedition.midlet.MIDlet;
 import org.albite.ui.core.interfaces.Context;
 
 /**
@@ -24,6 +25,8 @@ public final class Activity
 
     private static final float DRAGGING_FACTOR = 0.01f;
 
+    private final MIDlet midlet;
+
     private Vector screenStack = new Vector(30);
     private Theme theme;
 
@@ -33,7 +36,9 @@ public final class Activity
     private int dx;
     private int dy;
 
-    public Activity() {
+    public Activity(final MIDlet midlet) {
+        this.midlet = midlet;
+
         setFullScreenMode(true);
 
         minimumDragging = (int) (getWidth() * getHeight()
@@ -79,7 +84,10 @@ public final class Activity
 
     public void goBack() {
         if (screenStack.size() < 2) {
-            return;
+            /*
+             * Exit the application
+             */
+            midlet.notifyDestroyed();
         }
 
         screenStack.removeElementAt(screenStack.size() - 1);
