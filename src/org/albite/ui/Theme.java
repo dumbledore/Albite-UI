@@ -41,6 +41,12 @@ public class Theme {
 
     public Image imageBackground;
 
+    public Image imageMenuBarShadow;
+
+    public Image iconMenuBack;
+    public Image iconMenuMore;
+    public Image iconMenuSearch;
+
     public Image iconBook;
     public Image iconNext;
 
@@ -78,9 +84,14 @@ public class Theme {
                     colorButtonBorder = 0xADAAAD;
 
                     imageBackground = context.getImage("ui/background-day.png");
+                    imageMenuBarShadow = context.getImage("ui/menu/shadow-day.png");
 
-                    iconBook = context.getImage("ui/menu/book-day.png");
-                    iconNext = context.getImage("ui/menu/next-day.png");
+                    iconMenuBack = context.getImage("ui/menu/back-day.png");
+                    iconMenuMore = context.getImage("ui/menu/more-day.png");
+                    iconMenuSearch = context.getImage("ui/menu/search-day.png");
+
+                    iconBook = context.getImage("ui/list/book-day.png");
+                    iconNext = context.getImage("ui/list/next-day.png");
 
                     fontCaption = new NativeFont(Font.getFont(
                             Font.FACE_PROPORTIONAL,
