@@ -19,6 +19,18 @@ import org.albite.ui.core.interfaces.Context;
  */
 public class ScreenMenu extends LayoutControl {
 
+    private final ImageControl shadow = new ImageControl();
+
+    public void initialize(final Control parent, final Context context) {
+        super.initialize(parent, context);
+
+        shadow.initialize(this, context);
+        shadow.setImage(context.getTheme().imageMenuBarShadow);
+        shadow.setWidth(getWidth());
+        shadow.setRepeat(true);
+        shadow.setY(-shadow.getHeight());
+    }
+
     public void addControl(final Control control) {
         if (!(control instanceof MenuButton)) {
             throw new IllegalArgumentException("Only MenuButton controls "
@@ -83,6 +95,12 @@ public class ScreenMenu extends LayoutControl {
             control.setHeight(height);
             control.recompileMetrics(false);
         }
+    }
+
+    public void draw(Graphics g, int x, int y, int zOrder) {
+        super.draw(g, x, y, zOrder);
+
+        shadow.drawRelative(g, x, y, zOrder);
     }
 
     public static final class MenuButton extends Control {
