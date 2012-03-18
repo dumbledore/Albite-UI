@@ -22,6 +22,7 @@ public class Theme {
     public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
 
     public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
+    public static final int DEFAULT_BUTTON_SHINE_HEIGHT = 5;
     public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
     public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
 
@@ -60,6 +61,7 @@ public class Theme {
     public int listElementPadding = DEFAULT_LIST_ELEMENT_PADDING;
 
     public int buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
+    public int buttonShineHeight = DEFAULT_BUTTON_SHINE_HEIGHT;
     public int buttonIconWidth = DEFAULT_BUTTON_ICON_WIDTH;
     public int buttonArrowWidth = DEFAULT_BUTTON_ARROW_WIDTH;
 

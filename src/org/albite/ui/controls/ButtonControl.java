@@ -140,7 +140,7 @@ public class ButtonControl extends Control {
 
         if (!pressed) {
             g.setColor(theme.colorButtonNormalShine);
-            g.fillRect(x, y, getWidth(), 5);
+            g.fillRect(x, y, getWidth(), theme.buttonShineHeight);
         }
         
         icon.drawRelative(g, x, y, 0);
