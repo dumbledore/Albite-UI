@@ -39,6 +39,9 @@ public class Theme {
     public int colorButtonPressed;
     public int colorButtonBorder;
 
+    public int colorMenuButtonNormal;
+    public int colorMenuButtonPressed;
+
     public Image imageBackground;
 
     public Image imageMenuBarShadow;
@@ -82,6 +85,9 @@ public class Theme {
                     colorButtonNormalShine = 0xFFFFFF;
                     colorButtonPressed = 0xA9D2EC;
                     colorButtonBorder = 0xADAAAD;
+
+                    colorMenuButtonNormal = 0x454545;
+                    colorMenuButtonPressed = colorButtonPressed;
 
                     imageBackground = context.getImage("ui/background-day.png");
                     imageMenuBarShadow = context.getImage("ui/menu/shadow-day.png");

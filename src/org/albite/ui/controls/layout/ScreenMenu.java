@@ -166,18 +166,10 @@ public class ScreenMenu extends LayoutControl {
 
             final Theme theme = context.getTheme();
 
-            g.setColor(pressed ? theme.colorButtonPressed : theme.colorButtonNormal);
+            g.setColor(pressed ? theme.colorMenuButtonPressed : theme.colorMenuButtonNormal);
             g.fillRect(x, y, getWidth(), getHeight());
 
-            if (!pressed) {
-                g.setColor(theme.colorButtonNormalShine);
-                g.fillRect(x, y, getWidth(), 5);
-            }
-
             control.drawRelative(g, x, y, 0);
-
-            g.setColor(theme.colorButtonBorder);
-            g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
         }
 
         public int getWidth() {
