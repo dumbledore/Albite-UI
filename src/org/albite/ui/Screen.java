@@ -6,17 +6,20 @@
 package org.albite.ui;
 
 import javax.microedition.lcdui.Graphics;
+import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AdapterControl;
+import org.albite.ui.controls.layout.LayoutControl;
 import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public class Screen extends AdapterControl {
+public class Screen extends LayoutControl {
 
     private final ImageControl background = new ImageControl(this, context);
+    private final AdapterControl adapter = new AdapterControl(this, context);
 
     public Screen(final String title, final Context context) {
         super(null, context);
@@ -27,6 +30,11 @@ public class Screen extends AdapterControl {
         background.setHeight(context.getHeight());
 
         //TODO: Add title control
+
+        //Add a place for the control
+        controls.addElement(adapter);
+        adapter.setWidth(getWidth());
+        adapter.setHeight(getHeight());
     }
 
     public int getWidth() {
@@ -37,6 +45,11 @@ public class Screen extends AdapterControl {
         return context.getHeight();
     }
 
+    public void setControl(final Control control) {
+        adapter.setControl(control);
+        control.setParent(adapter);
+    }
+
     public void dump(final int level) {
         super.dump(level);
         background.dump(level + 1);
@@ -44,6 +57,6 @@ public class Screen extends AdapterControl {
 
     public void draw(final Graphics g, final int x, final int y) {
         background.drawRelative(g, x, y);
-        control.drawRelative(g, x, y);
+        super.draw(g, x, y);
     }
 }
