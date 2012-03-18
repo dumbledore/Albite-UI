@@ -148,7 +148,9 @@ public class ButtonControl extends Control {
         arrow.drawRelative(g, x, y, 0);
 
         g.setColor(theme.colorButtonBorder);
-        g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
+        g.fillRect(
+                x, y + getHeight() - theme.buttonBorderHeight,
+                getWidth(), theme.buttonBorderHeight);
     }
 
     public boolean isFocusable() {
