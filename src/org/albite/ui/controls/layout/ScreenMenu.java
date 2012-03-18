@@ -98,9 +98,13 @@ public class ScreenMenu extends LayoutControl {
     }
 
     public void draw(Graphics g, int x, int y, int zOrder) {
-        super.draw(g, x, y, zOrder);
-
-        shadow.drawRelative(g, x, y, zOrder);
+        /*
+         * Don't bother for zOrder > 0
+         */
+        if (zOrder == 0) {
+            super.draw(g, x, y, 0);
+            shadow.drawRelative(g, x, y, 0);
+        }
     }
 
     public static final class MenuButton extends Control {
@@ -159,10 +163,6 @@ public class ScreenMenu extends LayoutControl {
 
         public void draw(Graphics g,
                 final int x, final int y, final int zOrder) {
-
-            if (zOrder > 0) {
-                return;
-            }
 
             final Theme theme = context.getTheme();
 
