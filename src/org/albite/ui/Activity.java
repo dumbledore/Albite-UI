@@ -82,7 +82,7 @@ public final class Activity
         screenStack.addElement(screen);
     }
 
-    public void goBack() {
+    public void setPreviousScreen() {
         if (screenStack.size() < 2) {
             /*
              * Exit the application

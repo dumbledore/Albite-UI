@@ -5,13 +5,13 @@
 
 package org.albite.ui.core.interfaces;
 
+import org.albite.ui.Screen;
+
 /**
  *
  * @author albus
  */
-public interface Context
-        extends DrawingEnvironment, ResourceManager, ScreenManager, Themable {
-
-    public int getWidth();
-    public int getHeight();
+public interface ScreenManager {
+    void setScreen(Screen screen);
+    void setPreviousScreen();
 }
