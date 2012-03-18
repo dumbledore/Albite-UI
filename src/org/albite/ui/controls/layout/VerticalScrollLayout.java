@@ -16,13 +16,14 @@ import org.albite.ui.core.interfaces.Context;
 public class VerticalScrollLayout extends AdapterControl {
 
     private static final float MARGIN_AREA_RATIO = 0.05f;
-    private final int marginArea;
+    private int marginArea;
     private int dy;
     private VerticalScrollBar bar;
 
-    public VerticalScrollLayout(final Control parent, final Context context) {
-        super(parent, context);
-        bar = new VerticalScrollBar(this, context);
+    public void initialize(final Control parent, final Context context) {
+        super.initialize(parent, context);
+        bar = new VerticalScrollBar();
+        bar.initialize(this, context);
         marginArea = (int) (MARGIN_AREA_RATIO * context.getHeight());
     }
 
@@ -109,16 +110,16 @@ public class VerticalScrollLayout extends AdapterControl {
         private static final float CONTROL_MIN_HEIGHT_FACTOR = 1.0f;
         private static final float CONTROL_MAX_HEIGHT_FACTOR = 2.6f;
 
-        private final int barMinHeight;
-        private final int barMaxHeight;
+        private int barMinHeight;
+        private int barMaxHeight;
 
-        private final float heightInterpolateA, heightInterpolateB;
+        private float heightInterpolateA, heightInterpolateB;
         private float positionInterpolate;
         private int positionMax;
         private boolean isActive = false;
 
-        public VerticalScrollBar(final Control parent, final Context context) {
-            super(parent, context);
+        public void initialize(final Control parent, final Context context) {
+            super.initialize(parent, context);
 
             setWidth(Math.max((int) (parent.getWidth() * SCROLL_BAR_WIDTH_FACTOR), 2));
 

@@ -19,10 +19,6 @@ import org.albite.ui.core.interfaces.Context;
  */
 public class ScreenMenu extends ContainerControl {
 
-    public ScreenMenu(final Control parent, final Context context) {
-        super(parent, context);
-    }
-
     public void recompileMetricsFromParent(final boolean downTree) {
         if (controls.isEmpty()) {
             return;
@@ -75,24 +71,16 @@ public class ScreenMenu extends ContainerControl {
     }
 
     public static final class MenuButton extends Control {
-        final AutoSizeControl control;
-        final ImageControl iconImage;
+        final AutoSizeControl control = new AutoSizeControl();
+        final ImageControl iconImage = new ImageControl();
 
         boolean pressed = false;
         private ClickCallback callback;
 
-        public MenuButton(final Control parent, final Context context) {
-            super(parent, context);
+        public void initialize(final Control parent, final Context context) {
+            super.initialize(parent, context);
 
-            /*
-             * The autosize control
-             */
-            control = new AutoSizeControl(this, context);
-
-            /*
-             * The image icon
-             */
-            iconImage = new ImageControl(control, context);
+            control.initialize(this, context);
             control.setControl(iconImage);
         }
 

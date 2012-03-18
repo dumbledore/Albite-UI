@@ -9,21 +9,22 @@ import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AdapterControl;
-import org.albite.ui.controls.layout.LayoutControl;
+import org.albite.ui.controls.layout.ContainerControl;
 import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
-public class Screen extends LayoutControl {
+public class Screen extends ContainerControl {
 
-    private final ImageControl background = new ImageControl(this, context);
-    private final AdapterControl adapter = new AdapterControl(this, context);
+    private final ImageControl background = new ImageControl();
+    private final AdapterControl adapter = new AdapterControl();
 
     public Screen(final String title, final Context context) {
-        super(null, context);
+        this.context = context;
 
+        background.initialize(this, context);
         background.setImage(context.getTheme().imageBackground);
         background.setRepeat(true);
         background.setWidth(context.getWidth());
@@ -32,9 +33,9 @@ public class Screen extends LayoutControl {
         //TODO: Add title control
 
         //Add a place for the control
-        controls.addElement(adapter);
-        adapter.setWidth(getWidth());
-        adapter.setHeight(getHeight());
+        addControl(adapter);
+        adapter.setWidth(context.getWidth());
+        adapter.setHeight(context.getHeight());
     }
 
     public int getWidth() {
@@ -47,7 +48,6 @@ public class Screen extends LayoutControl {
 
     public void setControl(final Control control) {
         adapter.setControl(control);
-        control.setParent(adapter);
     }
 
     public void dump(final int level) {

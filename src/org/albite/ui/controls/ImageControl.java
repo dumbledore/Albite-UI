@@ -7,7 +7,6 @@ package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import org.albite.ui.core.interfaces.Context;
 
 /**
  *
@@ -17,10 +16,6 @@ public class ImageControl extends Control {
 
     private Image image;
     private boolean repeat = false;
-
-    public ImageControl(final Control parent, final Context context) {
-        super(parent, context);
-    }
 
     public final void setImage(final Image image) {
         if (image == null) {

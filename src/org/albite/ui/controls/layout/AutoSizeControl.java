@@ -5,9 +5,6 @@
 
 package org.albite.ui.controls.layout;
 
-import org.albite.ui.controls.Control;
-import org.albite.ui.core.interfaces.Context;
-
 /**
  *
  * @author albus
@@ -31,10 +28,6 @@ public final class AutoSizeControl extends AdapterControl {
 
     private int horizontalGravity = CENTER;
     private int verticalGravity = CENTER;
-
-    public AutoSizeControl(final Control parent, final Context context) {
-        super(parent, context);
-    }
 
     /**
      * If true, width will match parent's. If false, it will match

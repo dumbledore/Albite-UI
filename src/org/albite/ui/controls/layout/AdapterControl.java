@@ -7,7 +7,6 @@ package org.albite.ui.controls.layout;
 
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.Control;
-import org.albite.ui.core.interfaces.Context;
 
 /**
  *
@@ -18,16 +17,13 @@ public class AdapterControl extends Control {
     protected Control control;
     boolean isSelected = false;
 
-    public AdapterControl(final Control parent, final Context context) {
-        super(parent, context);
-    }
-
     public final void setControl(final Control control) {
         if (this == control) {
             throw new IllegalArgumentException(
                     "Cyclic error: the child is the same as the parent");
         }
 
+        control.initialize(this, context);
         this.control = control;
     }
 

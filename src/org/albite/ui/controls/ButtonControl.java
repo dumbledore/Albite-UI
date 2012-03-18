@@ -19,36 +19,40 @@ import org.albite.ui.core.interfaces.Context;
  */
 public class ButtonControl extends Control {
 
-    private AutoSizeControl text = new AutoSizeControl(this, context);
-    private VerticalLayout  textLayout = new VerticalLayout(text, context);
-    private TextControl     caption = new TextControl(textLayout, context);
-    private TextControl     subCaption = new TextControl(textLayout, context);
+    private AutoSizeControl text = new AutoSizeControl();
+    private VerticalLayout  textLayout = new VerticalLayout();
+    private TextControl     caption = new TextControl();
+    private TextControl     subCaption = new TextControl();
 
-    private AutoSizeControl icon = new AutoSizeControl(this, context);
-    private ImageControl    iconImage = new ImageControl(icon, context);
+    private AutoSizeControl icon = new AutoSizeControl();
+    private ImageControl    iconImage = new ImageControl();
 
-    private AutoSizeControl arrow = new AutoSizeControl(this, context);
-    private ImageControl    arrowImage = new ImageControl(arrow, context);
+    private AutoSizeControl arrow = new AutoSizeControl();
+    private ImageControl    arrowImage = new ImageControl();
 
     private boolean pressed = false;
     private ClickCallback callback;
 
-    public ButtonControl(final Control parent, final Context context) {
-        super(parent, context);
+    public void initialize(final Control parent, final Context context) {
+        super.initialize(parent, context);
+
+        text.initialize(this, context);
+        icon.initialize(this, context);
+        arrow.initialize(this, context);
 
         final Theme theme = context.getTheme();
 
         caption.setFont(theme.fontCaption);
         subCaption.setFont(theme.fontSubcaption);
 
-        textLayout.addControl(caption);
-        textLayout.addControl(subCaption);
-
         text.setMatchParentHeight(true);
         text.setControl(textLayout);
 
         icon.setMatchParentHeight(true);
         icon.setControl(iconImage);
+
+        textLayout.addControl(caption);
+        textLayout.addControl(subCaption);
 
         arrow.setMatchParentHeight(true);
         arrowImage.setImage(theme.iconNext);

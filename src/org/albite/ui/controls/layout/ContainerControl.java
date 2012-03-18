@@ -8,7 +8,6 @@ package org.albite.ui.controls.layout;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.Control;
-import org.albite.ui.core.interfaces.Context;
 
 /**
  *
@@ -19,8 +18,17 @@ public abstract class ContainerControl extends Control {
     private Control selected = null;
     protected final Vector controls = new Vector();
 
-    public ContainerControl(final Control parent, final Context context) {
-        super(parent, context);
+    protected void addControl(Control control) {
+        if (control == this) {
+            throw new IllegalArgumentException(
+                    "Must never add a component as it's child");
+        }
+        control.initialize(this, context);
+        controls.addElement(control);
+    }
+
+    protected void removeControl(Control control) {
+        controls.removeElement(control);
     }
 
     /**

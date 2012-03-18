@@ -24,23 +24,19 @@ public abstract class Control
     protected boolean enabled = true;
 
     protected Control parent;
-    protected final Context context;
-
-    public Control(final Control parent, final Context context) {
-        this.parent = parent;
-        this.context = context;
-    }
+    protected Context context;
 
     public final Control getParent() {
         return parent;
     }
 
-    public final void setParent(final Control parent) {
-        this.parent = parent;
+    public final Context getContext() {
+        return context;
     }
 
-    public Context getContext() {
-        return context;
+    public void initialize(final Control parent, final Context context) {
+        this.parent = parent;
+        this.context = context;
     }
 
     public boolean getEnabled() {

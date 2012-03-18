@@ -31,8 +31,8 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     Activity activity;
     Screen screen;
-    VerticalScrollLayout scroll;
-    VerticalLayout list;
+    VerticalScrollLayout scroll = new VerticalScrollLayout();
+    VerticalLayout list = new VerticalLayout();
     Vector buttons = new Vector();
 
     protected void startApp() throws MIDletStateChangeException {
@@ -42,10 +42,11 @@ public class AlbiteUIMIDlet extends MIDlet {
 
         screen = new Screen("Albite READER", activity);
 
-        scroll = new VerticalScrollLayout(screen, activity);
+        /*
+         * Always call setControl / addControl from parent to children
+         * as it initializes the connections.
+         */
         screen.setControl(scroll);
-
-        list = new VerticalLayout(scroll, activity);
         scroll.setControl(list);
 
         final Theme theme = activity.getTheme();
@@ -85,12 +86,18 @@ public class AlbiteUIMIDlet extends MIDlet {
     };
 
     private void addButton(String caption, String subCaption, Image icon) {
-        ButtonControl button = new ButtonControl(list, activity);
+        ButtonControl button = new ButtonControl();
+        list.addControl(button);
+
+        /*
+         * Don't call any methods on a control if it hasn't been added
+         * to a parent of some kind or it's parent and context fields
+         * wouldn't be initialized.
+         */
         button.setCaption(caption);
         button.setSubCaption(subCaption);
         button.setIcon(icon);
         button.setCallback(onClick);
-        list.addControl(button);
         buttons.addElement(button);
     }
 }

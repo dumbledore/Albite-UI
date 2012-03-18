@@ -8,7 +8,6 @@ package org.albite.ui.controls;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import org.albite.font.Font;
-import org.albite.ui.core.interfaces.Context;
 
 /**
  *
@@ -20,10 +19,6 @@ public class TextControl extends Control {
     Line[] lines;
     Font font;
     int color = 0x0;
-
-    public TextControl(final Control parent, final Context context) {
-        super(parent, context);
-    }
 
     public final void recompileMetrics(final boolean downTree) {
         if (text == null) {

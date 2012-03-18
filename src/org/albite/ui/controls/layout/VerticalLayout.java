@@ -6,17 +6,12 @@
 package org.albite.ui.controls.layout;
 
 import org.albite.ui.controls.Control;
-import org.albite.ui.core.interfaces.Context;
 
 /**
  *
  * @author albus
  */
 public class VerticalLayout extends LayoutControl {
-
-    public VerticalLayout(final Control parent, final Context context) {
-        super(parent, context);
-    }
 
     public void recompileMetricsFromParent(final boolean downTree) {
         setWidth(parent.getWidth());
