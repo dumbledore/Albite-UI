@@ -49,12 +49,12 @@ public final class AutoSizeControl extends AdapterControl {
         this.minWidth = minWidth;
     }
 
-    public final void setMinHeight(final int minHeight) {
-        this.minHeight = minHeight;
-    }
-
     public final void setMaxWidth(final int maxWidth) {
         this.maxWidth = maxWidth;
+    }
+
+    public final void setMinHeight(final int minHeight) {
+        this.minHeight = minHeight;
     }
 
     public final void setMaxHeight(final int maxHeight) {

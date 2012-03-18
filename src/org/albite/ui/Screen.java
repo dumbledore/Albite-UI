@@ -10,6 +10,7 @@ import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AdapterControl;
 import org.albite.ui.controls.layout.ContainerControl;
+import org.albite.ui.controls.layout.ScreenMenu;
 import org.albite.ui.core.interfaces.Context;
 
 /**
@@ -20,6 +21,7 @@ public class Screen extends ContainerControl {
 
     private final ImageControl background = new ImageControl();
     private final AdapterControl adapter = new AdapterControl();
+    private final ScreenMenu menu = new ScreenMenu();
 
     public Screen(final String title, final Context context) {
         this.context = context;
@@ -30,12 +32,19 @@ public class Screen extends ContainerControl {
         background.setWidth(context.getWidth());
         background.setHeight(context.getHeight());
 
-        //TODO: Add title control
-
-        //Add a place for the control
+        /*
+         * Title: TODO
+         */
+        
+        /*
+         * Content
+         */
         addControl(adapter);
-        adapter.setWidth(context.getWidth());
-        adapter.setHeight(context.getHeight());
+
+        /*
+         * Menu
+         */
+        addControl(menu);
     }
 
     public int getWidth() {
@@ -46,8 +55,33 @@ public class Screen extends ContainerControl {
         return context.getHeight();
     }
 
+    public void recompileMetricsFromParent(boolean downTree) {
+        if (downTree) {
+            menu.invalidateDown();
+        }
+
+        /*
+         * Set Title
+         */
+
+        /*
+         * Set content
+         */
+        adapter.setWidth(getWidth());
+        adapter.setHeight(getHeight() - menu.getHeight());
+
+        /*
+         * Set menu
+         */
+        menu.setY(adapter.getY() + adapter.getHeight());
+    }
+
     public void setControl(final Control control) {
         adapter.setControl(control);
+    }
+
+    public ScreenMenu getMenu() {
+        return menu;
     }
 
     public void dump(final int level) {

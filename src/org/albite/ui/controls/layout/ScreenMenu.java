@@ -17,7 +17,20 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class ScreenMenu extends ContainerControl {
+public class ScreenMenu extends LayoutControl {
+
+    public void addControl(final Control control) {
+        if (!(control instanceof MenuButton)) {
+            throw new IllegalArgumentException("Only MenuButton controls "
+                    + "can be added to ScreenMenu");
+        }
+
+        super.addControl(control);
+    }
+
+    public int getWidth() {
+        return parent.getWidth();
+    }
 
     public void recompileMetricsFromParent(final boolean downTree) {
         if (controls.isEmpty()) {
@@ -29,10 +42,11 @@ public class ScreenMenu extends ContainerControl {
         final int buttonWidthRemainder = getWidth() % controls.size();
 
         Control control;
-        for (int i = 0, x = 0; i < size - 1; i++, x += buttonWidth) {
+        for (int i = 0, x = 0; i < size; i++, x += buttonWidth) {
             control = (MenuButton) controls.elementAt(i);
-            control.setWidth(buttonWidth);
             control.setX(x);
+            control.setWidth(buttonWidth);
+            control.setHeight(0); //reset min/max height
         }
 
         /*
@@ -54,10 +68,10 @@ public class ScreenMenu extends ContainerControl {
         }
 
         final Theme theme = context.getTheme();
-        final int minHeight = theme.menuButtonsHeight;
+        final int minHeight = theme.menuButtonsMinimumHeight;
 
         height = Math.max(minHeight, height);
-        height += 2 * theme.listElementMinimumHeight;
+        height += 2 * theme.menuButtonsPadding;
 
         setHeight(height);
 
@@ -66,6 +80,7 @@ public class ScreenMenu extends ContainerControl {
          */
         for (int i = 0; i < size; i++) {
             control = (Control) controls.elementAt(i);
+            control.setHeight(height);
             control.recompileMetrics(false);
         }
     }
@@ -141,22 +156,6 @@ public class ScreenMenu extends ContainerControl {
             g.fillRect(x, y + getHeight() - 1, getWidth(), 1);
         }
 
-        public int getX() {
-            return control.getX();
-        }
-
-        public void setX(int x) {
-            control.setX(x);
-        }
-
-        public int getY() {
-            return control.getY();
-        }
-
-        public void setY(int y) {
-            control.setY(y);
-        }
-
         public int getWidth() {
             return control.getWidth();
         }
@@ -183,11 +182,7 @@ public class ScreenMenu extends ContainerControl {
             control.recompileMetrics(downTree);
         }
 
-        public boolean contains(final int x, final int y) {
-            return control.contains(x, y);
-        }
-
-        public void dump(final int level) {
+        public void dump(int level) {
             super.dump(level);
             control.dump(level + 1);
         }

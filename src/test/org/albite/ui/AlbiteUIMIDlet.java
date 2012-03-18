@@ -15,6 +15,7 @@ import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.Screen;
 import org.albite.ui.controls.ButtonControl;
+import org.albite.ui.controls.layout.ScreenMenu.MenuButton;
 import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.core.callbacks.ClickCallback;
@@ -31,6 +32,7 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     Activity activity;
     Screen screen;
+    
     VerticalScrollLayout scroll = new VerticalScrollLayout();
     VerticalLayout list = new VerticalLayout();
     Vector buttons = new Vector();
@@ -38,9 +40,18 @@ public class AlbiteUIMIDlet extends MIDlet {
     protected void startApp() throws MIDletStateChangeException {
 
         activity = new Activity();
-        activity.setTheme(Theme.getDayTheme(activity));
+
+        final Theme theme = Theme.getDayTheme(activity);
+
+        activity.setTheme(theme);
 
         screen = new Screen("Albite READER", activity);
+
+        /*
+         * Add menu buttons
+         */
+        addMenuButton(theme.iconBook);
+        addMenuButton(theme.iconBook);
 
         /*
          * Always call setControl / addControl from parent to children
@@ -49,25 +60,23 @@ public class AlbiteUIMIDlet extends MIDlet {
         screen.setControl(scroll);
         scroll.setControl(list);
 
-        final Theme theme = activity.getTheme();
-
-        addButton("Books", "Search for books", theme.iconBook);
-        addButton("Authors", "Search for authors", theme.iconBook);
-        addButton("Albite READER",
+        addListButton("Books", "Search for books", theme.iconBook);
+        addListButton("Authors", "Search for authors", theme.iconBook);
+        addListButton("Albite READER",
                 "Download an e-book reader for Java Mobile", theme.iconBook);
-        addButton("Beatrix Potter", null, theme.iconBook);
-        addButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
-        addButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
-        addButton(null, null, null);
-        addButton(null, "Subcaption", null);
-        addButton("Caption", "Subcaption", null);
+        addListButton("Beatrix Potter", null, theme.iconBook);
+        addListButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
+        addListButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
+        addListButton(null, null, null);
+        addListButton(null, "Subcaption", null);
+        addListButton("Caption", "Subcaption", null);
 
-        addButton("Beatrix Potter", null, theme.iconBook);
-        addButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
-        addButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
-        addButton(null, null, null);
-        addButton(null, "Subcaption", null);
-        addButton("Caption", "Subcaption", null);
+        addListButton("Beatrix Potter", null, theme.iconBook);
+        addListButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
+        addListButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
+        addListButton(null, null, null);
+        addListButton(null, "Subcaption", null);
+        addListButton("Caption", "Subcaption", null);
 
         screen.invalidateDown();
 //        screen.dump();
@@ -77,7 +86,7 @@ public class AlbiteUIMIDlet extends MIDlet {
         Display.getDisplay(this).setCurrent(activity);
     }
 
-    final ClickCallback onClick = new ClickCallback() {
+    final private ClickCallback listButtonOnClick = new ClickCallback() {
         public void clicked(Control control) {
             ButtonControl button = (ButtonControl) control;
             button.setSubCaption((char[]) null);
@@ -85,7 +94,13 @@ public class AlbiteUIMIDlet extends MIDlet {
         }
     };
 
-    private void addButton(String caption, String subCaption, Image icon) {
+    final private ClickCallback menuButtonOnClick = new ClickCallback() {
+        public void clicked(Control control) {
+            System.out.println("Clicked @ " + control);
+        }
+    };
+
+    private void addListButton(String caption, String subCaption, Image icon) {
         ButtonControl button = new ButtonControl();
         list.addControl(button);
 
@@ -97,7 +112,15 @@ public class AlbiteUIMIDlet extends MIDlet {
         button.setCaption(caption);
         button.setSubCaption(subCaption);
         button.setIcon(icon);
-        button.setCallback(onClick);
+        button.setCallback(listButtonOnClick);
         buttons.addElement(button);
+    }
+
+    private void addMenuButton(Image icon) {
+        MenuButton button = new MenuButton();
+        screen.getMenu().addControl(button);
+
+        button.setCallback(menuButtonOnClick);
+        button.setIcon(icon);
     }
 }

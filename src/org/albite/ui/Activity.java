@@ -86,6 +86,7 @@ public final class Activity
     }
 
     protected void paint(Graphics g) {
+        g.setClip(0, 0, getWidth(), getHeight());
         getCurrentScreen().drawRelative(g, 0, 0);
     }
 

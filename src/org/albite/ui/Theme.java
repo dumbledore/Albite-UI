@@ -27,7 +27,8 @@ public class Theme {
 
     public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
 
-    public static final int DEFAULT_MENU_BUTTONS_HEIGHT = 30;
+    public static final int DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT = 20;
+    public static final int DEFAULT_MENU_BUTTONS_PADDING = 5;
 
     public int colorBackground;
     public int colorText;
@@ -55,7 +56,8 @@ public class Theme {
 
     public int sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
 
-    public int menuButtonsHeight = DEFAULT_MENU_BUTTONS_HEIGHT;
+    public int menuButtonsMinimumHeight = DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT;
+    public int menuButtonsPadding = DEFAULT_MENU_BUTTONS_PADDING;
 
     protected void setup() {}
 

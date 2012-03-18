@@ -126,6 +126,7 @@ public abstract class Control
     }
 
     public void drawRelative(final Graphics g, final int x, final int y) {
+//        System.out.println("Drawing `" + this + "` at (" + (this.x + x) + ", " + (this.y + y) + ")");
         draw(g, this.x + x, this.y + y);
     }
 
