@@ -88,6 +88,7 @@ public final class Activity
              * Exit the application
              */
             midlet.notifyDestroyed();
+            return;
         }
 
         screenStack.removeElementAt(screenStack.size() - 1);
