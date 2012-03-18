@@ -139,7 +139,13 @@ public class ScreenMenu extends LayoutControl {
             lostFocus();
         }
 
-        public void draw(Graphics g, final int x, final int y) {
+        public void draw(Graphics g,
+                final int x, final int y, final int zOrder) {
+
+            if (zOrder > 0) {
+                return;
+            }
+
             final Theme theme = context.getTheme();
 
             g.setColor(pressed ? theme.colorButtonPressed : theme.colorButtonNormal);
@@ -150,7 +156,7 @@ public class ScreenMenu extends LayoutControl {
                 g.fillRect(x, y, getWidth(), 5);
             }
 
-            control.drawRelative(g, x, y);
+            control.drawRelative(g, x, y, 0);
 
             g.setColor(theme.colorButtonBorder);
             g.fillRect(x, y + getHeight() - 1, getWidth(), 1);

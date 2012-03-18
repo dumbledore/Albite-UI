@@ -96,9 +96,9 @@ public class VerticalScrollLayout extends AdapterControl {
         update(0);
     }
 
-    public void draw(final Graphics g, final int x, final int y) {
-        control.drawRelative(g, x, y);
-        bar.drawRelative(g, x, y);
+    public void draw(Graphics g, int x, int y, int zOrder) {
+        control.drawRelative(g, x, y, zOrder);
+        bar.drawRelative(g, x, y, zOrder);
     }
 
     private class VerticalScrollBar extends Control {
@@ -157,7 +157,9 @@ public class VerticalScrollLayout extends AdapterControl {
             }
         }
 
-        protected void draw(Graphics g, int x, int y) {
+        protected void draw(final Graphics g,
+                final int x, final int y, final int zOrder) {
+
             if (isActive) {
                 int y_ = (int) (positionInterpolate * control.getY());
                 y_ = Math.max(y_, 0);

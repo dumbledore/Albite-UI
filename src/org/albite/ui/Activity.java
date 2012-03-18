@@ -87,7 +87,11 @@ public final class Activity
 
     protected void paint(Graphics g) {
         g.setClip(0, 0, getWidth(), getHeight());
-        getCurrentScreen().drawRelative(g, 0, 0);
+
+        /*
+         * Draw the first layer
+         */
+        getCurrentScreen().drawRelative(g, 0, 0, 0);
     }
 
     protected void pointerPressed(final int x, final int y) {

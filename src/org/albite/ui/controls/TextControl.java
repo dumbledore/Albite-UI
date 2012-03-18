@@ -70,8 +70,8 @@ public class TextControl extends Control {
         this.font = font;
     }
 
-    protected void draw(Graphics g, int x, int y) {
-        if (lines == null) {
+    protected void draw(Graphics g, int x, int y, int zOrder) {
+        if (zOrder > 0 || lines == null) {
             return;
         }
 

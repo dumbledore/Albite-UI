@@ -89,8 +89,10 @@ public class Screen extends ContainerControl {
         background.dump(level + 1);
     }
 
-    public void draw(final Graphics g, final int x, final int y) {
-        background.drawRelative(g, x, y);
-        super.draw(g, x, y);
+    public void draw(final Graphics g, 
+            final int x, final int y, final int zOrder) {
+        
+        background.drawRelative(g, x, y, zOrder);
+        super.draw(g, x, y, zOrder);
     }
 }

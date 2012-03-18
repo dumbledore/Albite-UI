@@ -126,7 +126,13 @@ public class ButtonControl extends Control {
         this.callback = callback;
     }
 
-    public void draw(Graphics g, final int x, final int y) {
+    public void draw(Graphics g,
+            final int x, final int y, final int zOrder) {
+
+        if (zOrder > 0) {
+            return;
+        }
+
         final Theme theme = context.getTheme();
 
         g.setColor(pressed ? theme.colorButtonPressed : theme.colorButtonNormal);
@@ -137,9 +143,9 @@ public class ButtonControl extends Control {
             g.fillRect(x, y, getWidth(), 5);
         }
         
-        icon.drawRelative(g, x, y);
-        text.drawRelative(g, x, y);
-        arrow.drawRelative(g, x, y);
+        icon.drawRelative(g, x, y, 0);
+        text.drawRelative(g, x, y, 0);
+        arrow.drawRelative(g, x, y, 0);
 
         g.setColor(theme.colorButtonBorder);
         g.fillRect(x, y + getHeight() - 1, getWidth(), 1);

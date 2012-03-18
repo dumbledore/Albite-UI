@@ -62,11 +62,14 @@ public abstract class ContainerControl extends Control {
     public void recompileMetricsFromParent(boolean downTree) {}
     public void recompileMetricsFromChildren(boolean downTree) {}
 
-    public void draw(final Graphics g, final int x, final int y) {
+    public void draw(final Graphics g,
+            final int x, final int y, final int zOrder) {
+
         final int size = controls.size();
+
         for (int i = 0; i < size; i++) {
             Control control = (Control) controls.elementAt(i);
-            control.drawRelative(g, x, y);
+            control.drawRelative(g, x, y, zOrder);
         }
     }
 

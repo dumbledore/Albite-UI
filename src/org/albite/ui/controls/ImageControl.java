@@ -31,8 +31,8 @@ public class ImageControl extends Control {
         this.repeat = repeat;
     }
 
-    protected void draw(Graphics g, int x, int y) {
-        if (image == null) {
+    protected void draw(Graphics g, int x, int y, int zOrder) {
+        if (zOrder > 0 || image == null) {
             return;
         }
 

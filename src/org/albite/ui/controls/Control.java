@@ -125,12 +125,13 @@ public abstract class Control
                 y_ <= y && y <= y_ + h_;
     }
 
-    public void drawRelative(final Graphics g, final int x, final int y) {
-//        System.out.println("Drawing `" + this + "` at (" + (this.x + x) + ", " + (this.y + y) + ")");
-        draw(g, this.x + x, this.y + y);
+    public void drawRelative(final Graphics g,
+            final int x, final int y, final int zOrder) {
+
+        draw(g, this.x + x, this.y + y, zOrder);
     }
 
-    protected abstract void draw(Graphics g, int x, int y);
+    protected abstract void draw(Graphics g, int x, int y, int zOrder);
 
     protected final void requestDraw(final boolean forced) {
         context.redraw(forced);

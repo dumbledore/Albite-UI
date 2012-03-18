@@ -13,6 +13,6 @@ import javax.microedition.lcdui.Graphics;
  */
 public class SectionControl extends Control {
 
-    protected void draw(Graphics g, int x, int y) {
+    protected void draw(Graphics g, int x, int y, int zOrder) {
     }
 }

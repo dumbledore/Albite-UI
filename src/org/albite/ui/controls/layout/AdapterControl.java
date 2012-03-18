@@ -36,8 +36,8 @@ public class AdapterControl extends Control {
         control.invalidateDown();
     }
 
-    public void draw(final Graphics g, final int x, final int y) {
-        control.drawRelative(g, x, y);
+    public void draw(Graphics g, int x, int y, int zOrder) {
+        control.drawRelative(g, x, y, zOrder);
     }
 
     public void pressed(int x, int y) {
