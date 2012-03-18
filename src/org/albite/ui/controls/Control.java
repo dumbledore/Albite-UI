@@ -23,7 +23,7 @@ public abstract class Control
 
     protected boolean enabled = true;
 
-    protected final Control parent;
+    protected Control parent;
     protected final Context context;
 
     public Control(final Control parent, final Context context) {
@@ -33,6 +33,10 @@ public abstract class Control
 
     public final Control getParent() {
         return parent;
+    }
+
+    public final void setParent(final Control parent) {
+        this.parent = parent;
     }
 
     public Context getContext() {
