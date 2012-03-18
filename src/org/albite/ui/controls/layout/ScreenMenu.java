@@ -107,6 +107,18 @@ public class ScreenMenu extends LayoutControl {
         }
     }
 
+    public final void addBackMenuButon() {
+        MenuButton button = new MenuButton();
+        addControl(button);
+
+        button.setCallback(new ClickCallback() {
+            public void clicked(Control control) {
+                context.setPreviousScreen();
+            }
+        });
+        button.setIcon(context.getTheme().iconMenuBack);
+    }
+
     public static final class MenuButton extends Control {
         final AutoSizeControl control = new AutoSizeControl();
         final ImageControl iconImage = new ImageControl();

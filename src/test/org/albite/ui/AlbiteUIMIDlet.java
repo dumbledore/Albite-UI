@@ -50,7 +50,7 @@ public class AlbiteUIMIDlet extends MIDlet {
         /*
          * Add menu buttons
          */
-        addMenuButton(theme.iconMenuBack);
+        screen.getMenu().addBackMenuButon();
         addMenuButton(theme.iconMenuSearch);
         addMenuButton(theme.iconMenuMore);
 
