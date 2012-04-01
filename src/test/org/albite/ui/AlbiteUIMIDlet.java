@@ -17,7 +17,7 @@ import org.albite.ui.Screen;
 import org.albite.ui.controls.layout.ScreenMenu.MenuButton;
 import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
-import org.albite.ui.controls.screen.ButtonControl;
+import org.albite.ui.controls.screen.ScreenButton;
 import org.albite.ui.core.callbacks.ClickCallback;
 
 /**
@@ -89,7 +89,7 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     final private ClickCallback listButtonOnClick = new ClickCallback() {
         public void clicked(Control control) {
-            ButtonControl button = (ButtonControl) control;
+            ScreenButton button = (ScreenButton) control;
             button.setSubCaption((char[]) null);
             button.invalidateUp();
         }
@@ -102,7 +102,7 @@ public class AlbiteUIMIDlet extends MIDlet {
     };
 
     private void addListButton(String caption, String subCaption, Image icon) {
-        ButtonControl button = new ButtonControl();
+        ScreenButton button = new ScreenButton();
         list.addControl(button);
 
         /*

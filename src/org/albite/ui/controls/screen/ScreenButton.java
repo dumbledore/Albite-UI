@@ -20,7 +20,7 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class ButtonControl extends Control {
+public class ScreenButton extends Control {
 
     private AutoSizeControl text = new AutoSizeControl();
     private VerticalLayout  textLayout = new VerticalLayout();
