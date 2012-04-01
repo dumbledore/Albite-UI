@@ -27,9 +27,7 @@ public class Theme {
     public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
     public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
 
-    public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
-
-    public static final int DEFAULT_TEXT_PADDING = 10;
+    public static final int DEFAULT_SECTION_STIPE_HEIGHT = 5;
 
     public static final int DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT = 20;
     public static final int DEFAULT_MENU_BUTTONS_PADDING = 10;
@@ -41,7 +39,8 @@ public class Theme {
     public int colorButtonNormal;
     public int colorButtonNormalShine;
     public int colorButtonPressed;
-    public int colorButtonBorder;
+
+    public int colorListElementBorder;
 
     public int colorMenuButtonNormal;
     public int colorMenuButtonPressed;
@@ -49,6 +48,7 @@ public class Theme {
     public Image imageBackground;
 
     public Image imageMenuBarShadow;
+    public Image imageScreenSectionShadow;
 
     public Image iconMenuBack;
     public Image iconMenuMore;
@@ -69,9 +69,7 @@ public class Theme {
     public int buttonIconWidth = DEFAULT_BUTTON_ICON_WIDTH;
     public int buttonArrowWidth = DEFAULT_BUTTON_ARROW_WIDTH;
 
-    public int sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
-
-    public int textPadding = DEFAULT_TEXT_PADDING;
+    public int sectionStripeHeight = DEFAULT_SECTION_STIPE_HEIGHT;
 
     public int menuButtonsMinimumHeight = DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT;
     public int menuButtonsPadding = DEFAULT_MENU_BUTTONS_PADDING;
@@ -92,13 +90,15 @@ public class Theme {
                     colorButtonNormal = 0xF5F3F3;
                     colorButtonNormalShine = 0xFFFFFF;
                     colorButtonPressed = 0xA9D2EC;
-                    colorButtonBorder = 0xADAAAD;
+
+                    colorListElementBorder = 0xADAAAD;
 
                     colorMenuButtonNormal = 0x454545;
                     colorMenuButtonPressed = colorButtonPressed;
 
                     imageBackground = context.getImage("ui/background-day.png");
                     imageMenuBarShadow = context.getImage("ui/menu/shadow-day.png");
+                    imageScreenSectionShadow = context.getImage("ui/list/small-shadow-day.png");
 
                     iconMenuBack = context.getImage("ui/menu/back-day.png");
                     iconMenuMore = context.getImage("ui/menu/more-day.png");

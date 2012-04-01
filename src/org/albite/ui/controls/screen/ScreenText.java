@@ -33,7 +33,7 @@ public final class ScreenText extends ScreenControl {
 
     public final void recompileMetrics(final boolean downTree) {
         final Theme theme = context.getTheme();
-        final int padding = 2 * theme.textPadding;
+        final int padding = 2 * theme.listElementPadding;
 
         final int width = parent.getWidth() - padding;
 

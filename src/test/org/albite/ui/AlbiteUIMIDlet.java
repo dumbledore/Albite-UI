@@ -14,10 +14,11 @@ import org.albite.ui.Activity;
 import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.Screen;
-import org.albite.ui.controls.layout.ScreenMenu.MenuButton;
+import org.albite.ui.controls.screen.ScreenMenu.MenuButton;
 import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.controls.screen.ScreenButton;
+import org.albite.ui.controls.screen.ScreenSection;
 import org.albite.ui.controls.screen.ScreenText;
 import org.albite.ui.core.callbacks.ClickCallback;
 
@@ -62,13 +63,18 @@ public class AlbiteUIMIDlet extends MIDlet {
         screen.setControl(scroll);
         scroll.setControl(list);
 
+        addSection("Albite Books");
         addListButton("Books", "Search for books", theme.iconBook);
         addListButton("Authors", "Search for authors", theme.iconBook);
-        addListButton("Albite READER",
-                "Download an e-book reader for Java Mobile", theme.iconBook);
+
+        addSection("E-book reader for Java Mobile?");
         addText("If you don't have an e-book reader on your Java Mobile phone, "
                 + "click on the download button and get one!");
+        addListButton("Albite READER",
+                "Download an e-book reader for Java Mobile", theme.iconBook);
         addListButton("Beatrix Potter", null, theme.iconBook);
+
+        addSection("Free e-books?");
         addListButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
         addListButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
         addListButton(null, null, null);
@@ -122,6 +128,13 @@ public class AlbiteUIMIDlet extends MIDlet {
 
     private void addText(String text) {
         ScreenText control = new ScreenText();
+        list.addControl(control);
+
+        control.setText(text);
+    }
+
+    private void addSection(String text) {
+        ScreenSection control = new ScreenSection();
         list.addControl(control);
 
         control.setText(text);

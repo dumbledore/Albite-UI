@@ -10,7 +10,7 @@ import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AdapterControl;
 import org.albite.ui.controls.layout.ContainerControl;
-import org.albite.ui.controls.layout.ScreenMenu;
+import org.albite.ui.controls.screen.ScreenMenu;
 import org.albite.ui.core.interfaces.Context;
 
 /**

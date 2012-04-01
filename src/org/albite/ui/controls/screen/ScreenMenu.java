@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.layout;
+package org.albite.ui.controls.screen;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
+import org.albite.ui.controls.layout.AutoSizeControl;
+import org.albite.ui.controls.layout.LayoutControl;
 import org.albite.ui.core.callbacks.ClickCallback;
 import org.albite.ui.core.interfaces.Context;
 

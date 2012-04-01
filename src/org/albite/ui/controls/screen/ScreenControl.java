@@ -17,7 +17,7 @@ public abstract class ScreenControl extends Control {
     protected final void drawBorder(Graphics g, int x, int y) {
         final Theme theme = context.getTheme();
 
-        g.setColor(theme.colorButtonBorder);
+        g.setColor(theme.colorListElementBorder);
         g.fillRect(
                 x, y + getHeight() - theme.listElementBorder,
                 getWidth(), theme.listElementBorder);

@@ -101,6 +101,11 @@ public final class Activity
          * Draw the first layer
          */
         getCurrentScreen().drawRelative(g, 0, 0, 0);
+
+        /*
+         * Draw the second layer
+         */
+        getCurrentScreen().drawRelative(g, 0, 0, 1);
     }
 
     protected void pointerPressed(final int x, final int y) {
