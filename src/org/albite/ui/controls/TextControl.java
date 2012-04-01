@@ -57,6 +57,10 @@ public class TextControl extends Control {
             return;
         }
 
+        if (font == null) {
+            throw new IllegalStateException("Font hasn't been set yet!");
+        }
+
         this.text = text;
         lines = new Line[] {new Line(0, text.length)}; //force it to 1 line
         setHeight(font.getLineHeight());
