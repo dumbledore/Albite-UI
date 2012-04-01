@@ -13,7 +13,7 @@ import org.albite.font.Font;
  *
  * @author albus
  */
-public class TextControl extends Control {
+public final class TextControl extends Control {
 
     char[] text;
     Line[] lines;
@@ -85,11 +85,12 @@ public class TextControl extends Control {
         final int h = context.getHeight();
 
         for (int i = 0; i < lines.length; i++) {
-            if (-fontHeight <= y && y < h) {
+            if (-fontHeight <= y && y <= h) {
                 line = lines[i];
                 font.drawChars(g, color, x, y, text, line.position, line.length);
-                y += fontHeight;
             }
+
+            y += fontHeight;
         }
     }
 
