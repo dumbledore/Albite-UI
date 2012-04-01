@@ -31,6 +31,10 @@ public abstract class ContainerControl extends Control {
         controls.removeElement(control);
     }
 
+    protected Control getSelected() {
+        return selected;
+    }
+
     /**
      * NOTE:
      * invalidateDown actually makes it go through the children twice!
@@ -114,10 +118,6 @@ public abstract class ContainerControl extends Control {
             }
         }
         return null;
-    }
-
-    public final Control getSelected() {
-        return selected;
     }
 
     public void dump(final int level) {

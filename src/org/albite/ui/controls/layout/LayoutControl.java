@@ -9,7 +9,7 @@ import org.albite.ui.controls.Control;
 
 /**
  * This class exports the add/remove functionality in the
- * public interface.
+ * public interface and access to the selected element.
  *
  * @author albus
  */
@@ -20,5 +20,9 @@ public class LayoutControl extends ContainerControl {
 
     public void removeControl(Control control) {
         super.removeControl(control);
+    }
+
+    public final Control getSelected() {
+        return super.getSelected();
     }
 }
