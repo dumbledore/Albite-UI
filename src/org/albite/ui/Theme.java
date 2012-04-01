@@ -20,14 +20,16 @@ public class Theme {
      */
     public static final int DEFAULT_LIST_ELEMENT_MINIMUM_HEIGHT = 26;
     public static final int DEFAULT_LIST_ELEMENT_PADDING = 10;
+    public static final int DEFAULT_LIST_ELEMENT_BORDER = 1;
 
     public static final int DEFAULT_BUTTON_MINIMUM_HEIGHT = 30;
     public static final int DEFAULT_BUTTON_SHINE_HEIGHT = 5;
-    public static final int DEFAULT_BUTTON_BORDER_HEIGHT = 1;
     public static final int DEFAULT_BUTTON_ICON_WIDTH = 44;
     public static final int DEFAULT_BUTTON_ARROW_WIDTH = 44;
 
     public static final int DEFAULT_SECTION_LINE_HEIGHT = 10;
+
+    public static final int DEFAULT_TEXT_PADDING = 10;
 
     public static final int DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT = 20;
     public static final int DEFAULT_MENU_BUTTONS_PADDING = 10;
@@ -63,11 +65,13 @@ public class Theme {
 
     public int buttonMinimumHeight = DEFAULT_BUTTON_MINIMUM_HEIGHT;
     public int buttonShineHeight = DEFAULT_BUTTON_SHINE_HEIGHT;
-    public int buttonBorderHeight = DEFAULT_BUTTON_BORDER_HEIGHT;
+    public int listElementBorder = DEFAULT_LIST_ELEMENT_BORDER;
     public int buttonIconWidth = DEFAULT_BUTTON_ICON_WIDTH;
     public int buttonArrowWidth = DEFAULT_BUTTON_ARROW_WIDTH;
 
     public int sectionLineHeight = DEFAULT_SECTION_LINE_HEIGHT;
+
+    public int textPadding = DEFAULT_TEXT_PADDING;
 
     public int menuButtonsMinimumHeight = DEFAULT_MENU_BUTTONS_MINIMUM_HEIGHT;
     public int menuButtonsPadding = DEFAULT_MENU_BUTTONS_PADDING;
@@ -81,7 +85,7 @@ public class Theme {
         if (DAY_THEME == null) {
             DAY_THEME = new Theme() {
                 protected void setup() {
-                    colorBackground = 0xFFFFFF;
+                    colorBackground = 0xF5F3F3;
                     colorText = 0x0;
                     colorAccent = 0x1483CC;
 

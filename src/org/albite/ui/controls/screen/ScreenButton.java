@@ -20,7 +20,7 @@ import org.albite.ui.core.interfaces.Context;
  *
  * @author albus
  */
-public class ScreenButton extends Control {
+public final class ScreenButton extends ScreenControl {
 
     private AutoSizeControl text = new AutoSizeControl();
     private VerticalLayout  textLayout = new VerticalLayout();
@@ -72,16 +72,13 @@ public class ScreenButton extends Control {
         final int arrowWidth = theme.buttonArrowWidth;
         final int textWidth = getWidth() - (iconWidth + arrowWidth);
 
-        icon.setMinWidth(iconWidth);
-        icon.setMaxWidth(iconWidth);
+        icon.setWidth(iconWidth);
         icon.setX(0);
 
-        text.setMinWidth(textWidth);
-        text.setMaxWidth(textWidth);
+        text.setWidth(textWidth);
         text.setX(iconWidth);
 
-        arrow.setMinWidth(arrowWidth);
-        arrow.setMaxWidth(arrowWidth);
+        arrow.setWidth(arrowWidth);
         arrow.setX(iconWidth + textWidth);
 
         icon.invalidateDown();
@@ -93,7 +90,7 @@ public class ScreenButton extends Control {
                 textLayout.getHeight());
 
         height = Math.max(minHeight, height);
-        height += 2 * theme.listElementPadding + 2; /* padding + border */
+        height += 2 * theme.listElementPadding + theme.listElementBorder;
 
         setHeight(height);
 
@@ -103,6 +100,12 @@ public class ScreenButton extends Control {
         icon.recompileMetrics(false);
         text.recompileMetrics(false);
         arrow.recompileMetrics(false);
+
+        /*
+         * Don't forget to set the color of the text elements.
+         */
+        caption.setColor(theme.colorText);
+        subCaption.setColor(theme.colorText);
     }
 
     public final void setCaption(final String text) {
@@ -150,10 +153,7 @@ public class ScreenButton extends Control {
         text.drawRelative(g, x, y, 0);
         arrow.drawRelative(g, x, y, 0);
 
-        g.setColor(theme.colorButtonBorder);
-        g.fillRect(
-                x, y + getHeight() - theme.buttonBorderHeight,
-                getWidth(), theme.buttonBorderHeight);
+        drawBorder(g, x, y);
     }
 
     public boolean isFocusable() {

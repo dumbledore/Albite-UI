@@ -18,6 +18,7 @@ import org.albite.ui.controls.layout.ScreenMenu.MenuButton;
 import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.controls.screen.ScreenButton;
+import org.albite.ui.controls.screen.ScreenText;
 import org.albite.ui.core.callbacks.ClickCallback;
 
 /**
@@ -65,6 +66,8 @@ public class AlbiteUIMIDlet extends MIDlet {
         addListButton("Authors", "Search for authors", theme.iconBook);
         addListButton("Albite READER",
                 "Download an e-book reader for Java Mobile", theme.iconBook);
+        addText("If you don't have an e-book reader on your Java Mobile phone, "
+                + "click on the download button and get one!");
         addListButton("Beatrix Potter", null, theme.iconBook);
         addListButton("Sir Arthur Conan Doyle", "Return to authors", theme.iconBook);
         addListButton("The Voyage of Doctor Dolittle", "Return to Hugh Lofting", theme.iconBook);
@@ -115,6 +118,13 @@ public class AlbiteUIMIDlet extends MIDlet {
         button.setIcon(icon);
         button.setCallback(listButtonOnClick);
         buttons.addElement(button);
+    }
+
+    private void addText(String text) {
+        ScreenText control = new ScreenText();
+        list.addControl(control);
+
+        control.setText(text);
     }
 
     private void addMenuButton(Image icon) {
