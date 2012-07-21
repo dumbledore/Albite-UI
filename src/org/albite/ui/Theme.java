@@ -8,7 +8,7 @@ package org.albite.ui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
 import org.albite.font.NativeFont;
-import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.Context;
 
 /**
  *

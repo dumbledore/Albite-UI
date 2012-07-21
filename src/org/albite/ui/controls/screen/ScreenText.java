@@ -11,7 +11,7 @@ import org.albite.font.NativeFont;
 import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.TextControl;
-import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.Context;
 
 /**
  *

@@ -14,13 +14,13 @@ import org.albite.ui.Activity;
 import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.Screen;
+import org.albite.ui.controls.Control.ClickCallback;
 import org.albite.ui.controls.screen.ScreenMenu.MenuButton;
 import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.controls.screen.ScreenButton;
 import org.albite.ui.controls.screen.ScreenSection;
 import org.albite.ui.controls.screen.ScreenText;
-import org.albite.ui.core.callbacks.ClickCallback;
 
 /**
  *

@@ -13,7 +13,7 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.MIDlet;
-import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.Context;
 
 /**
  *

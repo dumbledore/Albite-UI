@@ -7,7 +7,7 @@ package org.albite.ui.controls.layout;
 
 import javax.microedition.lcdui.Graphics;
 import org.albite.ui.controls.Control;
-import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.Context;
 
 /**
  *

@@ -6,8 +6,8 @@
 package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
-import org.albite.ui.core.interfaces.Context;
-import org.albite.ui.core.interfaces.Touchable;
+import org.albite.ui.core.Context;
+import org.albite.ui.core.Touchable;
 
 /**
  *
@@ -151,5 +151,9 @@ public abstract class Control
 
     public final void dump() {
         dump(0);
+    }
+
+    public interface ClickCallback {
+        public void clicked(Control control);
     }
 }

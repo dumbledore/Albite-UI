@@ -11,7 +11,7 @@ import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AdapterControl;
 import org.albite.ui.controls.layout.ContainerControl;
 import org.albite.ui.controls.screen.ScreenMenu;
-import org.albite.ui.core.interfaces.Context;
+import org.albite.ui.core.Context;
 
 /**
  *
