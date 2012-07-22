@@ -8,7 +8,6 @@ package org.albite.ui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
 import org.albite.font.NativeFont;
-import org.albite.ui.core.Context;
 
 /**
  *
@@ -48,7 +47,7 @@ public class Theme {
     public Image imageBackground;
 
     public Image imageMenuBarShadow;
-    public Image imageScreenSectionShadow;
+    public Image imageActivitySectionShadow;
 
     public Image iconMenuBack;
     public Image iconMenuMore;
@@ -98,7 +97,7 @@ public class Theme {
 
                     imageBackground = context.getImage("ui/background-day.png");
                     imageMenuBarShadow = context.getImage("ui/menu/shadow-day.png");
-                    imageScreenSectionShadow = context.getImage("ui/list/small-shadow-day.png");
+                    imageActivitySectionShadow = context.getImage("ui/list/small-shadow-day.png");
 
                     iconMenuBack = context.getImage("ui/menu/back-day.png");
                     iconMenuMore = context.getImage("ui/menu/more-day.png");
@@ -121,5 +120,9 @@ public class Theme {
             DAY_THEME.setup();
         }
         return DAY_THEME;
+    }
+
+    public interface Themable {
+        Theme getTheme();
     }
 }

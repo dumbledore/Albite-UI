@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.screen;
+package org.albite.ui.controls.activity;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -13,13 +13,13 @@ import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.TextControl;
 import org.albite.ui.controls.layout.AutoSizeControl;
 import org.albite.ui.controls.layout.VerticalLayout;
-import org.albite.ui.core.Context;
+import org.albite.ui.Context;
 
 /**
  *
  * @author albus
  */
-public final class ScreenButton extends ScreenControl {
+public final class Button extends ActivityControl {
 
     private AutoSizeControl text = new AutoSizeControl();
     private VerticalLayout  textLayout = new VerticalLayout();

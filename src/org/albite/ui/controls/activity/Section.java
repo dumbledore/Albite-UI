@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.screen;
+package org.albite.ui.controls.activity;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -13,13 +13,13 @@ import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.TextControl;
-import org.albite.ui.core.Context;
+import org.albite.ui.Context;
 
 /**
  *
  * @author albus
  */
-public class ScreenSection extends ScreenControl {
+public class Section extends ActivityControl {
 
     private static final org.albite.font.Font FONT =
             new NativeFont(Font.getFont(
@@ -35,7 +35,7 @@ public class ScreenSection extends ScreenControl {
         text.setFont(FONT);
 
         shadow.initialize(this, context);
-        shadow.setImage(context.getTheme().imageScreenSectionShadow);
+        shadow.setImage(context.getTheme().imageActivitySectionShadow);
         shadow.setRepeat(true);
     }
 

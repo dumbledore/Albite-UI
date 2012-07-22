@@ -6,8 +6,7 @@
 package org.albite.ui.controls;
 
 import javax.microedition.lcdui.Graphics;
-import org.albite.ui.core.Context;
-import org.albite.ui.core.Touchable;
+import org.albite.ui.Context;
 
 /**
  *

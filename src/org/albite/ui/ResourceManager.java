@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.core;
+package org.albite.ui;
 
 import java.io.InputStream;
 import javax.microedition.lcdui.Image;

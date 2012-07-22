@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.screen;
+package org.albite.ui.controls.activity;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -12,13 +12,13 @@ import org.albite.ui.controls.Control;
 import org.albite.ui.controls.ImageControl;
 import org.albite.ui.controls.layout.AutoSizeControl;
 import org.albite.ui.controls.layout.LayoutControl;
-import org.albite.ui.core.Context;
+import org.albite.ui.Context;
 
 /**
  *
  * @author albus
  */
-public class ScreenMenu extends LayoutControl {
+public class Menu extends LayoutControl {
 
     private final ImageControl shadow = new ImageControl();
 
@@ -35,7 +35,7 @@ public class ScreenMenu extends LayoutControl {
     public void addControl(final Control control) {
         if (!(control instanceof MenuButton)) {
             throw new IllegalArgumentException("Only MenuButton controls "
-                    + "can be added to ScreenMenu");
+                    + "can be added to the Menu");
         }
 
         super.addControl(control);
@@ -114,7 +114,7 @@ public class ScreenMenu extends LayoutControl {
 
         button.setCallback(new ClickCallback() {
             public void clicked(Control control) {
-                context.setPreviousScreen();
+                context.goToPreviousActivity();
             }
         });
         button.setIcon(context.getTheme().iconMenuBack);

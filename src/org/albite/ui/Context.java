@@ -3,14 +3,16 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.core;
+package org.albite.ui;
+
+import org.albite.ui.Theme.Themable;
 
 /**
  *
  * @author albus
  */
 public interface Context
-        extends DrawingEnvironment, ResourceManager, ScreenManager, Themable {
+        extends DrawingEnvironment, ResourceManager, ActivityManager, Themable {
 
     public int getWidth();
     public int getHeight();

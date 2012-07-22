@@ -3,11 +3,11 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.core;
+package org.albite.ui.controls;
 
 /**
  *
- * @author albus
+ * @author Albus Dumbledore
  */
 public interface Touchable {
     public void pressed(int x, int y);

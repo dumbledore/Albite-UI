@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.albite.ui.controls.screen;
+package org.albite.ui.controls.activity;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -11,13 +11,13 @@ import org.albite.font.NativeFont;
 import org.albite.ui.Theme;
 import org.albite.ui.controls.Control;
 import org.albite.ui.controls.TextControl;
-import org.albite.ui.core.Context;
+import org.albite.ui.Context;
 
 /**
  *
  * @author Albus Dumbledore
  */
-public final class ScreenText extends ScreenControl {
+public final class Text extends ActivityControl {
 
     private static final org.albite.font.Font FONT =
             new NativeFont(Font.getFont(
