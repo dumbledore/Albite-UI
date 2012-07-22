@@ -70,7 +70,7 @@ public final class ActivityStack
 
         /*
          * If the new activity is already in the stack, remove all
-         * activities after it and return.
+         * activities after it and inform it that it's active again.
          */
         final int index = activityStack.indexOf(activity);
         if (index > 0) {
@@ -86,6 +86,11 @@ public final class ActivityStack
              * Update the vector size
              */
             activityStack.setSize(index + 1);
+
+            /*
+             * Inform the current activity that it's active
+             */
+            getCurrentActivity().onShow();
             return;
         }
 
@@ -97,42 +102,63 @@ public final class ActivityStack
     }
 
     public void goToPreviousActivity() {
-        if (activityStack.size() < 2) {
+        /*
+         * If there are no activities, there's nothing to do.
+         */
+        if (activityStack.isEmpty()) {
+            return;
+        }
+
+        /*
+         * There is a current activity. Destroy it.
+         */
+        Activity activity = getCurrentActivity();
+        activity.onDestroy();
+
+        /*
+         * Then remove it from the stack.
+         */
+        activityStack.removeElementAt(activityStack.size() - 1);
+
+        /*
+         * If there are no more activities left, call the exit callback.
+         */
+        if (activityStack.isEmpty()) {
             /*
              * Exit the application
              */
             exitCallback.onExit();
-            return;
-
+        } else {
             /*
-             * What to do with the activity? If it's removed, then
-             * other functions will fail, if it stays,
-             * it will cause problems if the stack is reused.
+             * Tell the current activity that it's active
              */
+            getCurrentActivity().onShow();
         }
-
-        activityStack.removeElementAt(activityStack.size() - 1);
     }
 
     protected void paint(Graphics g) {
-        g.setClip(0, 0, getWidth(), getHeight());
+        if (!activityStack.isEmpty()) {
+            g.setClip(0, 0, getWidth(), getHeight());
 
-        /*
-         * Draw the first layer
-         */
-        getCurrentActivity().drawRelative(g, 0, 0, 0);
+            /*
+             * Draw the first layer
+             */
+            getCurrentActivity().drawRelative(g, 0, 0, 0);
 
-        /*
-         * Draw the second layer
-         */
-        getCurrentActivity().drawRelative(g, 0, 0, 1);
+            /*
+             * Draw the second layer
+             */
+            getCurrentActivity().drawRelative(g, 0, 0, 1);
+        }
     }
 
     protected void pointerPressed(final int x, final int y) {
         dx = x;
         dy = y;
 
-        getCurrentActivity().pressed(x, y);
+        if (!activityStack.isEmpty()) {
+            getCurrentActivity().pressed(x, y);
+        }
     }
 
     protected void pointerDragged(final int x, final int y) {
@@ -144,14 +170,24 @@ public final class ActivityStack
             dx = x;
             dy = y;
 
-            getCurrentActivity().dragged(x, y);
+            if (!activityStack.isEmpty()) {
+                getCurrentActivity().dragged(x, y);
+            }
         }
     }
 
     protected void pointerReleased(final int x, final int y) {
         draggingStarted = false;
 
-        getCurrentActivity().released(x, y);
+        if (!activityStack.isEmpty()) {
+            getCurrentActivity().released(x, y);
+        }
+    }
+
+    protected void sizeChanged(final int width, final int height) {
+        if (!activityStack.isEmpty()) {
+            getCurrentActivity().invalidateDown();
+        }
     }
 
     public Activity getCurrentActivity() {

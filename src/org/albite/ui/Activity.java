@@ -47,14 +47,42 @@ public abstract class Activity extends ContainerControl {
     }
 
     /*
-     * TODO: Add persistance.
+     * Activity life-cycle
+     */
+    private int cachedWidth = 0;
+    private int cachedHeight = 0;
+
+    /**
+     * Called, when an activity is shown for the first time.
+     * Implementing classes should call super.onCreate() last.
+     *
+     * TODO: Add persistence.
      */
     protected void onCreate() {
         invalidateDown();
     }
 
+    /**
+     * Called every time an activity is shown.
+     */
+    protected void onShow() {
+        if (cachedWidth != getWidth() || cachedHeight != getHeight()) {
+            invalidateDown();
+            cachedWidth = getWidth();
+            cachedHeight = getHeight();
+        }
+    }
+
+    /**
+     * Called when an activity goes out of the stack.
+     *
+     * TODO: Add persistence.
+     */
     protected void onDestroy() {}
 
+    /*
+     * Control implementation
+     */
     public int getWidth() {
         return context.getWidth();
     }
