@@ -26,6 +26,10 @@ public abstract class Control
     protected Control parent;
     protected Context context;
 
+    private boolean debug = false;
+    private static final int DEBUG_COLOR = 0xFF0000;
+    private static final int DEBUG_STROKE = Graphics.SOLID;
+
     public final Control getParent() {
         return parent;
     }
@@ -148,13 +152,39 @@ public abstract class Control
         if (visible) {
             final int x_ = this.x + x;
             final int y_ = this.y + y;
-            //g.setClip(x_, y_, getWidth(), getHeight());
-            if (getWidth() < 1 || getHeight() < 1) {
-                System.out.println("This is wrong: " + getClass().getName() + ", width:  " + getWidth() + ", height: " + getHeight());
-                if (parent != null)
-                    System.out.println("Parent is: " + parent.getClass().getName());
-            }
+
+            /*
+             * Set the drawing area
+             */
+            g.setClip(x_, y_, getWidth(), getHeight());
+
+            /*
+             * Draw debug outlines if they have been enabled for this control
+             */
+            debugDraw(g, x_, y_);
+
             draw(g, this.x + x, this.y + y, zOrder);
+        }
+    }
+
+    private void debugDraw(final Graphics g, final int x, final int y) {
+        if (debug) {
+            int w = getWidth() - 1;
+            int h = getHeight() - 1;
+
+            w = w > 0 ? w : 1;
+            h = h > 0 ? h : 1;
+
+            int color = g.getColor();
+            int stroke = g.getStrokeStyle();
+
+            g.setColor(DEBUG_COLOR);
+            g.setStrokeStyle(DEBUG_STROKE);
+
+            g.drawRect(x, y, w, h);
+
+            g.setColor(color);
+            g.setStrokeStyle(stroke);
         }
     }
 
@@ -162,6 +192,29 @@ public abstract class Control
 
     protected final void requestDraw(final boolean forced) {
         context.redraw(forced);
+    }
+
+    public interface ClickCallback {
+        public void clicked(Control control);
+    }
+
+    /*
+     * Debug functionality
+     */
+
+    public void setDebugMode(boolean enabled) {
+        debug = enabled;
+
+        /*
+         * The containers would need to call their children from here.
+         */
+        setDebugModeImpl(enabled);
+    }
+
+    protected void setDebugModeImpl(boolean enabled) {}
+
+    public final boolean getDebugMode() {
+        return debug;
     }
 
     public void dump(final int level) {
@@ -178,9 +231,5 @@ public abstract class Control
 
     public final void dump() {
         dump(0);
-    }
-
-    public interface ClickCallback {
-        public void clicked(Control control);
     }
 }

@@ -62,6 +62,10 @@ public class AdapterControl extends Control {
         }
     }
 
+    protected final void setDebugModeImpl(boolean enabled) {
+        control.setDebugMode(enabled);
+    }
+
     public void dump(final int level) {
         super.dump(level);
         control.dump(level + 1);

@@ -19,7 +19,7 @@ import org.albite.ui.Context;
  *
  * @author albus
  */
-public class Section extends ActivityControl {
+public class Section extends Control {
 
     private static final org.albite.font.Font FONT =
             new NativeFont(Font.getFont(
@@ -67,17 +67,33 @@ public class Section extends ActivityControl {
         switch (zOrder) {
             case 0:
             {
+                /*
+                 * Draw the background
+                 */
                 g.setColor(context.getTheme().colorBackground);
                 g.fillRect(x, y, getWidth(), getHeight());
 
+                /*
+                 * Now draw the text
+                 */
                 text.drawRelative(g, x, y, zOrder);
 
+                /*
+                 * In order to draw the stripe correctly,
+                 * one needs to call Graphics.setClip explicitly
+                 * as the clip would have been changed by the invokation of
+                 * text.drawRelative() and as the rectangle being drawn
+                 * is not a control itself, one has to set the clip
+                 * themselves.
+                 */
                 final Theme theme = context.getTheme();
+                final int y_ = y + getHeight() - theme.sectionStripeHeight;
+                final int w_ = getWidth();
+                final int h_ = theme.sectionStripeHeight;
 
                 g.setColor(theme.colorAccent);
-                g.fillRect(
-                        x, y + getHeight() - theme.sectionStripeHeight,
-                        getWidth(), theme.sectionStripeHeight);
+                g.setClip(x, y_, w_, h_);
+                g.fillRect(x, y_, w_, h_);
                 break;
             }
 

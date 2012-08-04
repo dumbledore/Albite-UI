@@ -19,7 +19,7 @@ import org.albite.ui.Context;
  *
  * @author albus
  */
-public final class Button extends ActivityControl {
+public final class Button extends Control {
 
     private AutoSizeControl text = new AutoSizeControl();
     private VerticalLayout  textLayout = new VerticalLayout();
@@ -139,20 +139,30 @@ public final class Button extends ActivityControl {
         }
 
         final Theme theme = context.getTheme();
+        final int width = getWidth();
+        final int height = getHeight();
 
         g.setColor(pressed ? theme.colorButtonPressed : theme.colorButtonNormal);
-        g.fillRect(x, y, getWidth(), getHeight());
+        g.fillRect(x, y, width, height);
 
         if (!pressed) {
             g.setColor(theme.colorButtonNormalShine);
-            g.fillRect(x, y, getWidth(), theme.buttonShineHeight);
+            g.fillRect(x, y, width, theme.buttonShineHeight);
         }
         
         icon.drawRelative(g, x, y, 0);
         text.drawRelative(g, x, y, 0);
         arrow.drawRelative(g, x, y, 0);
 
-        drawBorder(g, x, y);
+        /*
+         * Draw the border. We need to set the clip first.
+         */
+        final int h_ = theme.listElementBorder;
+        final int y_ = y + height - h_;
+
+        g.setColor(theme.colorListElementBorder);
+        g.setClip(x, y_, width, h_);
+        g.fillRect(x, y_, width, h_);
     }
 
     public boolean isFocusable() {

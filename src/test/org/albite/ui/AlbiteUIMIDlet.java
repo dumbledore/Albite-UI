@@ -54,17 +54,29 @@ public class AlbiteUIMIDlet extends MIDlet
 
             final private VerticalLayout list = new VerticalLayout();
 
-            final private ClickCallback listButtonOnClick = new ClickCallback() {
-                /*
-                 * When clicked, the button's subcaption would disappear.
-                 */
-
+            /*
+             * When clicked, the button's subcaption would disappear.
+             */
+            final private ClickCallback clearSubcaptionTextOnClick = new ClickCallback() {
                 public void clicked(Control control) {
                     Button button = (Button) control;
-//                    button.setSubCaption((char[]) null);
-//                    button.invalidateUp();
-                    button.setVisible(false);
+
+                    button.setSubCaption((char[]) null);
                     button.invalidateUp();
+                }
+            };
+
+            final private ClickCallback hideControlOnClick = new ClickCallback() {
+                public void clicked(Control control) {
+                    control.setVisible(false);
+                    control.invalidateUp();
+                }
+            };
+
+            final private ClickCallback toggleDebugModeOnClick = new ClickCallback() {
+                public void clicked(Control control) {
+                    control.setDebugMode(!control.getDebugMode());
+                    context.redraw(false);
                 }
             };
 
@@ -100,7 +112,7 @@ public class AlbiteUIMIDlet extends MIDlet
                 setControl(scroll);
                 scroll.setControl(list);
 
-                addSection("Albite Books");
+                addSection("Albite Books").setDebugMode(true);
                 addListButton("Books", "Search for books", theme.iconBook);
                 addListButton("Authors", "Search for authors", theme.iconBook);
 
@@ -133,14 +145,16 @@ public class AlbiteUIMIDlet extends MIDlet
                 super.onCreate();
             }
 
-            private void addMenuButton(Image icon) {
+            private MenuButton addMenuButton(Image icon) {
                 MenuButton button = new MenuButton();
                 getMenu().addControl(button);
                 button.setCallback(menuButtonOnClick);
                 button.setIcon(icon);
+
+                return button;
             }
 
-            private void addListButton(String caption, String subCaption, Image icon) {
+            private Button addListButton(String caption, String subCaption, Image icon) {
                 Button button = new Button();
                 list.addControl(button);
 
@@ -152,21 +166,23 @@ public class AlbiteUIMIDlet extends MIDlet
                 button.setCaption(caption);
                 button.setSubCaption(subCaption);
                 button.setIcon(icon);
-                button.setCallback(listButtonOnClick);
+                button.setCallback(toggleDebugModeOnClick);
+
+                return button;
             }
 
-            private void addText(String text) {
+            private Text addText(String text) {
                 Text control = new Text();
                 list.addControl(control);
-
                 control.setText(text);
+                return control;
             }
 
-            private void addSection(String text) {
+            private Section addSection(String text) {
                 Section control = new Section();
                 list.addControl(control);
-
                 control.setText(text);
+                return control;
             }
         };
 

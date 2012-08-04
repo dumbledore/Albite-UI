@@ -17,7 +17,7 @@ import org.albite.ui.Context;
  *
  * @author Albus Dumbledore
  */
-public final class Text extends ActivityControl {
+public final class Text extends Control {
 
     private static final org.albite.font.Font FONT =
             new NativeFont(Font.getFont(
@@ -61,8 +61,6 @@ public final class Text extends ActivityControl {
         g.fillRect(x, y, getWidth(), getHeight());
 
         text.drawRelative(g, x, y, zOrder);
-
-        drawBorder(g, x, y);
     }
 
     public final void setText(final String text) {
