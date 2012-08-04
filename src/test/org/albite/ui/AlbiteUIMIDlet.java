@@ -19,7 +19,7 @@ import org.albite.ui.controls.layout.VerticalLayout;
 import org.albite.ui.controls.layout.VerticalScrollLayout;
 import org.albite.ui.controls.activity.Button;
 import org.albite.ui.controls.activity.Section;
-import org.albite.ui.controls.activity.Text;
+import org.albite.ui.controls.activity.TextBox;
 
 /**
  *
@@ -50,9 +50,8 @@ public class AlbiteUIMIDlet extends MIDlet
          */
         final Activity activity = new Activity("Albite READER", stack) {
 
-            final private VerticalScrollLayout scroll = new VerticalScrollLayout();
-
-            final private VerticalLayout list = new VerticalLayout();
+            final private VerticalScrollLayout  scroll  = new VerticalScrollLayout();
+            final private VerticalLayout        list    = new VerticalLayout();
 
             /*
              * When clicked, the button's subcaption would disappear.
@@ -76,6 +75,7 @@ public class AlbiteUIMIDlet extends MIDlet
             final private ClickCallback toggleDebugModeOnClick = new ClickCallback() {
                 public void clicked(Control control) {
                     control.setDebugMode(!control.getDebugMode());
+                    control.dump();
                     context.redraw(false);
                 }
             };
@@ -112,7 +112,7 @@ public class AlbiteUIMIDlet extends MIDlet
                 setControl(scroll);
                 scroll.setControl(list);
 
-                addSection("Albite Books").setDebugMode(true);
+                addSection("Albite Books");
                 addListButton("Books", "Search for books", theme.iconBook);
                 addListButton("Authors", "Search for authors", theme.iconBook);
 
@@ -171,8 +171,8 @@ public class AlbiteUIMIDlet extends MIDlet
                 return button;
             }
 
-            private Text addText(String text) {
-                Text control = new Text();
+            private TextBox addText(String text) {
+                TextBox control = new TextBox();
                 list.addControl(control);
                 control.setText(text);
                 return control;
@@ -191,7 +191,15 @@ public class AlbiteUIMIDlet extends MIDlet
          */
         stack.setActivity(activity);
 
+        /*
+         * Set up the J2ME part
+         */
         Display.getDisplay(this).setCurrent(stack);
+
+        /*
+         * Dump the whole hierarchy for debugging.
+         */
+        activity.dump();
     }
 
     public void onExit() {

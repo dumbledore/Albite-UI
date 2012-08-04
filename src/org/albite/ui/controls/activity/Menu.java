@@ -120,6 +120,16 @@ public class Menu extends LayoutControl {
         button.setIcon(context.getTheme().iconMenuBack);
     }
 
+    public void setDebugMode(boolean enabled) {
+        super.setDebugMode(enabled);
+        shadow.setDebugMode(enabled);
+    }
+
+    public void dump(int level) {
+        super.dump(level);
+        shadow.dump(level + 1);
+    }
+
     public static final class MenuButton extends Control {
         final AutoSizeControl control = new AutoSizeControl();
         final ImageControl iconImage = new ImageControl();
@@ -209,6 +219,11 @@ public class Menu extends LayoutControl {
 
         public void recompileMetrics(boolean downTree) {
             control.recompileMetrics(downTree);
+        }
+
+        public void setDebugMode(boolean enabled) {
+            super.setDebugMode(enabled);
+            control.setDebugMode(enabled);
         }
 
         public void dump(int level) {

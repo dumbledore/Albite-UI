@@ -79,12 +79,7 @@ public class Section extends Control {
                 text.drawRelative(g, x, y, zOrder);
 
                 /*
-                 * In order to draw the stripe correctly,
-                 * one needs to call Graphics.setClip explicitly
-                 * as the clip would have been changed by the invokation of
-                 * text.drawRelative() and as the rectangle being drawn
-                 * is not a control itself, one has to set the clip
-                 * themselves.
+                 * Draw the stripe
                  */
                 final Theme theme = context.getTheme();
                 final int y_ = y + getHeight() - theme.sectionStripeHeight;
@@ -92,17 +87,22 @@ public class Section extends Control {
                 final int h_ = theme.sectionStripeHeight;
 
                 g.setColor(theme.colorAccent);
-                g.setClip(x, y_, w_, h_);
                 g.fillRect(x, y_, w_, h_);
                 break;
             }
 
             case 1:
             {
-                shadow.drawRelative(g, x, y, 0);
+                shadow.drawRelative(g, x, y, zOrder);
                 break;
             }
         }
+    }
+
+    public int getDrawingHeight(int zOrder) {
+        return zOrder < 1
+                ? getHeight()
+                : getHeight() + shadow.getHeight();
     }
 
     public final void setText(final String text) {
@@ -115,5 +115,17 @@ public class Section extends Control {
         }
 
         this.text.setText(text);
+    }
+
+    public void setDebugMode(boolean enabled) {
+        super.setDebugMode(enabled);
+        text.setDebugMode(enabled);
+        shadow.setDebugMode(enabled);
+    }
+
+    public void dump(int level) {
+        super.dump(level);
+        text.dump(level + 1);
+        shadow.dump(level + 1);
     }
 }

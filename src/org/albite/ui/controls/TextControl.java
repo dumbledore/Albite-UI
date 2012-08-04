@@ -82,6 +82,10 @@ public final class TextControl extends Control {
         final int fontHeight = font.getLineHeight();
 
         Line line;
+        /*
+         * Get the maximum height so as to be able to skip the
+         * lines that are not going to be rendered anyway.
+         */
         final int h = context.getHeight();
 
         for (int i = 0; i < lines.length; i++) {

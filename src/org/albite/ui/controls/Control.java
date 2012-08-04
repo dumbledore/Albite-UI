@@ -92,6 +92,29 @@ public abstract class Control
     }
 
     /*
+     * These are called when the clip is set. They may differ from the
+     * x, y, width and height which are actually the content dimensions,
+     * i.e. the space occupied in the layout.
+     *
+     * Also they might be different for each render pass.
+     */
+    public int getDrawingX(int zOrder) {
+        return getX();
+    }
+
+    public int getDrawingY(int zOrder) {
+        return getY();
+    }
+
+    public int getDrawingWidth(int zOrder) {
+        return getWidth();
+    }
+
+    public int getDrawingHeight(int zOrder) {
+        return getHeight();
+    }
+
+    /*
      * This invalidates it up the tree.
      * This is used if only a single control has changed it's appearance.
      */
@@ -117,7 +140,7 @@ public abstract class Control
 
     /**
      * recompiles this controls metrics
-     * @param downTree if going downtree and need to update in depth
+     * @param downTree if going down-tree and need to update in depth
      */
     public void recompileMetrics(boolean downTree) {}
 
@@ -150,24 +173,73 @@ public abstract class Control
             final int x, final int y, final int zOrder) {
 
         if (visible) {
-            final int x_ = this.x + x;
-            final int y_ = this.y + y;
+            final int x_ = getDrawingX(zOrder) + x;
+            final int y_ = getDrawingY(zOrder) + y;
+
+            /*
+             * Store the current clipping box, which is that of the parent.
+             */
+            final int parentClipX = g.getClipX();
+            final int parentClipY = g.getClipY();
+            final int parentClipW = g.getClipWidth();
+            final int parentClipH = g.getClipHeight();
+
+            /*
+             * Compute the clipping box for this control
+             */
+            final int clipX = x_;
+            final int clipY = y_;
+            final int clipW = getDrawingWidth(zOrder);
+            final int clipH = getDrawingHeight(zOrder);
+
+            /*
+             * Intersect both clipboxes
+             *
+             * Note: The fact that the clip box is specified as (x, y) x (w, h),
+             * instead of (left, top, right, bottom), would somewhat
+             * obscure the actual math.
+             */
+
+            final int actualClipX = Math.max(parentClipX, clipX);
+            final int actualClipY = Math.max(parentClipY, clipY);
+
+            final int parentClipR = parentClipX + parentClipW;
+            final int clipR = clipX + clipW;
+
+            final int actualClipW =
+                    (parentClipR < clipR ? parentClipR : clipR) - actualClipX;
+
+            final int parentClipB = parentClipY + parentClipH;
+            final int clipB = clipY + clipH;
+
+            final int actualClipH =
+                    (parentClipB < clipB ? parentClipB : clipB) - actualClipY;
 
             /*
              * Set the drawing area
              */
-            g.setClip(x_, y_, getWidth(), getHeight());
+            g.setClip(actualClipX, actualClipY, actualClipW, actualClipH);
 
             /*
-             * Draw debug outlines if they have been enabled for this control
+             * Print debug clipping info if enabled
              */
-            debugDraw(g, x_, y_);
+            debugClip(g, zOrder);
 
-            draw(g, this.x + x, this.y + y, zOrder);
+            draw(g, x_, y_, zOrder);
+
+            /*
+             * Draw debug outlines if enabled
+             */
+            debugDimensions(g, x_, y_);
+
+            /*
+             * Restore the original clip
+             */
+            g.setClip(parentClipX, parentClipY, parentClipW, parentClipH);
         }
     }
 
-    private void debugDraw(final Graphics g, final int x, final int y) {
+    private void debugDimensions(final Graphics g, final int x, final int y) {
         if (debug) {
             int w = getWidth() - 1;
             int h = getHeight() - 1;
@@ -188,10 +260,29 @@ public abstract class Control
         }
     }
 
+    private void debugClip(final Graphics g, final int zOrder) {
+        if (debug) {
+            System.out.println(
+                    "#" + zOrder + ": "
+                    + getClass().getName() + " set clip to: "
+                    + "(" + g.getClipX() + ", " + g.getClipY() + "), "
+                    + "(" + g.getClipWidth() + ", " + g.getClipHeight() + ")");
+        }
+    }
+
     protected abstract void draw(Graphics g, int x, int y, int zOrder);
 
     protected final void requestDraw(final boolean forced) {
         context.redraw(forced);
+    }
+
+    protected final void drawBottomBorder(
+            Graphics g, int y, int height, int color) {
+
+        final int y_ = y + this.height - height;
+
+        g.setColor(color);
+        g.fillRect(x, y_, width, height);
     }
 
     public interface ClickCallback {
@@ -204,14 +295,7 @@ public abstract class Control
 
     public void setDebugMode(boolean enabled) {
         debug = enabled;
-
-        /*
-         * The containers would need to call their children from here.
-         */
-        setDebugModeImpl(enabled);
     }
-
-    protected void setDebugModeImpl(boolean enabled) {}
 
     public final boolean getDebugMode() {
         return debug;

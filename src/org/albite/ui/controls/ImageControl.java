@@ -32,7 +32,7 @@ public class ImageControl extends Control {
     }
 
     protected void draw(Graphics g, int x, int y, int zOrder) {
-        if (zOrder > 0 || image == null) {
+        if (image == null) {
             return;
         }
 

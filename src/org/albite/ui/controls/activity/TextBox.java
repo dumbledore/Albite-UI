@@ -17,7 +17,7 @@ import org.albite.ui.Context;
  *
  * @author Albus Dumbledore
  */
-public final class Text extends Control {
+public final class TextBox extends Control {
 
     private static final org.albite.font.Font FONT =
             new NativeFont(Font.getFont(
@@ -57,10 +57,15 @@ public final class Text extends Control {
             return;
         }
 
-        g.setColor(context.getTheme().colorBackground);
+        final Theme theme = context.getTheme();
+
+        g.setColor(theme.colorBackground);
         g.fillRect(x, y, getWidth(), getHeight());
 
         text.drawRelative(g, x, y, zOrder);
+
+        drawBottomBorder(
+                 g, y, theme.listElementBorder, theme.colorListElementBorder);
     }
 
     public final void setText(final String text) {
@@ -69,5 +74,15 @@ public final class Text extends Control {
 
     public final void setText(final char[] text) {
         this.text.setText(text);
+    }
+
+    public void setDebugMode(boolean enabled) {
+        super.setDebugMode(enabled);
+        text.setDebugMode(enabled);
+    }
+
+    public void dump(int level) {
+        super.dump(level);
+        text.dump(level + 1);
     }
 }

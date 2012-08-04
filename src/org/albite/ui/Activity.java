@@ -113,6 +113,10 @@ public abstract class Activity extends ContainerControl {
              */
             menu.setY(adapter.getY() + adapter.getHeight());
         } else {
+            /*
+             * This would make the adapter render and react to touch
+             * but it doesn't require invalidation of the layout.
+             */
             adapter.setHeight(getHeight());
         }
     }
@@ -132,8 +136,15 @@ public abstract class Activity extends ContainerControl {
 
     public void draw(final Graphics g, 
             final int x, final int y, final int zOrder) {
-        
-        background.drawRelative(g, x, y, zOrder);
+
+        /*
+         * Draw the background before other controls,
+         * and don't draw it on later passes.
+         */
+        if (zOrder < 1) {
+            background.drawRelative(g, x, y, zOrder);
+        }
+
         super.draw(g, x, y, zOrder);
     }
 }

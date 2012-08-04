@@ -154,15 +154,8 @@ public final class Button extends Control {
         text.drawRelative(g, x, y, 0);
         arrow.drawRelative(g, x, y, 0);
 
-        /*
-         * Draw the border. We need to set the clip first.
-         */
-        final int h_ = theme.listElementBorder;
-        final int y_ = y + height - h_;
-
-        g.setColor(theme.colorListElementBorder);
-        g.setClip(x, y_, width, h_);
-        g.fillRect(x, y_, width, h_);
+        drawBottomBorder(
+                g, y, theme.listElementBorder, theme.colorListElementBorder);
     }
 
     public boolean isFocusable() {
@@ -199,6 +192,14 @@ public final class Button extends Control {
         }
 
         lostFocus();
+    }
+
+    public void setDebugMode(boolean enabled) {
+        super.setDebugMode(enabled);
+
+        icon.setDebugMode(enabled);
+        text.setDebugMode(enabled);
+        arrow.setDebugMode(enabled);
     }
 
     public void dump(final int level) {
