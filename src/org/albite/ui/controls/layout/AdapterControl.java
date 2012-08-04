@@ -41,7 +41,7 @@ public class AdapterControl extends Control {
     }
 
     public void pressed(int x, int y) {
-        if (enabled) {
+        if (enabled && visible) {
             isSelected = contains(x, y);
             if (isSelected) {
                 control.pressed(x - this.getX(), y - this.getY());
@@ -50,13 +50,13 @@ public class AdapterControl extends Control {
     }
 
     public void dragged(int x, int y) {
-        if (enabled && isSelected) {
+        if (enabled && visible && isSelected) {
             control.dragged(x - this.getX(), y - this.getY());
         }
     }
 
     public void released(int x, int y) {
-        if (enabled && isSelected) {
+        if (enabled && visible && isSelected) {
             control.released(x - this.getX(), y - this.getY());
             isSelected = false;
         }

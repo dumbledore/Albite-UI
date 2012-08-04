@@ -104,12 +104,17 @@ public abstract class Activity extends ContainerControl {
          * Set content
          */
         adapter.setWidth(getWidth());
-        adapter.setHeight(getHeight() - menu.getHeight());
 
-        /*
-         * Set menu
-         */
-        menu.setY(adapter.getY() + adapter.getHeight());
+        if (menu.isVisible()) {
+            adapter.setHeight(getHeight() - menu.getHeight());
+
+            /*
+             * Set menu
+             */
+            menu.setY(adapter.getY() + adapter.getHeight());
+        } else {
+            adapter.setHeight(getHeight());
+        }
     }
 
     public void setControl(final Control control) {

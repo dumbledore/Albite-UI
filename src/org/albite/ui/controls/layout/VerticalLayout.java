@@ -25,7 +25,9 @@ public class VerticalLayout extends LayoutControl {
             Control control = (Control) controls.elementAt(i);
             control.setX(0);
             control.setY(height);
-            height += control.getHeight();
+            if (control.isVisible()) {
+                height += control.getHeight();
+            }
         }
 
         setHeight(height);

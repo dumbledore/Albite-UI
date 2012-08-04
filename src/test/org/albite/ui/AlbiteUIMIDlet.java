@@ -61,7 +61,9 @@ public class AlbiteUIMIDlet extends MIDlet
 
                 public void clicked(Control control) {
                     Button button = (Button) control;
-                    button.setSubCaption((char[]) null);
+//                    button.setSubCaption((char[]) null);
+//                    button.invalidateUp();
+                    button.setVisible(false);
                     button.invalidateUp();
                 }
             };
@@ -69,6 +71,12 @@ public class AlbiteUIMIDlet extends MIDlet
             final private ClickCallback menuButtonOnClick = new ClickCallback() {
                 public void clicked(Control control) {
                     System.out.println("Clicked @ " + control);
+
+                    /*
+                     * Hide the menu
+                     */
+                    getMenu().setVisible(false);
+                    invalidateUp();
                 }
             };
 
@@ -123,10 +131,6 @@ public class AlbiteUIMIDlet extends MIDlet
                  * cause an invalidation of the layout.
                  */
                 super.onCreate();
-            }
-
-            protected void onDestroy() {
-                
             }
 
             private void addMenuButton(Image icon) {

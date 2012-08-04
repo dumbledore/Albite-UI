@@ -21,6 +21,7 @@ public abstract class Control
     private int height = 0;
 
     protected boolean enabled = true;
+    protected boolean visible = true;
 
     protected Control parent;
     protected Context context;
@@ -38,12 +39,20 @@ public abstract class Control
         this.context = context;
     }
 
-    public boolean getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(final boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(final boolean visibility) {
+        this.visible = visibility;
     }
 
     public int getX() {
@@ -83,7 +92,10 @@ public abstract class Control
      * This is used if only a single control has changed it's appearance.
      */
     public final void invalidateUp() {
-        recompileMetrics(false);
+        if (isVisible()) {
+            recompileMetrics(false);
+        }
+
         if (parent != null) {
             parent.invalidateUp();
         }
@@ -94,7 +106,9 @@ public abstract class Control
      * This is used if the whole sub-tree needs to be composed.
      */
     public void invalidateDown() {
-        recompileMetrics(true);
+        if (isVisible()) {
+            recompileMetrics(true);
+        }
     }
 
     /**
@@ -115,6 +129,10 @@ public abstract class Control
     public void released(int x, int y) {}
 
     public boolean contains(final int x, final int y) {
+        if (!visible) {
+            return false;
+        }
+
         final int x_ = getX();
         final int y_ = getY();
         final int w_ = getWidth();
@@ -127,7 +145,17 @@ public abstract class Control
     public void drawRelative(final Graphics g,
             final int x, final int y, final int zOrder) {
 
-        draw(g, this.x + x, this.y + y, zOrder);
+        if (visible) {
+            final int x_ = this.x + x;
+            final int y_ = this.y + y;
+            //g.setClip(x_, y_, getWidth(), getHeight());
+            if (getWidth() < 1 || getHeight() < 1) {
+                System.out.println("This is wrong: " + getClass().getName() + ", width:  " + getWidth() + ", height: " + getHeight());
+                if (parent != null)
+                    System.out.println("Parent is: " + parent.getClass().getName());
+            }
+            draw(g, this.x + x, this.y + y, zOrder);
+        }
     }
 
     protected abstract void draw(Graphics g, int x, int y, int zOrder);
