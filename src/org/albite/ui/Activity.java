@@ -107,17 +107,15 @@ public abstract class Activity extends ContainerControl {
 
         if (menu.isVisible()) {
             adapter.setHeight(getHeight() - menu.getHeight());
+            adapter.invalidateDown();
 
             /*
              * Set menu
              */
             menu.setY(adapter.getY() + adapter.getHeight());
         } else {
-            /*
-             * This would make the adapter render and react to touch
-             * but it doesn't require invalidation of the layout.
-             */
             adapter.setHeight(getHeight());
+            adapter.invalidateDown();
         }
     }
 

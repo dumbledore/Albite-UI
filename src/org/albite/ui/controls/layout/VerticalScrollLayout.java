@@ -40,12 +40,9 @@ public class VerticalScrollLayout extends AdapterControl {
             control.setY(margin);
         } else {
             int h = control.getHeight();
-            int minY;
-            if (h < parent.getHeight()) {
-                minY = -margin;
-            } else {
-                minY = parent.getHeight() - h - margin;
-            }
+            int minY = h < parent.getHeight()
+                    ? minY = -margin
+                    : parent.getHeight() - h - margin;
 
             if (control.getY() < minY) {
                 control.setY(minY);
@@ -111,6 +108,7 @@ public class VerticalScrollLayout extends AdapterControl {
 
         private int barMinHeight;
         private int barMaxHeight;
+        private int barHeight;
 
         private float heightInterpolateA, heightInterpolateB;
         private float positionInterpolate;
@@ -121,6 +119,7 @@ public class VerticalScrollLayout extends AdapterControl {
             super.initialize(parent, context);
 
             setWidth(Math.max((int) (parent.getWidth() * SCROLL_BAR_WIDTH_FACTOR), 2));
+            setHeight(parent.getHeight());
 
             final int h = context.getHeight();
 
@@ -142,14 +141,15 @@ public class VerticalScrollLayout extends AdapterControl {
 
         public void recompileMetrics(boolean downTree) {
             setX(parent.getWidth() - getWidth());
+            setHeight(parent.getHeight());
 
             int h = (int) (heightInterpolateA * control.getHeight()
                     + heightInterpolateB);
-            setHeight(Math.min(Math.max(h, barMinHeight), barMaxHeight));
+            barHeight = Math.min(Math.max(h, barMinHeight), barMaxHeight);
 
             int bottom = parent.getHeight() - control.getHeight();
             if (bottom < 0) {
-                positionMax = parent.getHeight() - getHeight();
+                positionMax = parent.getHeight() - barHeight;
                 positionInterpolate = ((float) positionMax / bottom);
                 isActive = true;
             } else {
@@ -166,8 +166,18 @@ public class VerticalScrollLayout extends AdapterControl {
                 y_ = Math.min(y_, positionMax);
 
                 g.setColor(context.getTheme().colorAccent);
-                g.fillRect(getX(), y_, getWidth(), getHeight());
+                g.fillRect(getX(), y_, getWidth(), barHeight);
             }
         }
+    }
+
+    public void setDebugMode(boolean enabled) {
+        super.setDebugMode(enabled);
+        bar.setDebugMode(enabled);
+    }
+
+    public void dump(final int level) {
+        super.dump(level);
+        bar.dump(level + 1);
     }
 }
