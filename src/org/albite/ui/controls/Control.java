@@ -26,9 +26,16 @@ public abstract class Control
     protected Control parent;
     protected Context context;
 
-    private boolean debug = false;
-    private static final int DEBUG_COLOR = 0xFF0000;
-    private static final int DEBUG_STROKE = Graphics.SOLID;
+    private int debug = DEBUG_NONE;
+
+    public static final int DEBUG_NONE              = 0;
+    public static final int DEBUG_DIMENSIONS        = 1;
+    public static final int DEBUG_CROP              = 2;
+
+    private static final int DEBUG_DIMENSIONS_COLOR = 0x0080FF;
+    private static final int DEBUG_CROP_0_COLOR     = 0x00FF00;
+    private static final int DEBUG_CROP_1_COLOR     = 0xFF0000;
+    private static final int DEBUG_STROKE           = Graphics.SOLID;
 
     public final Control getParent() {
         return parent;
@@ -172,6 +179,13 @@ public abstract class Control
     public void drawRelative(final Graphics g,
             final int x, final int y, final int zOrder) {
 
+        /*
+         * Skip rendering for one-pass only controls.
+         */
+        if (zOrder > 0 && drawOnlyFirstLayer()) {
+            return;
+        }
+
         if (visible) {
             final int x_ = getClipX(zOrder) + x;
             final int y_ = getClipY(zOrder) + y;
@@ -225,12 +239,15 @@ public abstract class Control
              */
             debugClip(g, zOrder);
 
-            draw(g, this.x + x, this.y + y, zOrder);
+            final int xPos = this.x + x;
+            final int yPos = this.y + y;
+
+            draw(g, xPos, yPos, zOrder);
 
             /*
              * Draw debug outlines if enabled
              */
-            debugDimensions(g, x_, y_);
+            debugDimensions(g, xPos, yPos);
 
             /*
              * Restore the original clip
@@ -239,8 +256,12 @@ public abstract class Control
         }
     }
 
+    protected boolean drawOnlyFirstLayer() {
+        return false;
+    }
+
     private void debugDimensions(final Graphics g, final int x, final int y) {
-        if (debug) {
+        if ((debug & DEBUG_DIMENSIONS) != 0) {
             int w = getWidth() - 1;
             int h = getHeight() - 1;
 
@@ -250,7 +271,7 @@ public abstract class Control
             int color = g.getColor();
             int stroke = g.getStrokeStyle();
 
-            g.setColor(DEBUG_COLOR);
+            g.setColor(DEBUG_DIMENSIONS_COLOR);
             g.setStrokeStyle(DEBUG_STROKE);
 
             g.drawRect(x, y, w, h);
@@ -261,12 +282,23 @@ public abstract class Control
     }
 
     private void debugClip(final Graphics g, final int zOrder) {
-        if (debug) {
-            System.out.println(
-                    "#" + zOrder + ": "
-                    + getClass().getName() + " set clip to: "
-                    + "(" + g.getClipX() + ", " + g.getClipY() + "), "
-                    + "(" + g.getClipWidth() + ", " + g.getClipHeight() + ")");
+        if ((debug & DEBUG_CROP) != 0) {
+            int w = g.getClipWidth() - 1;
+            int h = g.getClipHeight() - 1;
+
+            w = w > 0 ? w : 1;
+            h = h > 0 ? h : 1;
+
+            int color = g.getColor();
+            int stroke = g.getStrokeStyle();
+
+            g.setColor(zOrder < 1 ? DEBUG_CROP_0_COLOR : DEBUG_CROP_1_COLOR);
+            g.setStrokeStyle(DEBUG_STROKE);
+
+            g.drawRect(g.getClipX(), g.getClipY(), w, h);
+
+            g.setColor(color);
+            g.setStrokeStyle(stroke);
         }
     }
 
@@ -293,11 +325,11 @@ public abstract class Control
      * Debug functionality
      */
 
-    public void setDebugMode(boolean enabled) {
-        debug = enabled;
+    public void setDebugMode(int mode) {
+        debug = mode;
     }
 
-    public final boolean getDebugMode() {
+    public final int getDebugMode() {
         return debug;
     }
 

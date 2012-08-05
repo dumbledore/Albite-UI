@@ -73,9 +73,17 @@ public class AlbiteUIMIDlet extends MIDlet
             };
 
             final private ClickCallback toggleDebugModeOnClick = new ClickCallback() {
+                private final int[] modes = {
+                    Control.DEBUG_NONE,
+                    Control.DEBUG_DIMENSIONS,
+                    Control.DEBUG_CROP,
+                };
+
+                private int mode = 0;
+
                 public void clicked(Control control) {
-                    control.setDebugMode(!control.getDebugMode());
-                    control.dump();
+                    mode = (mode + 1) % modes.length;
+                    control.setDebugMode(modes[mode]);
                     context.redraw(false);
                 }
             };
@@ -200,6 +208,8 @@ public class AlbiteUIMIDlet extends MIDlet
          * Dump the whole hierarchy for debugging.
          */
         activity.dump();
+
+        activity.setDebugMode(Control.DEBUG_CROP);
     }
 
     public void onExit() {

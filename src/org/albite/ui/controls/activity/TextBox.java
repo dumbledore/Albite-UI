@@ -52,11 +52,11 @@ public final class TextBox extends Control {
         text.setColor(theme.colorText);
     }
 
-    protected void draw(Graphics g, int x, int y, int zOrder) {
-        if (zOrder > 0) {
-            return;
-        }
+    protected boolean drawOnlyFirstLayer() {
+        return true;
+    }
 
+    protected void draw(Graphics g, int x, int y, int zOrder) {
         final Theme theme = context.getTheme();
 
         g.setColor(theme.colorBackground);
@@ -76,9 +76,9 @@ public final class TextBox extends Control {
         this.text.setText(text);
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
-        text.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
+        text.setDebugMode(mode);
     }
 
     public void dump(int level) {

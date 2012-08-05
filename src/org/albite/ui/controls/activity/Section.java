@@ -117,10 +117,10 @@ public class Section extends Control {
         this.text.setText(text);
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
-        text.setDebugMode(enabled);
-        shadow.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
+        text.setDebugMode(mode);
+        shadow.setDebugMode(mode);
     }
 
     public void dump(int level) {

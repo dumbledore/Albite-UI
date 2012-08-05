@@ -120,13 +120,13 @@ public abstract class ContainerControl extends Control {
         return null;
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
 
         final int size = controls.size();
         for (int i = 0; i < size; i++) {
             Control control = (Control) controls.elementAt(i);
-            control.setDebugMode(enabled);
+            control.setDebugMode(mode);
         }
     }
 

@@ -131,12 +131,12 @@ public final class Button extends Control {
         this.callback = callback;
     }
 
+    protected boolean drawOnlyFirstLayer() {
+        return true;
+    }
+
     public void draw(Graphics g,
             final int x, final int y, final int zOrder) {
-
-        if (zOrder > 0) {
-            return;
-        }
 
         final Theme theme = context.getTheme();
         final int width = getWidth();
@@ -194,12 +194,12 @@ public final class Button extends Control {
         lostFocus();
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
 
-        icon.setDebugMode(enabled);
-        text.setDebugMode(enabled);
-        arrow.setDebugMode(enabled);
+        icon.setDebugMode(mode);
+        text.setDebugMode(mode);
+        arrow.setDebugMode(mode);
     }
 
     public void dump(final int level) {

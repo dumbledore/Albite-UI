@@ -95,7 +95,9 @@ public class VerticalScrollLayout extends AdapterControl {
 
     public void draw(Graphics g, int x, int y, int zOrder) {
         control.drawRelative(g, x, y, zOrder);
-        bar.drawRelative(g, x, y, zOrder);
+        if (zOrder > 0) {
+            bar.drawRelative(g, x, y, zOrder);
+        }
     }
 
     private class VerticalScrollBar extends Control {
@@ -171,9 +173,9 @@ public class VerticalScrollLayout extends AdapterControl {
         }
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
-        bar.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
+        bar.setDebugMode(mode);
     }
 
     public void dump(final int level) {

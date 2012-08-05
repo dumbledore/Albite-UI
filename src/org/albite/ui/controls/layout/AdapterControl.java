@@ -62,9 +62,9 @@ public class AdapterControl extends Control {
         }
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
-        control.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
+        control.setDebugMode(mode);
     }
 
     public void dump(final int level) {

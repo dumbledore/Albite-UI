@@ -75,7 +75,7 @@ public final class TextControl extends Control {
     }
 
     protected void draw(Graphics g, int x, int y, int zOrder) {
-        if (zOrder > 0 || lines == null) {
+        if (lines == null) {
             return;
         }
 

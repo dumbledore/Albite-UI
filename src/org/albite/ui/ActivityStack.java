@@ -138,17 +138,32 @@ public final class ActivityStack
 
     protected void paint(Graphics g) {
         if (!activityStack.isEmpty()) {
+            /*
+             * Set the correct clipping box for the top control
+             */
             g.setClip(0, 0, getWidth(), getHeight());
 
             /*
-             * Draw the first layer
+             * Cache the activity
              */
-            getCurrentActivity().drawRelative(g, 0, 0, 0);
+            Activity activity = getCurrentActivity();
 
             /*
-             * Draw the second layer
+             * Draw the first layer. Most things are drawn here
              */
-            getCurrentActivity().drawRelative(g, 0, 0, 1);
+            activity.drawRelative(g, 0, 0, 0);
+
+            /*
+             * Draw the second layer. Mainly shadow overlays
+             */
+            activity.drawRelative(g, 0, 0, 1);
+
+            /*
+             * Note: Only two passes are used for now.
+             *
+             * Even though the draw process is fairly optimized, having only
+             * the minimum amount of passes is certainly a good thing.
+             */
         }
     }
 

@@ -102,12 +102,12 @@ public class Menu extends LayoutControl {
         switch(zOrder) {
             case 0:
             {
-                super.draw(g, x, y, 0);
+                super.draw(g, x, y, zOrder);
                 break;
             }
             case 1:
             {
-                shadow.drawRelative(g, x, y, 0);
+                shadow.drawRelative(g, x, y, zOrder);
                 break;
             }
         }
@@ -117,6 +117,12 @@ public class Menu extends LayoutControl {
         return zOrder < 1
                 ? getY()
                 : getY() + shadow.getY();
+    }
+
+    public int getClipHeight(int zOrder) {
+        return zOrder < 1
+                ? getHeight()
+                : shadow.getHeight();
     }
 
     public final void addBackMenuButon() {
@@ -131,9 +137,9 @@ public class Menu extends LayoutControl {
         button.setIcon(context.getTheme().iconMenuBack);
     }
 
-    public void setDebugMode(boolean enabled) {
-        super.setDebugMode(enabled);
-        shadow.setDebugMode(enabled);
+    public void setDebugMode(int mode) {
+        super.setDebugMode(mode);
+        shadow.setDebugMode(mode);
     }
 
     public void dump(int level) {
@@ -232,9 +238,9 @@ public class Menu extends LayoutControl {
             control.recompileMetrics(downTree);
         }
 
-        public void setDebugMode(boolean enabled) {
-            super.setDebugMode(enabled);
-            control.setDebugMode(enabled);
+        public void setDebugMode(int mode) {
+            super.setDebugMode(mode);
+            control.setDebugMode(mode);
         }
 
         public void dump(int level) {
