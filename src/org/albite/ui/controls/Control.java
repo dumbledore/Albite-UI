@@ -98,19 +98,19 @@ public abstract class Control
      *
      * Also they might be different for each render pass.
      */
-    public int getDrawingX(int zOrder) {
+    public int getClipX(int zOrder) {
         return getX();
     }
 
-    public int getDrawingY(int zOrder) {
+    public int getClipY(int zOrder) {
         return getY();
     }
 
-    public int getDrawingWidth(int zOrder) {
+    public int getClipWidth(int zOrder) {
         return getWidth();
     }
 
-    public int getDrawingHeight(int zOrder) {
+    public int getClipHeight(int zOrder) {
         return getHeight();
     }
 
@@ -173,8 +173,8 @@ public abstract class Control
             final int x, final int y, final int zOrder) {
 
         if (visible) {
-            final int x_ = getDrawingX(zOrder) + x;
-            final int y_ = getDrawingY(zOrder) + y;
+            final int x_ = getClipX(zOrder) + x;
+            final int y_ = getClipY(zOrder) + y;
 
             /*
              * Store the current clipping box, which is that of the parent.
@@ -189,8 +189,8 @@ public abstract class Control
              */
             final int clipX = x_;
             final int clipY = y_;
-            final int clipW = getDrawingWidth(zOrder);
-            final int clipH = getDrawingHeight(zOrder);
+            final int clipW = getClipWidth(zOrder);
+            final int clipH = getClipHeight(zOrder);
 
             /*
              * Intersect both clipboxes
@@ -225,7 +225,7 @@ public abstract class Control
              */
             debugClip(g, zOrder);
 
-            draw(g, x_, y_, zOrder);
+            draw(g, this.x + x, this.y + y, zOrder);
 
             /*
              * Draw debug outlines if enabled

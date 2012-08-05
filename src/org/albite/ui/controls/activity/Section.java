@@ -99,7 +99,7 @@ public class Section extends Control {
         }
     }
 
-    public int getDrawingHeight(int zOrder) {
+    public int getClipHeight(int zOrder) {
         return zOrder < 1
                 ? getHeight()
                 : getHeight() + shadow.getHeight();

@@ -99,13 +99,24 @@ public class Menu extends LayoutControl {
     }
 
     public void draw(Graphics g, int x, int y, int zOrder) {
-        /*
-         * Don't bother for zOrder > 0
-         */
-        if (zOrder == 0) {
-            super.draw(g, x, y, 0);
-            shadow.drawRelative(g, x, y, 0);
+        switch(zOrder) {
+            case 0:
+            {
+                super.draw(g, x, y, 0);
+                break;
+            }
+            case 1:
+            {
+                shadow.drawRelative(g, x, y, 0);
+                break;
+            }
         }
+    }
+
+    public int getClipY(int zOrder) {
+        return zOrder < 1
+                ? getY()
+                : getY() + shadow.getY();
     }
 
     public final void addBackMenuButon() {
